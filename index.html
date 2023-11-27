@@ -35,26 +35,52 @@
             background-color: #1a1a1a;
         }
     </style>
-</head>
-<body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrolling Animation</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .moving-element {
+            width: 100px;
+            height: 100px;
+            background-color: #3498db;
+            color: #fff;
+            text-align: center;
+            line-height: 100px;
+            font-size: 1.2em;
+            position: relative;
+            top: 0;
+            transition: top 0.5s ease-in-out;
+        }
+    </style>
+    <body>
 
-    <header>
-        <h1>Discover Your Creativity</h1>
-    </header>
+        <div class="moving-element">Scroll Down</div>
 
-    <section>
-        <h2>Expressive Art</h2>
-        <p>Immerse yourself in a world of creativity and self-expression. Our artists bring stories to life through their unique perspectives and mediums.</p>
-    </section>
+        <div style="height: 1000px; background-color: #ecf0f1; padding: 20px;">
+        <!-- Content to create space for scrolling -->
+        </div>
 
-    <section>
-        <h2>Unleash Your Imagination</h2>
-        <p>Join us in exploring the boundless possibilities of art. From vibrant paintings to interactive installations, there's something for every art enthusiast.</p>
-    </section>
+        <script>
+          window.addEventListener('scroll', function() {
+            var element = document.querySelector('.moving-element');
+            var scrollTop = window.scrollY;
 
-    <footer>
-        &copy; 2023 Artistic Website
-    </footer>
+            // Adjust the 'top' property based on scroll position
+            element.style.top = scrollTop + 'px';
+        });
+    </script>
+
+</body>
+</html>
+
 
 </body>
 </html>
