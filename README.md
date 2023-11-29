@@ -1,13 +1,13 @@
-# Responsive Ecommerce Website Sneakers
-## [Watch it on youtube](https://youtu.be/-EM4uVJm9qo)
-### Responsive Ecommerce Website Sneakers
+# Responsive Travel Website 🌊
+## [Watch it on youtube](https://youtu.be/YzRDHxbw1RU)
+###  Responsive Travel Website 🌊
 
-- Responsive Ecommerce Website Using HTML CSS JavaScript
-- Contains a product page.
-- Contains smooth scrolling in each section.
+- Travel website to the most beautiful beaches, using HTML, CSS & JAVASCRIPT.
+- Contains animations when scrolling.
+- Includes a dark and light mode.
 - Developed first with the Mobile First methodology, then for desktop.
 - Compatible with all mobile devices and with a beautiful and pleasant user interface.
 
-💙 Join the channel to see more videos like this. [Bedimcode](https://www.youtube.com/@Bedimcode)
+Join the channel to see more videos like this. [Bedimcode](https://www.youtube.com/c/Bedimcode)
 
-![preview img](/preview.png)
+![travel-website](/preview.png)
