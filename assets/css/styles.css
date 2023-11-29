@@ -447,39 +447,39 @@ input {
   transform: var(--img-scale);
 }
 
-/*=============== DISCOVER ===============*/
-.discover__card {
+/*============= BROWSE ===============*/
+.browse__card {
   position: relative;
   width: 200px;
   overflow: var(--img-hidden);
 }
 
-.discover__data {
+.browse__data {
   position: absolute;
   bottom: 1.5rem;
   left: 1rem;
 }
 
-.discover__title, 
-.discover__description {
+.browse__title, 
+.browse__description {
   color: var(--white-color);
 }
 
-.discover__title {
+.browse__title {
   font-size: var(--h3-font-size);
   margin-bottom: var(--mb-0-25);
 }
 
-.discover__description {
+.browse__description {
   display: block;
   font-size: var(--smaller-font-size);
 }
 
-.discover__img {
+.browse__img {
   transition: var(--img-transition);
 }
 
-.discover__img:hover {
+.browse__img:hover {
   transform: var(--img-scale);
 }
 
@@ -926,12 +926,12 @@ input {
   .about__description {
     margin-bottom: var(--mb-2);
   }
-  .discover__container {
+  .browse__container {
     width: 610px;
     margin-left: auto;
     margin-right: auto;
   }
-  .discover__container,
+  .browse__container,
   .place__container {
     padding-top: 2rem;
   }
@@ -985,17 +985,17 @@ input {
   .about__img-two {
     width: 290px;
   }
-  .discover__card {
+  .browse__card {
     width: 237px;
   }
-  .discover__container {
+  .browse__container {
     width: 700px;
   }
-  .discover__data {
+  .browse__data {
     left: 1.5rem;
     bottom: 2rem;
   }
-  .discover__title {
+  .browse__title {
     font-size: var(--h2-font-size);
   }
   .experience__content {
