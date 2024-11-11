@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.851738c1.css",
-    "main.js": "/static/js/main.e11da7b1.js",
+    "main.js": "/static/js/main.4f8ce739.js",
     "static/js/453.41811d64.chunk.js": "/static/js/453.41811d64.chunk.js",
     "static/media/AX (3).pdf": "/static/media/AX (3).739744febefb15127f71.pdf",
     "static/media/AX (24).pdf": "/static/media/AX (24).8204949cf541ca9afc79.pdf",
@@ -32,6 +32,7 @@
     "static/media/AX (8).pdf": "/static/media/AX (8).5da82dabedbe487021db.pdf",
     "static/media/AX (1).pdf": "/static/media/AX (1).5b84ce96588a3e663963.pdf",
     "static/media/bkg.png": "/static/media/bkg.2b530943437e3855faae.png",
+    "static/media/signature.png": "/static/media/signature.470a077eff0c9356866a.png",
     "static/media/AX (5).pdf": "/static/media/AX (5).7f9da306ae23c2898375.pdf",
     "static/media/DSC01659-1024x683.jpg": "/static/media/DSC01659-1024x683.b831b282179d03b8d31c.jpg",
     "static/media/salmon.png": "/static/media/salmon.d0b106c447d7d882c7c7.png",
@@ -61,11 +62,11 @@
     "static/media/logo_callumdoty.png": "/static/media/logo_callumdoty.620d61f8a6aa281621e5.png",
     "index.html": "/index.html",
     "main.851738c1.css.map": "/static/css/main.851738c1.css.map",
-    "main.e11da7b1.js.map": "/static/js/main.e11da7b1.js.map",
+    "main.4f8ce739.js.map": "/static/js/main.4f8ce739.js.map",
     "453.41811d64.chunk.js.map": "/static/js/453.41811d64.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.851738c1.css",
-    "static/js/main.e11da7b1.js"
+    "static/js/main.4f8ce739.js"
   ]
 }
