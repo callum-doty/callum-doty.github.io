@@ -122,14 +122,14 @@ To clarify the equation, we can contribute any number of individual factors to o
 
 Looping back to the original golden rule (x=y), we can define the new and improved formula to be:
 
-X = ∑*i*=1n  *β1 *⋅ *f1 + βn *⋅ *fn + *γ ⋅ C + δ ⋅ D + ϵ ⋅ V
+X = ∑*i*=1n  β1 ⋅ f1 + βn ⋅ fn + γ ⋅ C + δ ⋅ D + ϵ ⋅ V
 
 When we find 'X' for a given action, we can determine whether the action output (X) is a higher (ethical) or lower number (unethical). 
 
 This raises a few questions:
 1. How to determining the weights (β, γ, δ, ϵ)? These could vary significantly based on cultural and personal values.
-2. The framework allows for objective comparison between actions, but should we consider adding boundary conditions or normalization to make the scale more interpretable?
-3. Would you consider adding a temporal component to account for both short-term and long-term consequences of actions?`
+2. The framework allows for objective comparison between actions, but we need a boundary conditions or normalization to make the scale more interpretable.
+3. A temporal component to account for both short-term and long-term consequences of actions?`
   },
   { 
     id: 3, 
