@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.851738c1.css",
-    "main.js": "/static/js/main.4f8ce739.js",
+    "main.js": "/static/js/main.399b237b.js",
     "static/js/453.41811d64.chunk.js": "/static/js/453.41811d64.chunk.js",
     "static/media/AX (3).pdf": "/static/media/AX (3).739744febefb15127f71.pdf",
     "static/media/AX (24).pdf": "/static/media/AX (24).8204949cf541ca9afc79.pdf",
@@ -62,11 +62,11 @@
     "static/media/logo_callumdoty.png": "/static/media/logo_callumdoty.620d61f8a6aa281621e5.png",
     "index.html": "/index.html",
     "main.851738c1.css.map": "/static/css/main.851738c1.css.map",
-    "main.4f8ce739.js.map": "/static/js/main.4f8ce739.js.map",
+    "main.399b237b.js.map": "/static/js/main.399b237b.js.map",
     "453.41811d64.chunk.js.map": "/static/js/453.41811d64.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.851738c1.css",
-    "static/js/main.4f8ce739.js"
+    "static/js/main.399b237b.js"
   ]
 }
