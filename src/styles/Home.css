@@ -22,7 +22,7 @@ body {
   align-items: center;
   width: 100%;
   padding-bottom: 20px;
-  font-size: 12px; 
+  font-size: 0.75rem; 
   text-transform: uppercase;
   border-bottom: 1px solid #000000;
   margin-bottom: 40px;
@@ -95,7 +95,7 @@ body {
 }
 
 .text-details p {
-  font-size: 14px;
+  font-size: 0.875rem;
   text-transform: uppercase;
   margin: 0; 
   color: #000;
@@ -128,7 +128,7 @@ body {
 }
 
 .description-section p {
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.6;
   text-align: left; 
   
@@ -142,7 +142,7 @@ body {
   align-items: center;
   padding-top: 20px;
   border-top: 1px solid #000000; /* Subtle line */
-  font-size: 14px;
+  font-size: 0.875rem;
   text-transform: uppercase;
 }
 
@@ -201,7 +201,7 @@ body {
 }
 
 .home-projects-overview-section h2 {
-  font-size: 3.5em; /* Large heading for the section */
+  font-size: 3.5rem; /* Large heading for the section */
   font-weight: 500;
   color: #000;
   text-align: left;
@@ -242,7 +242,7 @@ body {
 }
 
 .home-project-card h3 {
-  font-size: 1.5em;
+  font-size: 1.5rem;
   font-weight: 600;
   color: #000;
   margin-top: 0;
@@ -250,7 +250,7 @@ body {
 }
 
 .home-project-card p {
-  font-size: 1em;
+  font-size: 1rem;
   line-height: 1.6;
   color: #000000; /* Darker gray for text */
   margin-bottom: 20px;
@@ -262,7 +262,7 @@ body {
   font-weight: bold;
   color: #000; /* Black color for CTA */
   text-transform: uppercase;
-  font-size: 0.9em;
+  font-size: 0.9rem;
   align-self: flex-start; /* Align CTA to the left */
 }
 
@@ -279,7 +279,7 @@ body {
 
 @media (max-width: 768px) {
   .home-projects-overview-section h2 {
-    font-size: 2em; /* Adjust heading size for mobile */
+    font-size: 2rem; /* Adjust heading size for mobile */
     padding-left: 0; /* Reset padding for mobile */
     text-align: center; /* Center title on mobile */
   }

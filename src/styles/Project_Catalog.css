@@ -331,7 +331,7 @@ body {
     border: none;
     border-radius: 1px;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 700;
     text-decoration: none;
     display: inline-block;
@@ -416,7 +416,7 @@ body {
 }
 
 .catalog-project-card h3 {
-  font-size: 1.25em; /* Adjusted from Home.css for consistency */
+  font-size: 1.25rem; /* Adjusted from Home.css for consistency */
   font-weight: 600;
   color: #000;
   margin-top: 0;
@@ -428,12 +428,11 @@ body {
 }
 
 .catalog-project-card p {
-  font-size: 0.9em; /* Adjusted from Home.css */
+  font-size: 0.9rem; /* Adjusted from Home.css */
   line-height: 1.5; /* Adjusted from Home.css */
   color: #000000; 
   margin-bottom: 0; /* Adjusted for row layout */
   padding-right: 10%; /* Use percentage for padding */
-  font-size: 15px;
 
   /* flex-grow: 1; */ /* Removed as it might not be desired for row layout */
   /* padding-left: 300px;; */ /* Removed to align text to the left */
@@ -465,12 +464,12 @@ hr {
     gap: 0.5rem; /* Reduce gap for vertical stacking */
   }
   .catalog-project-card h3 {
-    font-size: 1.1em;
+    font-size: 1.1rem;
     width: auto; /* Allow h3 to take natural width */
   }
   .catalog-project-card p {
     padding-right: 0; /* Remove large padding for mobile */
-    font-size: 0.9em; /* Ensure p style is included */
+    font-size: 0.9rem; /* Ensure p style is included */
   }
 
   hr {
@@ -577,7 +576,7 @@ hr {
 .role-list li::before {
   content: '•';
   margin-right: 7px;
-  font-size: 1.2em;
+  font-size: 1.2rem;
   line-height: 1.2;
   font-weight: 900;
 }

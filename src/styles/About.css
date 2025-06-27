@@ -58,7 +58,7 @@
 }
 
 .about-text-details p {
-  font-size: 14px; /* Smaller, like Home's text-details */
+  font-size: 0.875rem; /* Smaller, like Home's text-details */
   text-transform: uppercase;
   margin: 0;
   color: #000000;
@@ -72,7 +72,7 @@
 }
 
 .about-narrative p {
-  font-size: 1em;
+  font-size: 1rem;
   line-height: 1.7;
   color: #000000;
   margin-bottom: 2rem; /* Space between paragraphs */
@@ -166,7 +166,7 @@
 }
 
 .skills-column.education h3 { /* Specific styles for Education title */
-  font-size: 3.5em; /* Match Projects title */
+  font-size: 3.5rem; /* Match Projects title */
   font-weight: 500; /* Match Projects title */
   text-transform: uppercase; /* Match Projects title */
   margin-bottom: 30px; /* Match Projects title */
@@ -203,21 +203,21 @@
 
 
 .skills-column li { /* General styling for text within any skill li, if needed */
-  font-size: 1em;
+  font-size: 1rem;
   color: #000000;
   line-height: 1.5;
 }
 
 
 .education h4 { /* e.g., "Virginia Commonwealth University" */
-  font-size: 1.05em; /* Slightly larger than list item text */
+  font-size: 1.05rem; /* Slightly larger than list item text */
   font-weight: 600;
   color: #000;
   margin-bottom: 0.15rem;
 }
 
 .education p { /* e.g., "Graphic Design" */
-  font-size: 0.95em;
+  font-size: 0.95rem;
   color: #000000;
   margin-bottom: 0.15rem;
   margin-top: 0;
@@ -235,7 +235,7 @@
 }
 
 .education .book-list li {
-  font-size: 0.9em; 
+  font-size: 0.9rem; 
   color: #000000;
   margin-bottom: 0.3rem; 
   line-height: 1.4;
@@ -248,7 +248,7 @@
 }
 
 .education span { /* e.g., "2019 - 2023" */
-  font-size: 0.85em;
+  font-size: 0.85rem;
   color: #000000;
   margin-top: 0.75rem; /* Add some space above the date */
   align-self: flex-start; /* Align to the start of the card */
@@ -286,7 +286,7 @@
   }
   
   .about-text-details p {
-    font-size: 14px; /* Slightly larger for readability on mobile stack */
+    font-size: 1rem; /* Slightly larger for readability on mobile stack */
     white-space: normal; /* Allow wrapping */
     margin-bottom: 5px;
   }
@@ -338,11 +338,11 @@
   }
 
   .skills-column h3 { /* Base mobile style for skill column titles */
-    font-size: 1.3em; /* Default mobile size */
+    font-size: 1.3rem; /* Default mobile size */
   }
 
   .skills-column.education h3 { /* Mobile specific for Education title */
-    font-size: 2em; /* Match Projects mobile title size */
+    font-size: 2rem; /* Match Projects mobile title size */
     text-align: center; /* Match Projects mobile title alignment */
   }
 }
