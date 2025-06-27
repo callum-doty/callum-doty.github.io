@@ -37,7 +37,7 @@
 }
 
 .about-main-text { /* For "ABOUT ME" */
-  font-size: 12vw; /* Increased to match Home page's main text size */
+  font-size: clamp(48px, 12vw, 160px); /* Responsive font size with min/max */
   font-weight: 500;
   line-height: .7;
   color: #000;
@@ -76,7 +76,6 @@
   line-height: 1.7;
   color: #000000;
   margin-bottom: 2rem; /* Space between paragraphs */
-  padding-left: 20px; /* Removed for flush alignment */
 }
 
 .about-narrative p:first-child {
@@ -89,10 +88,15 @@
 
 /* New styles for the image and text row wrapper */
 .image-text-row {
-  display: flex;
-  align-items: start; /* Align tops of items */
-  gap: 0; /* Space between image and text, set to 0 for flush */
-  margin-top: 160px; /* Space above this entire row */
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* Image takes 1 part, text takes 2 */
+  align-items: start;
+  gap: 40px;
+  margin-top: 10vh;
+  width: 90%;
+  max-width: 1200px;
+  margin-left: 0;
+  margin-right: auto;
 }
 
 .about-image-container {
@@ -112,9 +116,9 @@
 }
 
 .about-modular-image {
-  width: 400px; /* Set explicit width */
-  height: auto;     /* Maintain aspect ratio */
-  display: block;   /* Remove extra space below image */
+  width: 100%; /* Make image responsive */
+  height: auto;
+  display: block;
 }
 
 
@@ -140,9 +144,13 @@
 */
 
 .skills-container-grid {
-  display: flex; 
-  justify-content: center; 
-  gap: 40px; 
+  display: grid;
+  justify-content: center;
+  gap: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .skills-column.education { 
@@ -291,8 +299,8 @@
   /* .about-narrative and .about-image-container will stack naturally due to .about-text-column's flex-direction: column */
   /* We might want to ensure the image is centered on mobile if it's not already by its container's styles */
   .image-text-row {
-    flex-direction: column; /* Stack image and text on mobile */
-    align-items: center; /* Center items when stacked for mobile */
+    grid-template-columns: 1fr; /* Single column on mobile */
+    gap: 20px;
   }
   
   .about-narrative {

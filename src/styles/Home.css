@@ -54,7 +54,7 @@ body {
 
 /* Styles for the large text "CAL.D" */
 .home-main-text {
-  font-size: 11vw; /* Large responsive font size */
+  font-size: clamp(48px, 11vw, 160px); /* Responsive font size with min/max */
   font-weight: 500; /* Bold */
   color: #000; /* Black text */
   margin: 0; /* Reset default h1 margin */
@@ -104,33 +104,34 @@ body {
 /* Description Container */
 .description-container {
   display: flex;
-  align-items: flex-start; /* Align items to the top */
-  margin-bottom: 30px; /* Space below the container */
-  margin-left: auto;
-  margin-top: 200px; /* Align the whole container to the right */
-  max-width: 1300px; /* Constrain the whole container to allow margin-left: auto to work as expected */
+  justify-content: space-between; /* Pushes items to the edges */
+  align-items: flex-start;
+  margin: 13vh 0 13vh auto; /* Aligns container to the right */
+  max-width: 1300px;
+  width: 90%;
 }
 
 .description-image {
-  flex-shrink: 0; /* Prevent image from shrinking */
-  width: 600px; /* Adjust width as needed */
-  height: auto; /* Maintain aspect ratio */
-  margin-left: 20px; /* Space between text and image */
+  flex-basis: 45%; /* Give image more space */
+  order: 2; /* Image on the right */
+  max-width: 100%;
+  height: auto;
+  margin-right: 0;
 }
 
 /* Description Section */
 .description-section {
-  /* margin-left: auto; /* Removed, alignment handled by flex container */
-  /* margin-bottom: 30px; /* Moved to description-container */
-  max-width: 700px; /* Adjusted max-width: 1100 (container) - 600 (image) - 20 (margin) */
-  
-  /* Consider centering this block or aligning it relative to one of the initial columns */
+  flex-basis: 40%; /* Make text section tighter */
+  order: 1; /* Text on the left */
+  margin-left: 15em;
+  padding-right: 2em;
 }
 
 .description-section p {
   font-size: 16px;
   line-height: 1.6;
-  text-align: left; /* Corrected: Align text within paragraphs to the left */
+  text-align: left; 
+  
   
 }
 
@@ -206,7 +207,7 @@ body {
   text-align: left;
   margin-bottom: 30px; /* Space below the heading */
   text-transform: uppercase;
-  margin-left: 400px;
+  padding-left: 25%; /* Indent with a percentage */
 }
 
 .home-projects-grid {
@@ -228,7 +229,7 @@ body {
 }
 
 .home-project-card {
-  padding: 25px 25px 25px 400px; /* Top, Right, Bottom, Left (original 25px + 400px shift for left) */
+  padding: 25px 25px 25px 25%; /* Use percentage for left padding */
   height: 100%; /* Make cards in a row equal height if needed by content */
   display: flex;
   flex-direction: column;
@@ -279,7 +280,7 @@ body {
 @media (max-width: 768px) {
   .home-projects-overview-section h2 {
     font-size: 2em; /* Adjust heading size for mobile */
-    margin-left: 0; /* Reset margin for mobile */
+    padding-left: 0; /* Reset padding for mobile */
     text-align: center; /* Center title on mobile */
   }
 

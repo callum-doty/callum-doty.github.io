@@ -35,7 +35,7 @@ body {
   line-height: 1; /* Adjusted for readability */
   color: #000; /* Copied from .project-catalog-title */
   text-align: left; /* Copied from .project-catalog-title */
-  font-size: 3vw; /* Matched to .project-catalog-title */
+  font-size: clamp(24px, 3vw, 48px); /* Responsive font size with min/max */
 }
 
 /* Commenting out old .cherge-text-details p as it's no longer used for these items
@@ -79,7 +79,7 @@ body {
   color: #000; /* Copied from home-main-text */
   text-align: left; /* Copied from home-main-text */
   margin-top: 0; /* Adapted from home-main-text (margin: 0) */
-  font-size: 3vw; /* Existing: Slightly smaller than home-main-text (which is 12vw in Home.css) */
+  font-size: clamp(24px, 3vw, 48px); /* Responsive font size with min/max */
   margin-bottom: 0.5em; /* Existing: Add some space below the title */
   padding-bottom: 0.3em;
 }
@@ -140,13 +140,13 @@ body {
     border-radius: 8px;
   }
   
-  .project-info-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
-    margin: 0 auto;
-    max-width: 90%;
-  }
+.project-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin: 0 auto;
+  max-width: 90%;
+}
   
   .info-section {
     padding: 1rem;
@@ -180,7 +180,7 @@ body {
   
   @media (max-width: 1024px) {
     .project-info-grid {
-      grid-template-columns: repeat(2, 1fr);
+      /* grid-template-columns: repeat(2, 1fr); /* No longer needed with auto-fit */
       max-width: 100%;
     }
   }
@@ -229,12 +229,12 @@ body {
     text-align: center;
   }
   
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0;
-    width: 100%;
-  }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem; /* Add a small gap */
+  width: 100%;
+}
   
   .gallery-item {
     position: relative;
@@ -412,7 +412,7 @@ body {
   border-top: 1px solid #000000; /* Line separator at the top */
   padding-top: 1rem; /* Add some padding at the top */
   padding-bottom: 1rem; /* Add some padding at the bottom */
-  margin-left: 300px; /* Pushes the card 300px from the left */
+  margin-left: 25%; /* Use percentage for left margin */
 }
 
 .catalog-project-card h3 {
@@ -432,7 +432,7 @@ body {
   line-height: 1.5; /* Adjusted from Home.css */
   color: #000000; 
   margin-bottom: 0; /* Adjusted for row layout */
-  padding-right: 30rem;
+  padding-right: 10%; /* Use percentage for padding */
   font-size: 15px;
 
   /* flex-grow: 1; */ /* Removed as it might not be desired for row layout */
@@ -443,7 +443,7 @@ hr {
   border: none; /* Remove default border */
   height: 1px; /* Set thickness */
   background-color: #000000; /* Set color */
-  margin-right: 1100px;
+  margin-right: 75%; /* Use percentage for margin */
 }
 
 
@@ -584,7 +584,8 @@ hr {
 
 .role-title {
   font-weight: normal;
-  width: 400px; /* Adjust width as needed */
+  width: 35%; /* Use percentage for width */
+  min-width: 150px; /* Add a min-width */
   flex-shrink: 0;
 }
 
