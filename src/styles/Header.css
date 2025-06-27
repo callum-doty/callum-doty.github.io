@@ -1,163 +1,127 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
-
-.header {
-  width: 100%;
-  padding: 1rem 1.5rem;
-  height: 80px; /* Fixed height for consistency */
-  display: flex;
-  align-items: center; /* Center everything vertically */
-}
-
-.nav-container {
-  max-width: 80rem;
-  margin: 0 auto;
+/* Styles for the new abgd.it-style header */
+.abgd-style-header {
+  position: fixed; /* Keep the header at the top */
+  top: 0; /* Align to the top of the viewport */
+  left: 0; /* Align to the left of the viewport */
+  z-index: 1000; /* Ensure it's above other content */
+  height: 47px; /* Explicit height for consistent offset calculation */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 90%;
+  width: 100%;
+  padding: 15px 20px; /* Adjust padding as needed */
+  box-sizing: border-box;
+  font-size: 12px; /* Small text for header items */
+  text-transform: uppercase;
+  color: #000; /* Black text */
+  border-bottom: 1px solid #000000; /* Subtle line like abgd.it */
 }
 
-.logo {
+.header-item {
+  /* Basic styling for all items, can be overridden */
+  padding: 0 5px; /* Reduced padding slightly */
+}
+
+/* Styles for the new header structure */
+.header-main-title a,
+.header-index-indicator a {
   text-decoration: none;
-  transition: color 0.2s ease;
-  line-height: 1;
-  height: auto;
-  width: auto; /* Ensure logo text is vertically centered */
+  color: inherit; /* Make Link look like plain text */
 }
 
-.logo:hover {
-  color: #4b5563;
+.header-main-title {
+  font-size: 1.1em;
 }
 
-.nav-links {
-  display: flex;
-  gap: 2rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.header-index-indicator {
+  cursor: pointer; /* Indicate it's clickable */
+  font-size: 1.1em;
+}
+
+/* Remove or comment out old styles that are no longer needed */
+/* The specific .item-left, .item-page-indicator, .item-portfolio-title, .item-right can be removed */
+/*
+.header { ... }
+.nav-container { ... }
+.logo { ... }
+.logo-img { ... }
+.mobile-menu-btn { ... }
+.mobile-menu-btn.open .hamburger-top { ... }
+.mobile-menu-btn.open .hamburger-middle { ... }
+.mobile-menu-btn.open .hamburger-bottom { ... }
+.hamburger-top, .hamburger-middle, .hamburger-bottom { ... }
+.nav-links { ... }
+.nav-links.active { ... }
+.nav-links li { ... }
+.nav-links a { ... }
+.nav-links a:hover,
+.nav-links li.active a { ... }
+*/
+
+/* Slide-out Menu Styles */
+.slide-out-menu {
+  position: fixed;
+  top: 0;
+  right: -300px; /* Start off-screen to the right */
+  width: 300px; /* Width of the menu */
   height: 100%;
-  align-items: center; /* Center nav links vertically */
-}
-
-.nav-links li {
-  height: 100%;
+  background-color: #f0f0f0; /* Same as header/footer background */
+  box-shadow: -2px 0 5px rgba(0,0,0,0.1); /* Shadow on the left side */
+  z-index: 1001; /* Above header, below overlay if needed, or same as overlay */
+  transition: right 0.3s ease-in-out;
+  padding: 20px;
+  box-sizing: border-box;
   display: flex;
-  align-items: center; /* Center individual links vertically */
+  flex-direction: column;
 }
 
-.nav-links li a {
-  font-family: 'Montserrat', sans-serif;
-  color: #1f2937;
-  text-decoration: none;
-  transition: color 0.2s ease;
-  display: flex;
-  align-items: center;
-  height: 100%;
-  padding: 1rem; /* Add some vertical padding */
+.slide-out-menu.open {
+  right: 0; /* Slide in */
 }
 
-.nav-links li a:hover {
-  color: #4b5563;
-}
-
-.nav-links li.active a {
-  color: #07d600;
-}
-
-/* Mobile menu button */
-.mobile-menu-btn {
-  display: none;
-  width: 24px;
-  height: 24px;
-  position: relative;
+.menu-close-button {
   background: none;
   border: none;
-  padding: 0;
+  font-size: 2.5em; /* Larger close button */
+  color: #000;
   cursor: pointer;
+  align-self: flex-end;
+  padding: 0;
+  line-height: 1;
+  margin-bottom: 20px;
 }
 
-.mobile-menu-btn span {
-  display: block;
-  width: 24px;
-  height: 2px;
-  background-color: #1f2937;
-  position: absolute;
+.menu-links-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Space between links */
+}
+
+.menu-link {
+  text-decoration: none;
+  color: #000;
+  font-size: 1.2em; /* Larger font for menu items */
+  text-transform: uppercase;
+  padding: 10px 0;
+  border-bottom: 1px solid #000000; /* Separator for links */
+  transition: color 0.2s ease-in-out;
+}
+
+.menu-link:last-child {
+  border-bottom: none;
+}
+
+.menu-link:hover {
+  color: #000000; /* Darker on hover */
+}
+
+.menu-overlay {
+  position: fixed;
+  top: 0;
   left: 0;
-  transition: all 0.3s ease;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent black overlay */
+  z-index: 1000; /* Below menu, above main content */
+  display: block; /* Will be shown/hidden by React state */
 }
-
-.hamburger-top {
-  top: 6px;
-}
-
-.hamburger-middle {
-  top: 12px;
-}
-
-.hamburger-bottom {
-  top: 18px;
-}
-
-/* Mobile menu button open state */
-.mobile-menu-btn.open .hamburger-top {
-  transform: rotate(45deg);
-  top: 12px;
-}
-
-.mobile-menu-btn.open .hamburger-middle {
-  opacity: 0;
-}
-
-.mobile-menu-btn.open .hamburger-bottom {
-  transform: rotate(-45deg);
-  top: 12px;
-}
-
-/* Mobile styles */
-@media (max-width: 1024px) {
-  .mobile-menu-btn {
-    display: block;
-  }
-
-  .nav-links {
-    position: fixed;
-    right: 0;
-    top: 80px; /* Match header height */
-    flex-direction: column;
-    background-color: white;
-    width: 200px;
-    padding: 1rem;
-    box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.1);
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
-    gap: 1rem;
-    height: auto; /* Reset height for mobile */
-  }
-
-  .nav-links.active {
-    transform: translateX(0);
-  }
-
-  .nav-links li {
-    height: auto; /* Reset height for mobile */
-  }
-
-  .nav-links li a {
-    padding: 0.75rem 0; /* Adjust padding for mobile */
-    height: auto; /* Reset height for mobile */
-  }
-}
-
-.logo-img {
-  width: 60px; /* Adjust the width as needed */
-  height: auto; /* Maintain the aspect ratio */
-  filter: brightness(1.23);
-  background-color: transparent; /* Ensure no background color is applied to the image */
-}
-
-.logo {
-  display: inline-block;
-  background-color: transparent; /* Ensure the parent logo has no background color */
-}
-
-

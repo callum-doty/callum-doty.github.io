@@ -1,7 +1,6 @@
 .project-page {
     width: 100%;
     min-height: calc(100vh - 80px);
-    font-family: 'Inter', sans-serif;
   }
   
   .project-container {
@@ -18,14 +17,14 @@
   .project-hero h1 {
     font-size: 4rem;
     font-weight: 600;
-    color: #1f2937;
+    color: #000000;
     margin-bottom: 2rem;
   }
   
   .project-subtitle {
     font-size: 1.25rem;
     line-height: 1.6;
-    color: #6b7280;
+    color: #000000;
     max-width: 48rem;
     margin: 0 auto;
   }
@@ -58,7 +57,7 @@
   .info-title {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #1f2937;
+    color: #000000;
     margin-bottom: 1rem;
     position: relative;
   }
@@ -76,7 +75,7 @@
   .info-text {
     font-size: 1rem;
     line-height: 1.6;
-    color: #6b7280;
+    color: #000000;
   }
   
   @media (max-width: 1024px) {
@@ -109,28 +108,66 @@
     }
   }
 
-
-  /* Keep your existing CSS and add these styles */
+  .video-section {
+    margin: 5rem 0 6rem auto;
+    width: 80%;
+  }
+  
+  .video-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .video-container {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    background-color: #f3f4f6;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .youtube-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 8px;
+  }
+  
+  @media (max-width: 768px) {
+    .video-section {
+      margin: 3rem 0;
+    }
+  
+    .video-title {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+  }
 
 .gallery-section {
-    margin: 6rem auto;
+    margin: 0;
     width: 100%;
-    max-width: 80rem;
   }
   
   .gallery-title {
     font-size: 2rem;
     font-weight: 600;
-    color: #1f2937;
+    color: #000000;
     margin-bottom: 3rem;
     text-align: center;
-    font-family: 'Montserrat', sans-serif;
   }
   
   .gallery-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    gap: 10px;
     width: 100%;
   }
   
@@ -153,12 +190,6 @@
     transition: transform 0.3s ease;
   }
   
-  /* Hover effect */
-  .gallery-item:hover .gallery-image {
-    transform: scale(1.05);
-  }
-  
-  /* Loading animation */
   @keyframes imageLoad {
     0% {
       opacity: 0;
@@ -172,43 +203,125 @@
     animation: imageLoad 0.5s ease-in;
   }
   
-  /* Responsive adjustments */
   @media (max-width: 1024px) {
     .gallery-section {
-      margin: 4rem auto;
-      padding: 0 2rem;
+      margin: 4rem 0;
     }
     
     .gallery-grid {
-      gap: 1.5rem;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
     }
   }
   
   @media (max-width: 768px) {
     .gallery-section {
-      margin: 3rem auto;
-      padding: 0 1rem;
-    }
-  
-    .gallery-title {
-      font-size: 1.75rem;
-      margin-bottom: 2rem;
+      margin: 3rem 0;
     }
   
     .gallery-grid {
-      grid-template-columns: 1fr;
-      gap: 1rem;
+      grid-template-columns: repeat(2, 1fr);
     }
+  
+  .gallery-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 3rem;
+    text-align: center;
+    text-transform: uppercase;
+  }
   }
   
-  /* Optional: Add a subtle shadow to images */
-  .gallery-item {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
-                0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  }
   
-  /* Optional: Add focus states for accessibility */
   .gallery-image:focus {
     outline: 2px solid #2563eb;
     outline-offset: 2px;
   }
+
+/* Added from Project_Catalog.css */
+.cherge-page-wrapper.palter-page {
+  padding: 0;
+}
+
+.cherge-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  box-sizing: border-box;
+  background-color: #f0f0f0;
+  color: #000;
+}
+
+.cherge-main-content {
+  flex-grow: 1;
+  width: 100%;
+}
+
+.unified-initials-section {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.unified-initials-text-content {
+  flex: 1;
+}
+
+.unified-initials-image-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.unified-initials-image {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+}
+
+.project-catalog-title {
+  font-weight: 500;
+  line-height: 1;
+  color: #000;
+  text-align: left;
+  margin-top: 0;
+  font-size: 3vw;
+}
+
+.cherge-specific-title {
+  margin-bottom: 0 !important;
+}
+
+.project-catalog-subtitle {
+  font-size: 1.5rem;
+  color: #000000;
+  text-align: left;
+  margin-bottom: 4em;
+  max-width: 800px;
+  line-height: 1.3;
+  font-weight: 500;
+}
+
+.cherge-detail-item {
+  font-weight: 500;
+  line-height: 1;
+  color: #000;
+  text-align: left;
+  font-size: 3vw;
+}
+
+.catalog-projects-overview-section {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+  padding-right: 0;
+}
+
+@media (max-width: 768px) {
+  .unified-initials-section {
+    flex-direction: column;
+  }
+}

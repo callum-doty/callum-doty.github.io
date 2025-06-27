@@ -1,137 +1,68 @@
-.footer {
-  position: relative;
-  padding: 2rem 0;
-  background-color: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(5px);
-  border-top: 2px solid #07d600;
-}
-
-.footer-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
+/* Styles for the new abgd.it-style footer */
+.abgd-style-footer {
+  position: fixed; /* Keep the footer at the bottom */
+  bottom: 0; /* Align to the bottom of the viewport */
+  left: 0; /* Align to the left of the viewport */
+  z-index: 1000; /* Ensure it's above other content, but potentially below a fixed header if they overlap */
+  height: 47px; /* Explicit height for consistency with header */
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.social-links {
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-}
-
-.social-link {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-decoration: none;
-  color: rgb(38, 38, 38);
-  transition: transform 0.3s ease, color 0.3s ease;
-  gap: 0.5rem;
-}
-
-.social-link:hover {
-  transform: translateY(-2px);
-  color: #07d600;
-}
-
-.footer-icon {
-  width: 24px;
-  height: 24px;
-  transition: transform 0.3s ease;
-}
-
-.icon-label {
-  font-size: 0.75rem;
-  font-weight: 500;
-  opacity: 0;
-  transform: translateY(-5px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.social-link:hover .icon-label {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* New coded-by section styles */
-.coded-by {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-  color: rgb(38, 38, 38);
-  letter-spacing: 0.5px;
-}
-
-.coded-text {
-  font-weight: 400;
-}
-
-.react-icon {
-  color: #61DAFB;
-  width: 20px;
-  height: 20px;
-}
-
-.react-text {
-  font-weight: 600;
-  color: #61DAFB;
-}
-
-/* React logo spinning animation */
-.spin {
-  animation: spin 10s linear infinite;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.signature-container {
-  display: flex;
-  align-items: center;
   justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  padding: 15px 20px; /* Consistent padding with header */
+  box-sizing: border-box;
+  font-size: 12px; /* Consistent font size with header */
+  text-transform: uppercase;
+  color: #000; /* Black text */
+  border-top: 1px solid transparent; /* Subtle line, similar to header's bottom border */
 }
 
-.footer-signature {
-  height: 60px;
-  width: auto;
-  max-width: 300px;
-  opacity: 0.9;
-  transition: opacity 0.3s ease;
+.footer-item {
+  /* Basic styling for all items, can be overridden */
+  padding: 0 5px; /* Consistent with header items */
 }
 
-.footer-signature:hover {
-  opacity: 1;
+.footer-social-links {
+  display: flex;
+  align-items: center;
+  gap: 0.5em; /* Space between links and separators */
 }
 
+.footer-social-links a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s ease-in-out;
+}
+
+.footer-social-links a:hover {
+  color: #000000; /* Slightly darker on hover, or choose another hover color */
+}
+
+.footer-social-links span {
+  color: #000000; /* Color for the "|" separator */
+}
+
+
+/* Responsive adjustments for footer */
 @media (max-width: 768px) {
-  .footer-content {
-    flex-direction: column;
-    gap: 2rem;
-  }
-  
-  .social-links {
-    justify-content: center;
+  .abgd-style-footer {
+    padding: 10px 15px; /* Slightly reduce padding on smaller screens */
+    height: auto; /* Allow height to adjust to content if it wraps */
+    min-height: 47px; /* Ensure it's at least the default height */
   }
 
-  .coded-by {
-    order: 2;
+  .footer-left-text,
+  .footer-right-text {
+    font-size: 10px; /* Slightly smaller font on mobile if needed */
+    text-align: center; /* Center text if they stack */
   }
   
-  .signature-container {
+  /* If you want them to stack on mobile: */
+  /*
+  .abgd-style-footer {
+    flex-direction: column;
     justify-content: center;
-    order: 1;
+    gap: 5px; 
   }
-  
-  .footer-signature {
-    max-width: 250px;
-  }
+  */
 }

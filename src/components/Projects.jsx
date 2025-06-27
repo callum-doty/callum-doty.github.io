@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom'; // Import the navigate hook
 import '../styles/Projects.css';
 import palterImg from '../assets/palteretc/DSC01647-1024x683.jpg';
 import myceliumImg from '../assets/mycelium/DSC01699-1024x683.jpg';
-import chergeImg from '../assets/cherge/cherge_hero.png';
 
 
 const ArrowIcon = () => (
@@ -42,12 +41,6 @@ const Projects = () => {
       description: "Mycelium is a seventy-page catalog for the 2023 Virginia Commonwealth University graphic design exhibition.",
       image: myceliumImg,
       path: "/projects/mycelium"
-    },
-    {
-      title: "Cherge",
-      description: "Cherge is an Ecommerce platform for chess players to build, customize, and purchase their ideal chess piece(s).",
-      image: chergeImg,
-      path: "/projects/cherge"
     },
   ];
 

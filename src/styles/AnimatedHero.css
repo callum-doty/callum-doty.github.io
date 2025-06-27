@@ -10,21 +10,19 @@
 }
 
 .hero-section h1 {
-  font-family: 'Montserrat', sans-serif;
   font-size: 3.5rem;
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 1.5rem;
-  color: #1f2937;
+  color: #000000;
   text-align: left; /* Ensure text aligns left */
   margin: 0; /* Removes any default margin */
 }
 
 .hero-section p {
-  font-family: 'Montserrat', sans-serif;
   font-size: 1.5rem;
   line-height: 1.5;
-  color: #4b5563;
+  color: #000000;
   font-weight: 400;
   margin-top: 2rem; /* Removes default margin */
 }
@@ -38,7 +36,7 @@
 }
 
 .role-text {
-  color: #07d600;
+  color: #000000;
   display: block;
   transition: all 0.5s ease-in-out;
 }

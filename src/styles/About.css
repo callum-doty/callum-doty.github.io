@@ -1,155 +1,340 @@
-* {
-  font-family: 'Montserrat', sans-serif;
+/* About.css - Styles for About Page, designed to work with Home.css base styles */
+
+/* Ensure .abgd-home-wrapper and .abgd-main-content from Home.css apply their base padding and structure.
+   The .about-page-specific-styling class can be used for overrides if needed, but ideally,
+   we rely on the cascade and specific selectors below. */
+
+.about-page-specific-styling .abgd-main-content {
+  /* If About page needs slightly different overall padding than Home's main content */
+  /* padding-top: 20px; */ /* Example */
 }
 
-.about-page {
-  min-height: calc(100vh - 80px);
-  padding: 4rem 1.5rem;
+/* About Intro Container (similar to description-container in Home.css) */
+.about-intro-container {
+  /* display: flex; /* Removed to allow child to span full width */
+  /* align-items: flex-start; /* Removed */ /* Ensured top margin for spacing from header */
+  margin-bottom: 60px; /* Increased bottom margin */
+  /* To mimic home page's right-aligned description: */
+  /* margin-left: auto; */
+  /* max-width: 1100px; */ /* Or adjust as needed */
+  /* No longer a flex container with an image, so flex properties might not be needed here */
+  /* The .about-text-column will now be the direct child defining this section's content flow */
 }
 
-.main-content {
-  max-width: 80rem;
-  margin: 0 auto;
-  width: 90%;
-}
+/* .about-image-column and .profile-image styles removed */
 
-.about-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  margin-bottom: 6rem;
-}
-
-.image-column {
-  position: relative;
-  height: 30vw;
-}
-
-.profile-image {
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  object-fit: scale-down;
-}
-
-.text-column {
+.about-text-column {
+  /* flex: 1; /* No longer needs to take remaining space, it's the only child */
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  justify-content: flex-start; /* Aligns content to the top */
-  align-items: flex-start;
+  /* gap: 1rem; /* Gap will be handled by margins of inner elements */
 }
 
-.text-column h3 {
-  font-size: 1.25rem;
-  color: #07d600;
+/* New styles for "initials" like section */
+.about-title-section {
+  margin-bottom: 30px; /* Space after this section, before narrative */
+  /* align-items: flex-start; /* Default for flex-column */
+}
+
+.about-main-text { /* For "ABOUT ME" */
+  font-size: 12vw; /* Increased to match Home page's main text size */
+  font-weight: 500;
+  line-height: .7;
+  color: #000;
+  margin: 0 0 15px 0; /* Reset default margin, add space below */
+  text-align: left;
+}
+
+.about-text-details { /* For the four descriptive phrases */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  width: 100%; /* Takes full width of its container (.about-text-column) */
+  padding-bottom: 7px; /* Space below this text */
+  border-bottom: 1px solid #000000; /* Line below details */
+  gap: 10px; /* Add gap for when they wrap */
+  flex-wrap: wrap; /* Allow wrapping on smaller widths within the column */
+}
+
+.about-text-details p {
+  font-size: 14px; /* Smaller, like Home's text-details */
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  margin: 0;
+  color: #000000;
+  white-space: nowrap; /* Prevent wrapping within a single phrase if possible */
 }
 
-.text-column h1 {
-  font-size: 3rem;
-  font-weight: 700;
-  color: #1f2937;
-  margin-top: -0.5rem;
-  
+/* Styling for the remaining narrative paragraphs */
+.about-narrative {
+  max-width: 600px;
+  /* margin-top: 20px; /* Removed to allow top alignment with image */
 }
 
-.text-column .subtitle {
-  font-size: 1.25rem;
-  color: #4b5563;
-  font-weight: 500;
-}
-
-.text-column p {
-  font-size: 1.1rem;
+.about-narrative p {
+  font-size: 1em;
   line-height: 1.7;
-  color: #4b5563;
+  color: #000000;
+  margin-bottom: 2rem; /* Space between paragraphs */
+  padding-left: 20px; /* Removed for flush alignment */
 }
 
-.social-links a {
-  color: #07d600;
-  text-decoration: none;
-  font-weight: 500;
+.about-narrative p:first-child {
+  margin-top: 0; /* Ensure first paragraph aligns to the top of its container */
 }
 
-.social-links a:hover {
-  text-decoration: underline;
+.about-narrative p:last-child {
+  margin-bottom: 0;
 }
 
-.skills-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 4rem;
-}
-
-.skills-column {
+/* New styles for the image and text row wrapper */
+.image-text-row {
   display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  align-items: start; /* Align tops of items */
+  gap: 0; /* Space between image and text, set to 0 for flush */
+  margin-top: 160px; /* Space above this entire row */
 }
 
-.skills-column h3 {
-  font-size: 1.5rem;
-  color: #1f2937;
-  font-weight: 600;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid #07d600;
+.about-image-container {
+  flex-shrink: 0; /* Prevent image container from shrinking */
+  display: flex; 
+  /* Image itself is left-aligned if container is only as wide as image, 
+     or use justify-content: flex-start if container can be wider.
+     Given image has fixed width, this should be fine. */
+  /* justify-content: center; /* Changed from center for left alignment */
+  /* align-items: center; /* This is for vertical alignment within container, keep if image is shorter than text line-height */
 }
 
-.skills-column ul {
+.about-narrative {
+  flex: 1; /* Text takes remaining space */
+  text-align: left; 
+  /* margin-bottom: 20px; /* Remove, was for vertical stacking */
+}
+
+.about-modular-image {
+  width: 400px; /* Set explicit width */
+  height: auto;     /* Maintain aspect ratio */
+  display: block;   /* Remove extra space below image */
+}
+
+
+/* Skills Section */
+.skills-section {
+  margin-top: 60px;
+  margin-bottom: 40px;
+  padding-top: 40px;
+  /* border-top: 1px solid #ccc; /* Separator line like projects section on Home - REMOVED */
+}
+
+/* Optional: Add a main title for the skills section if desired, styled like .projects-overview-section h2 */
+/*
+.skills-section > h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.5em;
+  font-weight: 700;
+  color: #000;
+  text-align: left;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+*/
+
+.skills-container-grid {
+  display: flex; 
+  justify-content: center; 
+  gap: 40px; 
+}
+
+.skills-column.education { 
+  max-width: 900px; /* Increased max-width for single column rows */
+  width: 100%;
+}
+
+.skills-column h3 { /* Base style for any skill column titles */
+  color: #000;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #000000;
+  margin-bottom: 1.5rem; 
+}
+
+.skills-column.education h3 { /* Specific styles for Education title */
+  font-size: 3.5em; /* Match Projects title */
+  font-weight: 500; /* Match Projects title */
+  text-transform: uppercase; /* Match Projects title */
+  margin-bottom: 30px; /* Match Projects title */
+  text-align: left; /* Default for desktop, explicit */
+}
+
+.skills-column ul { /* Base for all skill lists */
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+.skills-column.education ul { /* Main list for education items */
+  display: grid;
+  grid-template-columns: 1fr; /* Each li is a full row */
+  gap: 25px; /* Space between education item rows, similar to project cards */
+}
+
+.skills-column.education li { /* Each education item as a card/row */
+  /* break-inside properties removed */
+  /* margin-bottom removed, gap handles it */
+  padding: 20px;
+  border-top: 1px solid #000000; /* Separator line like project cards */
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  flex-direction: column; /* Stack content within the li */
+  /* Optional: give a card background */
+  /* Optional: subtle shadow */
+  border-radius: 4px; /* Optional: rounded corners */
 }
 
-.skills-column li {
-  font-size: 1.1rem;
-  color: #4b5563;
-  line-height: 1.4;
+.skills-column.education li:first-child {
+  border-top: none; /* Optional: remove top border for the very first card */
 }
 
-.education li {
-  margin-bottom: 2rem;
+
+.skills-column li { /* General styling for text within any skill li, if needed */
+  font-size: 1em;
+  color: #000000;
+  line-height: 1.5;
 }
 
-.education h4 {
-  font-size: 1.1rem;
+
+.education h4 { /* e.g., "Virginia Commonwealth University" */
+  font-size: 1.05em; /* Slightly larger than list item text */
   font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 0.25rem;
+  color: #000;
+  margin-bottom: 0.15rem;
 }
 
-.education span {
-  font-size: 0.9rem;
-  color: #6b7280;
+.education p { /* e.g., "Graphic Design" */
+  font-size: 0.95em;
+  color: #000000;
+  margin-bottom: 0.15rem;
+  margin-top: 0;
 }
 
+.education p + .book-list { /* Style for p followed by book-list */
+  margin-top: 0.5rem; /* Add space above the book list */
+}
+
+.education .book-list {
+  list-style-type: disc; /* Or circle */
+  padding-left: 20px; /* Indent the book list */
+  margin-top: 0.5rem; /* Space above the list if it's not directly after a p */
+  margin-bottom: 0.75rem; /* Space below the book list before the date span */
+}
+
+.education .book-list li {
+  font-size: 0.9em; 
+  color: #000000;
+  margin-bottom: 0.3rem; 
+  line-height: 1.4;
+  /* Ensure book list items don't inherit card-like styles if they are also <li> */
+  padding: 0;
+  border-top: none;
+  background-color: transparent;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.education span { /* e.g., "2019 - 2023" */
+  font-size: 0.85em;
+  color: #000000;
+  margin-top: 0.75rem; /* Add some space above the date */
+  align-self: flex-start; /* Align to the start of the card */
+}
+
+/* Responsive adjustments */
 @media (max-width: 1024px) {
-  .main-content {
-    width: 95%;
+  .about-intro-container {
+    /* Adjustments if needed for slightly smaller desktops */
   }
 }
 
 @media (max-width: 768px) {
-  .about-page {
-    padding: 2rem 1rem;
+  .about-intro-container {
+    /* flex-direction: column; /* No longer needed as it's just the text column */
+    /* align-items: center; */
+    margin-top: 20px;
   }
 
-  .about-container {
-    grid-template-columns: 1fr;
-    gap: 3rem;
+  /* .about-image-column styles for mobile removed */
+
+  .about-text-column {
+    /* align-items: center; /* Let content align left by default on mobile for readability */
+    text-align: left; /* Reset text-align for mobile if it was centered */
+  }
+  
+  .about-main-text {
+    font-size: 15vw; /* Adjust title size for mobile, similar to home */
+    text-align: left; /* Ensure it's left aligned on mobile too */
   }
 
-  .skills-container {
-    grid-template-columns: 1fr;
-    gap: 3rem;
+  .about-text-details {
+    flex-direction: column; /* Stack details on mobile */
+    align-items: flex-start; /* Align to start */
+  }
+  
+  .about-text-details p {
+    font-size: 14px; /* Slightly larger for readability on mobile stack */
+    white-space: normal; /* Allow wrapping */
+    margin-bottom: 5px;
   }
 
-  .text-column h1 {
-    font-size: 2.5rem;
+  .about-narrative {
+    /* text-align: left; /* Already set above, should persist */
+  }
+
+  /* Responsive styles for .about-narrative-image-row and its children's grid properties are no longer needed */
+  /* .about-narrative and .about-image-container will stack naturally due to .about-text-column's flex-direction: column */
+  /* We might want to ensure the image is centered on mobile if it's not already by its container's styles */
+  .image-text-row {
+    flex-direction: column; /* Stack image and text on mobile */
+    align-items: center; /* Center items when stacked for mobile */
+  }
+  
+  .about-narrative {
+    width: 100%; 
+    text-align: left; 
+    /* margin-bottom: 20px; /* This was for when text was above image, now image is above text */
+  }
+
+  .about-image-container {
+    width: auto; /* Let it size to the image on mobile when stacked */
+    margin-bottom: 20px; /* Space below image when stacked above text */
+  }
+
+  .about-modular-image {
+    width: 220px; /* Set explicit width for mobile */
+  }
+
+  .skills-container-grid {
+    flex-direction: column; 
+    align-items: center; 
+    gap: 30px;
+  }
+
+  .skills-column.education {
+    max-width: 100%; /* Allow full width on mobile */
+  }
+  
+  .skills-column.education ul {
+    /* column-count: 1; /* Already 1fr grid, so this is not needed */
+    gap: 20px; /* Adjust gap for mobile if needed */
+  }
+
+  .skills-column.education li {
+    padding: 15px; /* Adjust padding for mobile */
+  }
+
+  .skills-column h3 { /* Base mobile style for skill column titles */
+    font-size: 1.3em; /* Default mobile size */
+  }
+
+  .skills-column.education h3 { /* Mobile specific for Education title */
+    font-size: 2em; /* Match Projects mobile title size */
+    text-align: center; /* Match Projects mobile title alignment */
   }
 }

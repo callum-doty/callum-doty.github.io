@@ -61,7 +61,7 @@
     z-index: 2;
     background: rgba(0, 0, 0, 0.7); /* Black overlay for readability */
     padding: 20px;
-    color: white;
+    color: #000000;
     text-align: left;
     border-radius: 0 0 15px 15px;
   }
@@ -79,7 +79,7 @@
   
   .learn-more {
     font-size: 1rem;
-    color: #ffcc00; /* Accent color for the link */
+    color: #000000; /* Accent color for the link */
     text-decoration: none;
   }
   
@@ -93,4 +93,3 @@
       grid-template-columns: 1fr; /* Stack boxes on smaller screens */
     }
   }
-  

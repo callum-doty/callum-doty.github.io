@@ -10,10 +10,9 @@
     writing-mode: vertical-lr;
     transform: rotate(360deg);
     text-transform: uppercase;
-    font-family: 'Montserrat', sans-serif;
     font-size: 4rem;
     letter-spacing: 0.1em;
-    color: #9ca3af;
+    color: #000000;
     padding: 2rem 0;
     margin-right: 6rem;
     position: relative;
@@ -29,7 +28,6 @@
     display: grid;
     gap: 6rem;
     padding: 2rem 0;
-    font-family: 'Montserrat', sans-serif;
   }
   
   .project-card {
@@ -73,7 +71,7 @@
   .project-info p {
     font-size: 1.1rem;
     line-height: 1.6;
-    color: #4b5563;
+    color: #000000;
     margin: 0;
   }
   

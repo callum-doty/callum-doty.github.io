@@ -1,92 +1,78 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useMatch, useResolvedPath, useNavigate, useLocation } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link, useLocation } from "react-router-dom";
 import '../styles/Header.css';
-import logo from '../assets/logo_callumdoty.png';
-
-function CustomLink({ to, children, onClick, ...props }) {
-  const resolvedPath = useResolvedPath(to);
-  const isActive = useMatch({ path: resolvedPath.pathname, end: true });
-
-  return (
-    <li className={isActive ? "active" : ""}>
-      <Link to={to} onClick={onClick} {...props}>
-        {children}
-      </Link>
-    </li>
-  );
-}
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [experienceScrollPending, setExperienceScrollPending] = useState(false);
-  const navigate = useNavigate();
   const location = useLocation();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Scroll to top (header) when navigating to a new route or on initial page load
-  useEffect(() => {
-    document.getElementById('header')?.scrollIntoView({ behavior: 'smooth' });
-  }, [location]);
-
-  // Scrolls to the "projects" section if pending after navigation
-  useEffect(() => {
-    if (experienceScrollPending) {
-      document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
-      setExperienceScrollPending(false);
-    }
-  }, [experienceScrollPending, location]);
-
-  const handleExperienceClick = (e) => {
-    e.preventDefault();
-    setIsMenuOpen(false);
-
-    if (location.pathname !== '/') {
-      // If not on home page, navigate to home, then scroll after navigation completes
-      setExperienceScrollPending(true);
-      navigate('/', { replace: true });
-    } else {
-      // If already on home page, just scroll to projects
-      document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
-    }
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
+  const handleLinkClick = (e, path) => {
+    if (location.pathname === path) {
+      e.preventDefault();
+    }
+    toggleMenu();
+  };
+
+  // Determine current page indicator
+  let pageIndicator = "/01 HOME"; // Default
+  if (location.pathname.startsWith('/about')) {
+    pageIndicator = "/02 ABOUT";
+  } else if (location.pathname.startsWith('/experience')) {
+    pageIndicator = "/03 EXPERIENCE";
+  } else if (location.pathname.startsWith('/blog')) {
+    pageIndicator = "/04 BLOG";
+  } else if (location.pathname.startsWith('/projects/')) {
+    const pathParts = location.pathname.split('/');
+    const projectName = pathParts[pathParts.length - 1];
+    if (projectName) {
+      pageIndicator = `/05 ${projectName.toUpperCase()}`;
+    } else {
+      pageIndicator = "/05 PROJECTS";
+    }
+  }
+  const displayPageIndicator = pageIndicator.startsWith('/') ? pageIndicator.substring(1) : pageIndicator;
+
+  const menuLinks = [
+    { path: "/", label: "01 HOME" },
+    { path: "/about", label: "02 ABOUT" },
+    { path: "/experience", label: "03 EXPERIENCE" },
+    { path: "/blog", label: "04 BLOG" },
+  ];
+
   return (
-    <nav className="header" id="header">
-      <div className="nav-container">
-        {/* Logo */}
-        <Link to="/" className="logo">
-          <img 
-            src={logo} 
-            alt="Callum Doty Logo" 
-            className="logo-img" 
-          />
-        </Link>
-
-        {/* Mobile Menu Button */}
-        <button 
-          className={`mobile-menu-btn ${isMenuOpen ? 'open' : ''}`}
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Toggle menu"
+    <>
+      <nav className="abgd-style-header" id="abgd-style-header">
+        <div className="header-item header-main-title">
+          <Link to="/">PORTFOLIO</Link>
+        </div>
+        <div 
+          className="header-item header-index-indicator" 
+          onClick={toggleMenu}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => e.key === 'Enter' && toggleMenu()}
         >
-          <span className="hamburger-top"></span>
-          <span className="hamburger-middle"></span>
-          <span className="hamburger-bottom"></span>
-        </button>
+          Index/{displayPageIndicator}
+        </div>
+      </nav>
 
-        {/* Navigation Links */}
-        <ul className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
-          <CustomLink to="/About">About</CustomLink>
-          <li>
-            <a 
-              href="#projects" 
-              onClick={handleExperienceClick}
-              className={location.pathname === '/' && document.getElementById('projects')?.getBoundingClientRect().top < window.innerHeight ? 'active' : ''}
-            >
-              Experience
-            </a>
-          </li>
-          <CustomLink to="/Blog">Blog</CustomLink>
-        </ul>
+      <div className={`slide-out-menu ${isMenuOpen ? 'open' : ''}`}>
+        <button className="menu-close-button" onClick={toggleMenu} aria-label="Close menu">
+          &times;
+        </button>
+        <div className="menu-links-container">
+          {menuLinks.map(link => (
+            <Link key={link.path} to={link.path} className="menu-link" onClick={(e) => handleLinkClick(e, link.path)}>
+              {link.label}
+            </Link>
+          ))}
+        </div>
       </div>
-    </nav>
+      {isMenuOpen && <div className="menu-overlay" onClick={toggleMenu}></div>}
+    </>
   );
 }

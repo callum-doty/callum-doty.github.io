@@ -1,158 +1,303 @@
-/* Home.css */
-/* Remove the universal background color */
-/* * {
-  background-color: rgb(239, 255, 239);
-} */
-
-/* Apply background color to body or specific components that need it */
+/* Basic Reset / Defaults */
 body {
-  background-color: rgb(238, 247, 238);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f0f0f0; 
+  color: #000; /* Black text */
 }
 
-.home-wrapper {
-  position: relative;
-  isolation: isolate;
-  background: transparent;
-  min-height: 100vh;
+.abgd-home-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 20px; /* General padding */
+  box-sizing: border-box;
+  background-color: #f0f0f0;
 }
 
-@keyframes riseAndFade {
-  0% {
-    transform: translateY(8vh);
-    opacity: 0;
-  }
-  20% {
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 0.2;
-  }
-}
-
-@keyframes layoutReveal {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.dot-pattern-background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1;
-  background-image: url('/src/assets/bkg.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  pointer-events: none;
-  background-color: transparent;
-  animation: riseAndFade 2.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-}
-
-/* Layout animation elements */
-.layout-element {
-  opacity: 0;
-  animation: layoutReveal 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-}
-
-.delay-1 {
-  animation-delay: 0.3s;
-}
-
-.delay-2 {
-  animation-delay: 0.6s;
-}
-
-.delay-3 {
-  animation-delay: 0.9s;
-}
-
-/* Ensure the animation container doesn't clip */
-.layout-animation {
-  overflow: visible;
-}
-
-/* Make animations smoother */
-.layout-element {
-  will-change: transform, opacity;
-  backface-visibility: hidden;
-}
-
-/* Optional: Add hover effects for interactive elements */
-.layout-element:hover {
-  transition: transform 0.3s ease;
-  transform: translateY(-2px);
-}
-
-/* Adjust existing media queries if needed */
-@media (max-width: 768px) {
-  .layout-element {
-    animation-duration: 0.8s; /* Slightly faster on mobile */
-  }
-}
-
-.home-content {
-  min-height: calc(100vh - 80px);
-  padding: 8rem 1.5rem;
+/* Header Styles */
+.abgd-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
-  position: relative;
-  /* Remove any background color here */
-  background: transparent;
-}
-
-/* Make sure other components are also transparent */
-.home-container,
-.projects-container,
-.vertical-text,
-.projects-section {
-  background: transparent;
-}
-
-.vertical-text {
-  writing-mode: vertical-lr;
-  transform: rotate(360deg);
+  padding-bottom: 20px;
+  font-size: 12px; 
   text-transform: uppercase;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 4rem;
-  letter-spacing: 0.1em;
-  color: #9ca3af;
-  padding: 2rem 0;
-  margin-right: 6rem;
-  position: relative;
-  height: max-content;
+  border-bottom: 1px solid #000000;
+  margin-bottom: 40px;
 }
 
-.projects-section {
-  margin: 1rem 0;
-  display: grid;
-  gap: 16rem;
-  padding: 2rem 0;
-  font-family: 'Montserrat', sans-serif;
+.abgd-header .portfolio-title {
+  font-weight: bold;
+}
+
+/* Main Content Styles */
+.abgd-main-content {
+  flex-grow: 1;
   width: 100%;
+  /* max-width: 1200px; /* Removed to allow full width */
+  /* margin: 0 auto; /* Removed for full width */
 }
 
-@media (max-width: 1024px) {
-  .home-container,
-  .projects-container {
-    width: 95%;
-  }
+/* Unified Initials Section Styles */
+.unified-initials-section {
+  margin-bottom: 40px;
+  display: flex;
+  /* flex-direction is now handled by more specific rules or other stylesheets */
+  align-items: flex-start; /* Left-align content within this section */
+}
+
+.unified-initials-section.home-page-initials {
+  flex-direction: column; /* Apply column direction specifically for the home page */
+}
+
+/* Styles for the large text "CAL.D" */
+.home-main-text {
+  font-size: 11vw; /* Large responsive font size */
+  font-weight: 500; /* Bold */
+  color: #000; /* Black text */
+  margin: 0; /* Reset default h1 margin */
+  text-align: left; /* Ensure left alignment explicitly */
+}
+
+.equation-short {
+  line-height: 0.7;
+  margin-bottom: -19px;
+  margin-left: -15px;
+}
+
+.equation-medium {
+  line-height: 1.1;
+  margin-bottom: -30px;
+  margin-left: -10px;
+  white-space: nowrap;
+}
+
+.equation-tall {
+  line-height: 1.2;
+  margin-bottom: -35px;
+}
+
+.equation-arrow {
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+}
+
+.text-details {
+  display: flex;
+  flex-direction: row; /* Arrange p tags in a line */
+  justify-content: space-between; /* Distribute p tags evenly across the available width */
+  align-items: baseline; /* Align text baselines */
+  width: 100%; /* Ensure this container takes full width to space children across */
+  padding-bottom: 7px;
+  border-bottom: 1px solid #000000;
+}
+
+.text-details p {
+  font-size: 14px;
+  text-transform: uppercase;
+  margin: 0; 
+  color: #000;
+}
+
+/* Description Container */
+.description-container {
+  display: flex;
+  align-items: flex-start; /* Align items to the top */
+  margin-bottom: 30px; /* Space below the container */
+  margin-left: auto;
+  margin-top: 200px; /* Align the whole container to the right */
+  max-width: 1300px; /* Constrain the whole container to allow margin-left: auto to work as expected */
+}
+
+.description-image {
+  flex-shrink: 0; /* Prevent image from shrinking */
+  width: 600px; /* Adjust width as needed */
+  height: auto; /* Maintain aspect ratio */
+  margin-left: 20px; /* Space between text and image */
+}
+
+/* Description Section */
+.description-section {
+  /* margin-left: auto; /* Removed, alignment handled by flex container */
+  /* margin-bottom: 30px; /* Moved to description-container */
+  max-width: 700px; /* Adjusted max-width: 1100 (container) - 600 (image) - 20 (margin) */
+  
+  /* Consider centering this block or aligning it relative to one of the initial columns */
+}
+
+.description-section p {
+  font-size: 16px;
+  line-height: 1.6;
+  text-align: left; /* Corrected: Align text within paragraphs to the left */
+  
+}
+
+/* Bottom Section */
+.bottom-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  border-top: 1px solid #000000; /* Subtle line */
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.portfolio-link {
+  font-weight: bold;
+  cursor: pointer; /* Indicate it's clickable */
+}
+
+/* Remove old styles if they exist and conflict */
+.home-wrapper, .dot-pattern-background, .home-content, .layout-animation, .layout-element {
+    /* If these were from the old Home.css, they might need to be removed or updated.
+       For now, this new CSS is self-contained with new class names. */
 }
 
 @media (max-width: 768px) {
-  .home-content {
-    padding: 2rem 1rem;
+  .description-container {
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    margin-left: 0; /* Reset margin-left for mobile */
+    margin-top: 40px; /* Reduce margin-top for mobile */
+    max-width: 100%; /* Allow full width */
   }
 
-  .vertical-text {
-    font-size: 2.5rem;
-    margin-right: 1.5rem;
+  .description-section {
+    max-width: 90%; /* Allow text to take more width on mobile */
+    /* order: 1; /* Ensure text is first if flex-direction was reversed, but not needed with column */
+  }
+
+  .description-image {
+    width: 90%; /* Adjust image width for mobile */
+    max-width: 400px; /* Max image width on mobile */
+    margin-left: 0; /* Reset margin-left */
+    margin-top: 20px; /* Add space above the image */
+    /* order: 2; /* Ensure image is second */
+  }
+
+  .home-main-text {
+    font-size: 15vw; /* Slightly larger for mobile if needed, or adjust as per design */
+  }
+
+  .text-details {
+    flex-direction: column; /* Stack text details on mobile */
+    align-items: flex-start; /* Align items to the start */
+  }
+
+  .text-details p {
+    margin-bottom: 5px; /* Add some space between stacked p tags */
+  }
+}
+
+/* Home Page Projects Overview Section */
+.home-projects-overview-section {
+  margin-top: 5px; /* Space above the projects section */
+  margin-bottom: 40px; /* Space below the projects section */
+  padding: 10px 0; /* Padding top and bottom */
+}
+
+.home-projects-overview-section h2 {
+  font-size: 3.5em; /* Large heading for the section */
+  font-weight: 500;
+  color: #000;
+  text-align: left;
+  margin-bottom: 30px; /* Space below the heading */
+  text-transform: uppercase;
+  margin-left: 400px;
+}
+
+.home-projects-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* Each project on its own line */
+  gap: 30px; /* Space between cards */
+}
+
+.home-project-card-link {
+  text-decoration: none; /* Remove underline from links */
+  color: inherit; /* Inherit text color */
+  display: block; /* Make the link a block to contain the card */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.home-project-card-link:hover,
+.home-project-card-link:focus {
+  /* No box-shadow or other effects here, as per request */
+}
+
+.home-project-card {
+  padding: 25px 25px 25px 400px; /* Top, Right, Bottom, Left (original 25px + 400px shift for left) */
+  height: 100%; /* Make cards in a row equal height if needed by content */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Pushes CTA to bottom */
+  border-top: 1px solid #000000; /* Line separator at the top */
+}
+
+.home-project-card-link:hover .home-project-card {
+  border-top: 2px solid #000; /* Bolder and darker top border on hover */
+}
+
+.home-project-card h3 {
+  font-size: 1.5em;
+  font-weight: 600;
+  color: #000;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.home-project-card p {
+  font-size: 1em;
+  line-height: 1.6;
+  color: #000000; /* Darker gray for text */
+  margin-bottom: 20px;
+  flex-grow: 1; /* Allows paragraph to take available space */
+  max-width: 600px;
+}
+
+.home-project-card-cta {
+  font-weight: bold;
+  color: #000; /* Black color for CTA */
+  text-transform: uppercase;
+  font-size: 0.9em;
+  align-self: flex-start; /* Align CTA to the left */
+}
+
+/* Optional: Styles for project card images if you add them later */
+/*
+.home-project-card-image {
+  width: 100%;
+  height: 200px; 
+  object-fit: cover; 
+  border-radius: 4px 4px 0 0; 
+  margin-bottom: 15px;
+}
+*/
+
+@media (max-width: 768px) {
+  .home-projects-overview-section h2 {
+    font-size: 2em; /* Adjust heading size for mobile */
+    margin-left: 0; /* Reset margin for mobile */
+    text-align: center; /* Center title on mobile */
+  }
+
+  .home-project-card {
+    padding: 25px; /* Reset padding for mobile */
+    align-items: center; /* Center content within the card */
+  }
+
+  .home-project-card h3,
+  .home-project-card p {
+    text-align: center; /* Center text within these elements */
+  }
+
+  .home-project-card-cta {
+    align-self: center; /* Center the CTA button */
+  }
+
+  .home-projects-grid {
+    grid-template-columns: 1fr; /* Single column on smaller screens */
   }
 }

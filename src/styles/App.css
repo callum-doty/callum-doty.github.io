@@ -1,8 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
 
   html, body {
     height: 100%;
@@ -30,4 +36,31 @@
   footer {
     z-index: 1; /* Ensure footer is above the wave background */
   }
-  
+
+.main-content {
+  position: relative;
+  width: 100%;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+.content-wrapper {
+  flex-grow: 1; /* Ensures content fills available space, pushing footer down */
+}
+
+.content-fade-in {
+  animation: fade-in 1s forwards 3s;
+  opacity: 0;
+}
+
+@keyframes fade-in {
+  to {
+    opacity: 1;
+  }
+}

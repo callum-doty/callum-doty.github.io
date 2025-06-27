@@ -1,0 +1,51 @@
+.border {
+    position: fixed;
+    background-color: black;
+    z-index: 9999;
+  }
+  
+  .border-top, .border-bottom {
+    height: 1px;
+    width: 0;
+    animation: expand-horizontal 1s forwards;
+  }
+  
+  .border-left, .border-right {
+    width: 1px;
+    height: 0;
+    animation: expand-vertical 1s forwards;
+  }
+  
+  .border-top {
+    top: 0;
+    left: 0;
+    animation-delay: 1s; /* Starts after vertical borders */
+  }
+  
+  .border-right {
+    right: 0;
+    bottom: 0;
+  }
+  
+  .border-bottom {
+    bottom: 0;
+    left: 0;
+    animation-delay: 1s; /* Starts after vertical borders */
+  }
+  
+  .border-left {
+    left: 0;
+    bottom: 0;
+  }
+  
+  @keyframes expand-horizontal {
+    to {
+      width: 100%;
+    }
+  }
+  
+  @keyframes expand-vertical {
+    to {
+      height: 100%;
+    }
+  }

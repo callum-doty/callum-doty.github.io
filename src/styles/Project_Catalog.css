@@ -1,0 +1,593 @@
+/* Page Wrapper and Main Content Styles (copied from Home.css and adapted) */
+body {
+  background-color: #f0f0f0;
+
+}
+
+.cherge-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 20px; /* General padding */
+  box-sizing: border-box;
+  background-color: #f0f0f0;
+  color: #000; /* Assuming base text color */
+}
+
+.cherge-main-content {
+  flex-grow: 1;
+  width: 100%;
+}
+
+/* Text Details Styles (copied from Home.css and adapted) */
+.cherge-text-details {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  width: 100%; /* Ensure this container takes full width */
+  padding-bottom: 10px; /* Keep or adjust as needed */
+  margin-top: 3em; /* Increased space above this container */
+  /* border-bottom: 1px solid #ccc; */ /* Border removed as per request */
+}
+
+/* Styles for the individual detail items (previously p, now h3.cherge-detail-item) */
+.cherge-detail-item {
+  font-weight: 500; /* Copied from .project-catalog-title */
+  line-height: 1; /* Adjusted for readability */
+  color: #000; /* Copied from .project-catalog-title */
+  text-align: left; /* Copied from .project-catalog-title */
+  font-size: 3vw; /* Matched to .project-catalog-title */
+}
+
+/* Commenting out old .cherge-text-details p as it's no longer used for these items
+.cherge-text-details p {
+  font-size: 14px;
+  text-transform: uppercase;
+  margin: 0; 
+}
+*/
+
+/* Existing Cherge.css styles below */
+.unified-initials-section {
+  display: flex; /* Enable flexbox */
+  flex-direction: row; /* Ensure items are laid out in a row */
+  align-items: flex-start; /* Align items to the top */
+  gap: 2rem; /* Space between text and image */
+  margin-bottom: 2rem; /* Space below the section */
+}
+
+.unified-initials-text-content {
+  flex: 1; /* Text content takes 1/3 space */
+}
+
+.unified-initials-image-container {
+  flex: 1; /* Image content takes 2/3 space */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.unified-initials-image {
+  width: 100%; /* Make image fill its container's width */
+  height: auto;
+  border-radius: 20px; /* Optional: if you want rounded corners */
+
+}
+
+.project-catalog-title {
+  font-weight: 500; /* Copied from home-main-text */
+  line-height: 1; /* Copied from home-main-text */
+  color: #000; /* Copied from home-main-text */
+  text-align: left; /* Copied from home-main-text */
+  margin-top: 0; /* Adapted from home-main-text (margin: 0) */
+  font-size: 3vw; /* Existing: Slightly smaller than home-main-text (which is 12vw in Home.css) */
+  margin-bottom: 0.5em; /* Existing: Add some space below the title */
+  padding-bottom: 0.3em;
+}
+
+.cherge-specific-title {
+  margin-bottom: 0 !important; /* Remove bottom margin specifically for Cherge page */
+}
+
+.project-catalog-subtitle {
+  font-size: 1.5rem; /* Adjust size as needed */
+  color: #000000; /* Or your desired color */
+  text-align: left; /* Or left, right as per design */
+  margin-bottom: 4em; /* Space before the next element */
+  max-width: 800px; /* Optional: constrain width */
+  line-height: 1.3;
+  font-weight: 500;
+}
+
+.project-page {
+    width: 100%;
+    min-height: calc(100vh - 80px);
+  }
+  
+  .project-container {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+  
+  .project-hero {
+    text-align: left;
+    margin: 4rem 0 6rem;
+  }
+  
+  .project-hero h1 {
+    font-size: 4rem;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 2rem;
+  }
+  
+  .project-subtitle {
+    font-size: 1.5rem;
+    line-height: 1.6;
+    color: #000000;
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+  
+  .project-main-image {
+    width: 100%;
+    margin-bottom: 6rem;
+  }
+  
+  .hero-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .project-info-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin: 0 auto;
+    max-width: 90%;
+  }
+  
+  .info-section {
+    padding: 1rem;
+    border-radius: 0.5rem;
+
+  }
+  
+  .info-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  
+  .info-title::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 0;
+    width: 2rem;
+    height: 2px;
+    background-color: #2563eb;
+  }
+  
+  .info-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #000000;
+  }
+  
+  @media (max-width: 1024px) {
+    .project-info-grid {
+      grid-template-columns: repeat(2, 1fr);
+      max-width: 100%;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .project-container {
+      padding: 1rem;
+    }
+  
+    .project-hero h1 {
+      font-size: 3rem;
+    }
+  
+  .project-subtitle {
+    font-size: 2rem; /* Corrected from 3rem to a more reasonable size */
+  }
+
+  .unified-initials-section {
+    flex-direction: column; /* Stack text and image on smaller screens */
+  }
+  
+    .project-info-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  
+    .info-section {
+      padding: 1.5rem;
+    }
+  }
+
+
+  /* Keep your existing CSS and add these styles */
+
+.gallery-section {
+    margin: 6rem auto;
+    width: 100%;
+    max-width: 80rem;
+  }
+  
+  .gallery-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+  
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    width: 100%;
+  }
+  
+  .gallery-item {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 aspect ratio */
+    background-color: #f3f4f6;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .gallery-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  
+  /* Loading animation */
+  @keyframes imageLoad {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  .gallery-image {
+    animation: imageLoad 0.5s ease-in;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 1024px) {
+    .gallery-section {
+      margin: 4rem auto;
+      padding: 0 2rem;
+    }
+    
+    .gallery-grid {
+      gap: 0;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .gallery-section {
+      margin: 3rem auto;
+      padding: 0 1rem;
+    }
+  
+    .gallery-title {
+      font-size: 1.75rem;
+      margin-bottom: 2rem;
+    }
+  
+    .gallery-grid {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+  }
+  
+  /* Optional: Add a subtle shadow to images */
+  .gallery-item {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+                0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  /* Optional: Add focus states for accessibility */
+  .gallery-image:focus {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+  }
+
+  .embed-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 3rem;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 1vh; /* Optional: centers vertically in the viewport */
+  }
+  
+  .process-deck-button {
+    padding: 30px 70px;
+    background-color: #00db3e;
+    color: #000000;
+    border: none;
+    border-radius: 1px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-block;
+  }
+  
+  .process-deck-button:hover {
+    background-color: #00b728;
+  }
+
+/* Styles for the new rows section */
+.new-rows-section {
+  margin-bottom: 2rem; /* Space below the new rows section */
+  padding: 1rem;
+  background-color: #ffffff; /* Optional: background color for the section */
+  border-radius: 8px; /* Optional: rounded corners */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Optional: subtle shadow */
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between; /* Distribute columns evenly */
+  align-items: flex-start; /* Align items to the top of the row */
+  padding: 1rem 0; /* Padding above and below each row */
+}
+
+.info-column {
+  flex: 1; /* Each column takes equal width */
+  padding: 0 1rem; /* Padding within each column */
+  box-sizing: border-box;
+}
+
+.info-column h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 0.5rem;
+}
+
+.info-column p {
+  font-size: 1rem;
+  color: #000000;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.section-divider {
+  border: 0;
+  height: 1px;
+  background-color: #000000; /* Light gray color for the divider */
+  margin: 1rem 0; /* Space above and below the divider */
+}
+
+/* Styles for Project Catalog Cards */
+.catalog-projects-overview-section {
+  margin-top: 4rem; /* Space above the projects section */
+  margin-bottom: 4rem; /* Space below the projects section */
+}
+
+.catalog-projects-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* Each project on its own line, matching Home.css */
+  padding-bottom: 2em;
+}
+
+.catalog-project-card-link {
+  text-decoration: none; /* Remove underline if it were a link */
+  color: inherit; /* Inherit text color */
+  display: block; /* Make the link a block to contain the card */
+}
+
+.catalog-project-card {
+  height: 100%; /* Make cards in a row equal height */
+  display: flex;
+  flex-direction: row; /* Changed to row to place items side-by-side */
+  align-items: baseline; /* Align items by their text baseline */
+  gap: 3rem; /* Add space between h3 and p */
+  /* justify-content: space-between; */ /* May not be needed or desired for row layout */
+  border-top: 1px solid #000000; /* Line separator at the top */
+  padding-top: 1rem; /* Add some padding at the top */
+  padding-bottom: 1rem; /* Add some padding at the bottom */
+  margin-left: 300px; /* Pushes the card 300px from the left */
+}
+
+.catalog-project-card h3 {
+  font-size: 1.25em; /* Adjusted from Home.css for consistency */
+  font-weight: 600;
+  color: #000;
+  margin-top: 0;
+  margin-bottom: 0; /* Adjusted for row layout */
+  margin-left: 0; /* Adjusted as parent card now has margin-left */
+  /* padding-left: 300px;; */ /* Removed to align text to the left */
+  width: 100px; /* Ensure consistent width for h3 */
+  flex-shrink: 0; /* Prevent h3 from shrinking */
+}
+
+.catalog-project-card p {
+  font-size: 0.9em; /* Adjusted from Home.css */
+  line-height: 1.5; /* Adjusted from Home.css */
+  color: #000000; 
+  margin-bottom: 0; /* Adjusted for row layout */
+  padding-right: 30rem;
+  font-size: 15px;
+
+  /* flex-grow: 1; */ /* Removed as it might not be desired for row layout */
+  /* padding-left: 300px;; */ /* Removed to align text to the left */
+}
+
+hr {
+  border: none; /* Remove default border */
+  height: 1px; /* Set thickness */
+  background-color: #000000; /* Set color */
+  margin-right: 1100px;
+}
+
+
+/* Responsive adjustments for project cards in Project_Catalog.css */
+@media (max-width: 768px) {
+  .catalog-projects-overview-section {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  .catalog-projects-grid {
+    grid-template-columns: 1fr; /* Single column on smaller screens */
+    gap: 1.5rem;
+  }
+  .catalog-project-card {
+    padding: 1rem; /* Adjust padding for smaller cards */
+    margin-left: 0; /* Remove fixed margin for mobile */
+    flex-direction: column; /* Stack items vertically on mobile */
+    align-items: flex-start; /* Align items to the start */
+    gap: 0.5rem; /* Reduce gap for vertical stacking */
+  }
+  .catalog-project-card h3 {
+    font-size: 1.1em;
+    width: auto; /* Allow h3 to take natural width */
+  }
+  .catalog-project-card p {
+    padding-right: 0; /* Remove large padding for mobile */
+    font-size: 0.9em; /* Ensure p style is included */
+  }
+
+  hr {
+    margin-right: 1rem; /* Adjust hr margin for mobile */
+    margin-left: 1rem;
+  }
+}
+
+/* Three-column layout styles */
+.three-column-layout {
+  display: flex;
+  gap: 1rem; /* Adjust gap between columns as needed */
+  margin-top: 2rem; /* Space above the three-column section */
+  margin-bottom: 8rem; /* Space below the three-column section */
+}
+
+.column {
+  padding: 1rem; /* Optional padding within columns */
+  box-sizing: border-box;
+  /* Add any other styling for columns, like borders or background colors */
+}
+
+.column:first-child {
+  flex: 0 0 4.5%; /* 1/8th of the total width */
+  text-align: right;
+  font-weight: 700;
+}
+
+.column:not(:first-child) {
+  flex: 1; /* The other two columns will share the remaining space equally */
+}
+
+.column img {
+  max-width: 100%;
+  height: auto;
+  display: block; /* Removes extra space below the image */
+}
+
+.column:not(:first-child) p {
+  margin-bottom: 1em; /* Adds space between paragraphs */
+}
+
+.three-column-layout .column:nth-child(2) {
+  border-left: 1px solid black;
+}
+
+@media (max-width: 768px) {
+  .three-column-layout {
+    flex-direction: column; /* Stack columns vertically */
+    gap: 1.5rem; /* Adjust gap for stacked layout */
+    margin-bottom: 4rem; /* Adjust margin for mobile */
+  }
+
+  .column {
+    padding: 0.5rem; /* Adjust padding for smaller screens */
+  }
+
+  .column:first-child {
+    flex: 0 0 auto; /* Reset flex basis */
+    width: 100%; /* Take full width */
+    text-align: left; /* Align text to left for stacked layout */
+    margin-bottom: 1rem; /* Add space below the date */
+  }
+
+  .column:not(:first-child) {
+    flex: 1 1 auto; /* Allow other columns to grow and shrink */
+  }
+
+  .three-column-layout .column:nth-child(2) {
+    border-left: none; /* Remove left border */
+    border-top: 1px solid black; /* Add top border as separator */
+    padding-top: 1rem; /* Add padding above the border */
+  }
+}
+
+/* Styles for the 4-image grid */
+.image-grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  grid-template-rows: repeat(2, 1fr);    /* 2 rows */
+  gap: 10px; /* Adjust gap as needed */
+  width: 100%;
+  aspect-ratio: 1 / 1; /* Makes the container a square, adjust if needed */
+}
+
+.grid-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Cover the area without distorting aspect ratio */
+  border-radius: 8px; /* Optional: if you want rounded corners for images */
+}
+
+.role-list {
+  list-style: none;
+  padding: 0;
+}
+
+.role-list li {
+  display: flex;
+  align-items: flex-start;
+  padding: 0.08rem 0;
+}
+
+.role-list li::before {
+  content: '•';
+  margin-right: 7px;
+  font-size: 1.2em;
+  line-height: 1.2;
+  font-weight: 900;
+}
+
+.role-title {
+  font-weight: normal;
+  width: 400px; /* Adjust width as needed */
+  flex-shrink: 0;
+}
+
+.role-description {
+  font-weight: normal;
+}

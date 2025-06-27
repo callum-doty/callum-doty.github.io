@@ -1,0 +1,32 @@
+/* src/styles/transitions.css */
+.page-enter {
+  transform: translateX(-100%);
+  z-index: 2;
+  position: absolute;
+  width: 100%;
+}
+
+.page-enter-active {
+  transform: translateX(0%);
+  transition: transform 1000ms ease-in-out;
+  z-index: 2;
+  position: absolute;
+  width: 100%;
+}
+
+.page-exit {
+  transform: scale(1);
+  transform-origin: left;
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+}
+
+.page-exit-active {
+  transform: scale(0.8);
+  transform-origin: left;
+  transition: transform 1000ms ease-in-out;
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+}

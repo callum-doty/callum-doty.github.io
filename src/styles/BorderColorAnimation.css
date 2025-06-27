@@ -1,0 +1,17 @@
+@keyframes reveal-border-vertical {
+  from {
+    border-right-color: transparent;
+  }
+  to {
+    border-right-color: black;
+  }
+}
+
+@keyframes reveal-border-horizontal {
+  from {
+    border-top-color: transparent;
+  }
+  to {
+    border-top-color: black;
+  }
+}

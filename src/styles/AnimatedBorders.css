@@ -1,0 +1,48 @@
+.animated-border {
+  position: fixed;
+  background-color: black;
+  z-index: 1001; /* Ensure it's above other borders */
+}
+
+.vertical-border-left {
+  width: 1px;
+  height: 0;
+  left: 9vw; /* Position for the left vertical border */
+  bottom: 0;
+  animation: draw-vertical 1s forwards;
+}
+
+.vertical-border-right {
+  width: 1px;
+  height: 0;
+  left: 18vw; /* Align with navigation border */
+  bottom: 0;
+  animation: draw-vertical 1s forwards 1s; /* 1s delay */
+}
+
+.horizontal-border {
+  height: 1px;
+  width: 0;
+  bottom: 47px; /* Align with footer border */
+  left: 0;
+  animation: draw-horizontal 1s forwards 2s; /* 2s delay */
+}
+
+@keyframes draw-vertical {
+  to {
+    height: 100%;
+  }
+}
+
+@keyframes draw-horizontal {
+  to {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .vertical-border-left,
+  .vertical-border-right {
+    display: none;
+  }
+}

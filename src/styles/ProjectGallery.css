@@ -52,10 +52,9 @@
 .vertical-text2 {
   transform: rotate(360deg);
   text-transform: uppercase;
-  font-family: 'Montserrat', sans-serif;
   font-size: 4rem;
   letter-spacing: 0.1em;
-  color: #9ca3af;
+  color: #000000;
   padding: 2rem;
   margin-top: 2rem;
   margin-bottom: 1rem;
@@ -111,7 +110,7 @@
   align-items: center;
   padding: 20px;
   font-size: 14px;
-  color: #666;
+  color: #000000;
 }
 
 .disclaimer {
