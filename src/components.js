@@ -35,7 +35,7 @@ function createCard(cardData) {
 
 function createFooter() {
     const footer = document.createElement('footer');
-    footer.className = 'text-center mt-16';
+    footer.className = 'text-center mt-16 pb-8';
     const p = document.createElement('p');
     p.className = 'text-black';
     p.innerHTML = `
