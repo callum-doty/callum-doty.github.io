@@ -19,7 +19,7 @@ function createCard(cardData) {
     svg.appendChild(path);
 
     const title = document.createElement('h2');
-    title.className = 'mt-4 text-2xl font-bold';
+    title.className = 'mt-4 text-lg md:text-xl font-bold';
     title.textContent = cardData.title;
 
     const description = document.createElement('p');
