@@ -1,0 +1,14 @@
+[
+    {
+        "href": "/simple",
+        "imagePath": "assets/yantra.png",
+        "title": "The Simple Path",
+        "description": "A concise overview of my skills and impact."
+    },
+    {
+        "href": "/complex",
+        "imagePath": "assets/decision-tree.png",
+        "title": "The Complex Path",
+        "description": "A detailed look at my process and projects."
+    }
+]
