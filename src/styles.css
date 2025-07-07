@@ -57,4 +57,18 @@ body {
   .homepage-hero {
     padding-left: 2rem;
   }
+
+  .header {
+    position: relative;
+  }
+
+  #mobile-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border-bottom: 1px solid black;
+    z-index: 10;
+  }
 }

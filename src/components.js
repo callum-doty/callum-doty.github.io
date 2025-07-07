@@ -45,9 +45,11 @@ export function createHeader() {
         { href: 'mailto:doty.callum9@gmail.com', text: 'Email' }
     ];
 
+    const allNavLinks = [...leftNavLinks, ...rightNavLinks];
+
     const currentPath = window.location.pathname;
 
-    const leftNavLinksHTML = leftNavLinks.map(link => {
+    const desktopLeftNavLinksHTML = leftNavLinks.map(link => {
         let isActive = currentPath === link.href || currentPath === link.href + '.html';
 
         // Handle homepage
@@ -65,19 +67,57 @@ export function createHeader() {
         return `<a href="${link.href}" class="text-gray-800 hover:text-indigo-600 px-3 py-2 ${fontWeight}">${link.text}</a>`;
     }).join(' | ');
 
-    const rightNavLinksHTML = rightNavLinks.map(link => `
+    const desktopRightNavLinksHTML = rightNavLinks.map(link => `
         <a href="${link.href}" target="_blank" class="text-gray-800 hover:text-indigo-600 px-3 py-2">${link.text}</a>
     `).join(' | ');
 
+    const mobileNavLinksHTML = allNavLinks.map(link => {
+        let isActive = currentPath === link.href || currentPath === link.href + '.html';
+
+        // Handle homepage
+        if (link.href === '/' && (currentPath === '/' || currentPath === '/index.html')) {
+            isActive = true;
+        }
+
+        // Handle blog subpages
+        if (link.href === '/blog' && currentPath.startsWith('/blog')) {
+            isActive = true;
+        }
+
+        const fontWeight = isActive ? 'font-bold' : '';
+        
+        return `<a href="${link.href}" class="block text-gray-800 hover:text-indigo-600 px-3 py-2 ${fontWeight}">${link.text}</a>`;
+    }).join('');
+
     header.innerHTML = `
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-      <nav>
-        ${leftNavLinksHTML}
+      <nav class="hidden md:flex">
+        ${desktopLeftNavLinksHTML}
       </nav>
-      <nav>
-        ${rightNavLinksHTML}
+      <nav class="hidden md:flex">
+        ${desktopRightNavLinksHTML}
+      </nav>
+      <div class="md:hidden flex items-center">
+        <button id="hamburger-button" class="text-gray-800 focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="md:hidden hidden">
+      <nav class="px-2 pt-2 pb-4 space-y-1 sm:px-3">
+        ${mobileNavLinksHTML}
       </nav>
     </div>
   `;
+
+    const hamburgerButton = header.querySelector('#hamburger-button');
+    const mobileMenu = header.querySelector('#mobile-menu');
+
+    hamburgerButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
     return header;
 }
