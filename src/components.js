@@ -33,10 +33,10 @@ export function createHeader() {
     header.className = 'bg-white border-b border-black';
 
     const leftNavLinks = [
-        { href: '/index.html', text: 'Home' },
-        { href: '/complex.html', text: 'Work' },
-        { href: '/about.html', text: 'About' },
-        { href: '/blog/index.html', text: 'Blog' }
+        { href: '/', text: 'Home' },
+        { href: '/complex', text: 'Work' },
+        { href: '/about', text: 'About' },
+        { href: '/blog', text: 'Blog' }
     ];
 
     const rightNavLinks = [
@@ -48,15 +48,15 @@ export function createHeader() {
     const currentPath = window.location.pathname;
 
     const leftNavLinksHTML = leftNavLinks.map(link => {
-        let isActive = currentPath === link.href;
+        let isActive = currentPath === link.href || currentPath === link.href + '.html';
 
-        // Handle homepage /index.html
-        if (link.href === '/index.html' && (currentPath === '/' || currentPath === '/index.html')) {
+        // Handle homepage
+        if (link.href === '/' && (currentPath === '/' || currentPath === '/index.html')) {
             isActive = true;
         }
 
         // Handle blog subpages
-        if (link.href === '/blog/index.html' && currentPath.startsWith('/blog')) {
+        if (link.href === '/blog' && currentPath.startsWith('/blog')) {
             isActive = true;
         }
 
