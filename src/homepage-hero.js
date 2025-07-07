@@ -41,26 +41,8 @@ export default class HomepageHero {
 
   mouseMoveHandler(e) {
     const mousePos = this.getMousePos(this.canvas, e);
-    this.mx = Math.floor(mousePos.x / this.size) * this.size;
-    this.my = Math.floor(mousePos.y / this.size) * this.size;
-
-    for (let x = 0; x < this.columns; x++) {
-      for (let y = 0; y < this.rows; y++) {
-        let angle = this.field[x][y][0];
-        let dx = this.mx - x * this.size;
-        let dy = this.my - y * this.size;
-        let mouseAngle = Math.atan2(dy, dx);
-        let angleDiff = mouseAngle - angle;
-
-        angleDiff = ((angleDiff + Math.PI) % (2 * Math.PI)) - Math.PI;
-
-        const rotationFactor = 0.05;
-        angleDiff *= rotationFactor;
-        angle += angleDiff;
-
-        this.field[x][y][0] = angle;
-      }
-    }
+    this.mx = mousePos.x;
+    this.my = mousePos.y;
   }
 
   handleAnimation(direction) {
@@ -154,9 +136,22 @@ export default class HomepageHero {
         let length =  simplexLength > 0.25 ? simplexLength : 0.25;
         let lightness = (this.noise.noise3D(x / 10 + 20000, y / 10 + 20000, this.noiseZ * 4) + 1) / 2 * 80;
 
-        if (!this.isHovering) {
-          this.field[x][y][0] = angle;
+        this.field[x][y][0] = angle;
+
+        if (this.isHovering && this.mx !== null) {
+          let particleX = x * this.size;
+          let particleY = y * this.size;
+          let dx = this.mx - particleX;
+          let dy = this.my - particleY;
+          let distance = Math.sqrt(dx * dx + dy * dy);
+          let maxDistance = 150;
+
+          if (distance < maxDistance) {
+            let growth = (1 - (distance / maxDistance)) * 0.75;
+            length += growth;
+          }
         }
+
         this.field[x][y][1] = length;
         this.field[x][y][3] = lightness;
       }
@@ -179,6 +174,8 @@ export default class HomepageHero {
 
   handleMouseLeave() {
     this.isHovering = false;
+    this.mx = null;
+    this.my = null;
   }
 
   handleMouseEnter() {

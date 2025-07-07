@@ -52,3 +52,9 @@ body {
 .custom-card-icon {
   filter: brightness(0);
 }
+
+@media (max-width: 768px) {
+  .homepage-hero {
+    padding-left: 2rem;
+  }
+}
