@@ -64,12 +64,12 @@ export function createHeader() {
 
         const fontWeight = isActive ? 'font-bold' : '';
         
-        return `<a href="${link.href}" class="text-gray-800 hover:text-indigo-600 px-3 py-2 ${fontWeight}">${link.text}</a>`;
-    }).join(' | ');
+        return `<span><a href="${link.href}" class="text-gray-800 hover:text-indigo-600 px-3 py-2 ${fontWeight}">${link.text}</a></span>`;
+    }).join(' <span class="separator">|</span> ');
 
     const desktopRightNavLinksHTML = rightNavLinks.map(link => `
-        <a href="${link.href}" target="_blank" class="text-gray-800 hover:text-indigo-600 px-3 py-2">${link.text}</a>
-    `).join(' | ');
+        <span><a href="${link.href}" target="_blank" class="text-gray-800 hover:text-indigo-600 px-3 py-2">${link.text}</a></span>
+    `).join(' <span class="separator">|</span> ');
 
     const mobileNavLinksHTML = allNavLinks.map(link => {
         let isActive = currentPath === link.href || currentPath === link.href + '.html';

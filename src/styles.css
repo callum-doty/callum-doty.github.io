@@ -53,13 +53,19 @@ body {
   filter: brightness(0);
 }
 
+.separator {
+  display: inline-flex;
+  align-items: center;
+}
+
+header {
+  position: relative;
+  z-index: 10;
+}
+
 @media (max-width: 768px) {
   .homepage-hero {
     padding-left: 2rem;
-  }
-
-  .header {
-    position: relative;
   }
 
   #mobile-menu {
@@ -69,6 +75,5 @@ body {
     right: 0;
     background-color: white;
     border-bottom: 1px solid black;
-    z-index: 10;
   }
 }
