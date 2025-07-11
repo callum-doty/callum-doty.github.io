@@ -1,194 +1,201 @@
 <head>
   <link rel="stylesheet" href="/src/styles.css" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="src/animation.js" defer></script>
 </head>
 <body>
   <script type="module" src="/src/header.js"></script>
-  <div class="container mx-auto px-6 py-12">
-    <!-- Essentials -->
-    <section id="essentials" class="mb-16">
-      <h2 class="text-3xl font-bold text-center mb-8">Essentials</h2>
-      <div class="max-w-3xl mx-auto">
-        <p class="text-lg text-left text-black">
-          A creative developer and designer with a passion for building elegant
-          solutions to complex challenges. I am a quick learner who thrives on
-          leading products through the full lifecycle, from research and design
-          to development and implementation. My focus is on delivering impactful
-          software and physical creations while continuously improving the
-          processes behind them.
-        </p>
-        <div class="mt-8">
-          <h3 class="text-2xl font-bold text-center mb-6">Core Competencies</h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div
-              class="bg-white p-6 rounded-lg border border-black border-l-4 border-l-indigo-500"
-            >
-              <h4 class="text-xl font-bold mb-4 text-indigo-700">
-                Software Development
-              </h4>
-              <div class="space-y-3">
-                <div>
-                  <span
-                    class="text-sm font-semibold text-gray-600 uppercase tracking-wide"
-                    >Languages</span
-                  >
-                  <ul class="mt-1 text-black list-disc list-inside ml-2">
-                    <li>Python</li>
-                    <li>JavaScript (React)</li>
-                    <li>SQL</li>
-                    <li>C++</li>
-                  </ul>
-                </div>
-                <div>
-                  <span
-                    class="text-sm font-semibold text-gray-600 uppercase tracking-wide"
-                    >Databases</span
-                  >
-                  <ul class="mt-1 text-black list-disc list-inside ml-2">
-                    <li>PostgreSQL</li>
-                    <li>MySQL</li>
-                  </ul>
-                </div>
-                <div>
-                  <span
-                    class="text-sm font-semibold text-gray-600 uppercase tracking-wide"
-                    >Development Principles</span
-                  >
-                  <ul class="mt-1 text-black list-disc list-inside ml-2">
-                    <li>Design Patterns</li>
-                    <li>Version Control (Git)</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="bg-white p-6 rounded-lg border border-black border-l-4 border-l-green-500"
-            >
-              <h4 class="text-xl font-bold mb-4 text-green-700">
-                Data Science & Analytics
-              </h4>
-              <div class="space-y-3">
-                <div>
-                  <span
-                    class="text-sm font-semibold text-gray-600 uppercase tracking-wide"
-                    >Analysis & Visualization</span
-                  >
-                  <ul class="mt-1 text-black list-disc list-inside ml-2">
-                    <li>Power BI</li>
-                    <li>Pandas</li>
-                    <li>Matplotlib/Seaborn</li>
-                  </ul>
-                </div>
-                <div>
-                  <span
-                    class="text-sm font-semibold text-gray-600 uppercase tracking-wide"
-                    >Machine Learning</span
-                  >
-                  <ul class="mt-1 text-black list-disc list-inside ml-2">
-                    <li>Model Development</li>
-                    <li>Neural Architectures</li>
-                    <li>Applied AI</li>
-                    <li>Model Optimization</li>
-                  </ul>
+  <main>
+    <div class="container mx-auto px-6 py-12">
+      <!-- Essentials -->
+      <section id="essentials" class="mb-16">
+        <h2 class="text-3xl font-bold text-center mb-8">Essentials</h2>
+        <div class="max-w-3xl mx-auto">
+          <p class="text-lg text-left text-black">
+            A creative developer and designer with a passion for building
+            elegant solutions to complex challenges. I am a quick learner who
+            thrives on leading products through the full lifecycle, from
+            research and design to development and implementation. My focus is
+            on delivering impactful software and physical creations while
+            continuously improving the processes behind them.
+          </p>
+          <div class="mt-8">
+            <h3 class="text-2xl font-bold text-center mb-6">
+              Core Competencies
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div
+                class="bg-white p-6 rounded-lg border border-black border-l-4 border-l-indigo-500"
+              >
+                <h4 class="text-xl font-bold mb-4 text-indigo-700">
+                  Software Development
+                </h4>
+                <div class="space-y-3">
+                  <div>
+                    <span
+                      class="text-sm font-semibold text-gray-600 uppercase tracking-wide"
+                      >Languages</span
+                    >
+                    <ul class="mt-1 text-black list-disc list-inside ml-2">
+                      <li>Python</li>
+                      <li>JavaScript (React)</li>
+                      <li>SQL</li>
+                      <li>C++</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <span
+                      class="text-sm font-semibold text-gray-600 uppercase tracking-wide"
+                      >Databases</span
+                    >
+                    <ul class="mt-1 text-black list-disc list-inside ml-2">
+                      <li>PostgreSQL</li>
+                      <li>MySQL</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <span
+                      class="text-sm font-semibold text-gray-600 uppercase tracking-wide"
+                      >Development Principles</span
+                    >
+                    <ul class="mt-1 text-black list-disc list-inside ml-2">
+                      <li>Design Patterns</li>
+                      <li>Version Control (Git)</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div
-              class="bg-white p-6 rounded-lg border border-black border-l-4 border-l-purple-500"
-            >
-              <h4 class="text-xl font-bold mb-4 text-purple-700">
-                Product & Visual Design
-              </h4>
-              <div class="space-y-3">
-                <div>
-                  <span
-                    class="text-sm font-semibold text-gray-600 uppercase tracking-wide"
-                    >UI/UX</span
-                  >
-                  <ul class="mt-1 text-black list-disc list-inside ml-2">
-                    <li>User Interface Design</li>
-                    <li>User Experience Design</li>
-                    <li>Wireframing</li>
-                    <li>Prototyping</li>
-                  </ul>
-                </div>
-                <div>
-                  <span
-                    class="text-sm font-semibold text-gray-600 uppercase tracking-wide"
-                    >Tools</span
-                  >
-                  <ul class="mt-1 text-black list-disc list-inside ml-2">
-                    <li>Figma</li>
-                    <li>Adobe Creative Suite</li>
-                  </ul>
+              <div
+                class="bg-white p-6 rounded-lg border border-black border-l-4 border-l-green-500"
+              >
+                <h4 class="text-xl font-bold mb-4 text-green-700">
+                  Data Science & Analytics
+                </h4>
+                <div class="space-y-3">
+                  <div>
+                    <span
+                      class="text-sm font-semibold text-gray-600 uppercase tracking-wide"
+                      >Analysis & Visualization</span
+                    >
+                    <ul class="mt-1 text-black list-disc list-inside ml-2">
+                      <li>Power BI</li>
+                      <li>Pandas</li>
+                      <li>Matplotlib/Seaborn</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <span
+                      class="text-sm font-semibold text-gray-600 uppercase tracking-wide"
+                      >Machine Learning</span
+                    >
+                    <ul class="mt-1 text-black list-disc list-inside ml-2">
+                      <li>Model Development</li>
+                      <li>Neural Architectures</li>
+                      <li>Applied AI</li>
+                      <li>Model Optimization</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div
-              class="bg-white p-6 rounded-lg border border-black border-l-4 border-l-orange-500"
-            >
-              <h4 class="text-xl font-bold mb-4 text-orange-700">
-                Computer Science Foundations
-              </h4>
-              <div class="space-y-3">
-                <div>
-                  <span
-                    class="text-sm font-semibold text-gray-600 uppercase tracking-wide"
-                    >Operating Systems</span
-                  >
-                  <ul class="mt-1 text-black list-disc list-inside ml-2">
-                    <li>Virtualization</li>
-                    <li>Concurrency</li>
-                    <li>Persistence</li>
-                  </ul>
+              <div
+                class="bg-white p-6 rounded-lg border border-black border-l-4 border-l-purple-500"
+              >
+                <h4 class="text-xl font-bold mb-4 text-purple-700">
+                  Product & Visual Design
+                </h4>
+                <div class="space-y-3">
+                  <div>
+                    <span
+                      class="text-sm font-semibold text-gray-600 uppercase tracking-wide"
+                      >UI/UX</span
+                    >
+                    <ul class="mt-1 text-black list-disc list-inside ml-2">
+                      <li>User Interface Design</li>
+                      <li>User Experience Design</li>
+                      <li>Wireframing</li>
+                      <li>Prototyping</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <span
+                      class="text-sm font-semibold text-gray-600 uppercase tracking-wide"
+                      >Tools</span
+                    >
+                    <ul class="mt-1 text-black list-disc list-inside ml-2">
+                      <li>Figma</li>
+                      <li>Adobe Creative Suite</li>
+                    </ul>
+                  </div>
                 </div>
-                <div>
-                  <span
-                    class="text-sm font-semibold text-gray-600 uppercase tracking-wide"
-                    >Networking</span
-                  >
-                  <ul class="mt-1 text-black list-disc list-inside ml-2">
-                    <li>TCP/IP Fundamentals</li>
-                  </ul>
+              </div>
+
+              <div
+                class="bg-white p-6 rounded-lg border border-black border-l-4 border-l-orange-500"
+              >
+                <h4 class="text-xl font-bold mb-4 text-orange-700">
+                  Computer Science Foundations
+                </h4>
+                <div class="space-y-3">
+                  <div>
+                    <span
+                      class="text-sm font-semibold text-gray-600 uppercase tracking-wide"
+                      >Operating Systems</span
+                    >
+                    <ul class="mt-1 text-black list-disc list-inside ml-2">
+                      <li>Virtualization</li>
+                      <li>Concurrency</li>
+                      <li>Persistence</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <span
+                      class="text-sm font-semibold text-gray-600 uppercase tracking-wide"
+                      >Networking</span
+                    >
+                    <ul class="mt-1 text-black list-disc list-inside ml-2">
+                      <li>TCP/IP Fundamentals</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Project Highlights -->
-    <section id="highlights" class="mb-16">
-      <h2 class="text-3xl font-bold text-center mb-8">Project Highlights</h2>
-      <div class="flex justify-center">
-        <a
-          href="/project-catalog"
-          class="grid md:grid-cols-1 lg:grid-cols-1 gap-8 max-w-sm"
-        >
-          <div class="bg-white rounded-lg border border-black overflow-hidden">
-            <img
-              src="/assets/simplechart.png"
-              alt="Project A"
-              class="w-full h-48 object-cover object-scale-down pt-4"
-            />
-            <div class="p-6">
-              <h3 class="text-xl font-bold">Project Catalog</h3>
-              <p class="mt-2 text-sm text-black">
-                <strong>Problem:</strong> Time-consuming file searches for
-                account managers.
-              </p>
-              <p class="mt-2 text-sm text-black">
-                <strong>My Approach:</strong> Built a full-stack AI-powered app
-                for intelligent file retrieval.
-              </p>
+      <!-- Project Highlights -->
+      <section id="highlights" class="mb-16">
+        <h2 class="text-3xl font-bold text-center mb-8">Project Highlights</h2>
+        <div class="flex justify-center">
+          <a
+            href="/project-catalog"
+            class="grid md:grid-cols-1 lg:grid-cols-1 gap-8 max-w-sm"
+          >
+            <div
+              class="bg-white rounded-lg border border-black overflow-hidden"
+            >
+              <img
+                src="/assets/simplechart.png"
+                alt="Project A"
+                class="w-full h-48 object-cover object-scale-down pt-4"
+              />
+              <div class="p-6">
+                <h3 class="text-xl font-bold">Project Catalog</h3>
+                <p class="mt-2 text-sm text-black">
+                  <strong>Problem:</strong> Time-consuming file searches for
+                  account managers.
+                </p>
+                <p class="mt-2 text-sm text-black">
+                  <strong>My Approach:</strong> Built a full-stack AI-powered
+                  app for intelligent file retrieval.
+                </p>
+              </div>
             </div>
-          </div>
-        </a>
-      </div>
-    </section>
-  </div>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
 </body>

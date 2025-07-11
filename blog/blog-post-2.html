@@ -1,52 +1,149 @@
 <head>
-    <link rel="stylesheet" href="/src/styles.css">
-    <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/src/styles.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/src/animation.js" defer></script>
 </head>
 <body>
-    <script type="module" src="/src/header.js"></script>
+  <script type="module" src="/src/header.js"></script>
+  <main>
     <article class="container mx-auto px-6 py-12 max-w-3xl">
-    <header class="mb-12 text-center">
+      <header class="mb-12 text-center">
         <h1 class="text-4xl font-bold">Silver Rule</h1>
-        <p class="text-lg mt-2">Limitations of the Golden Rule: 'Treat others the way you want to be treated.' </p>
+        <p class="text-lg mt-2">
+          Limitations of the Golden Rule: 'Treat others the way you want to be
+          treated.'
+        </p>
         <p class="text-black text-sm mt-2">Published on April 12, 2024</p>
-    </header>
-    <div class="prose lg:prose-xl mx-auto text-black leading-relaxed">
-        <p>Growing up, we were inundated with rules and maxims meant to guide our behavior and instill a sense of empathy. One such rule, echoed throughout our elementary school, was the Golden Rule: "Treat others the way you want to be treated." It was a mantra drilled into us, intended to foster kindness and consideration towards others.</p>
-        <p>But if I'm being honest, this rule always left me a bit perplexed. Deep down, I couldn't shake the feeling that not everyone wished to be treated in the same manner they treated themselves. There seemed to be a disconnect between the Golden Rule and human nature.</p>
-        <p>Fifteen years later, I can finally respond to this argument. Let's define the Golden Rule!</p>
-        <p>The golden rule is defined as an act is right if and only if, in performing it, we treat others as we would like to be treated. The notions of necessary and sufficient conditions are defined:</p>
+      </header>
+      <div class="prose lg:prose-xl mx-auto text-black leading-relaxed">
+        <p>
+          Growing up, we were inundated with rules and maxims meant to guide our
+          behavior and instill a sense of empathy. One such rule, echoed
+          throughout our elementary school, was the Golden Rule: "Treat others
+          the way you want to be treated." It was a mantra drilled into us,
+          intended to foster kindness and consideration towards others.
+        </p>
+        <p>
+          But if I'm being honest, this rule always left me a bit perplexed.
+          Deep down, I couldn't shake the feeling that not everyone wished to be
+          treated in the same manner they treated themselves. There seemed to be
+          a disconnect between the Golden Rule and human nature.
+        </p>
+        <p>
+          Fifteen years later, I can finally respond to this argument. Let's
+          define the Golden Rule!
+        </p>
+        <p>
+          The golden rule is defined as an act is right if and only if, in
+          performing it, we treat others as we would like to be treated. The
+          notions of necessary and sufficient conditions are defined:
+        </p>
         <ol class="list-decimal list-inside">
-            <li>If we are acting rightly, then we're treating others as we would like to be treated.</li>
-            <li>If we're treating others as we would like to be treated, then we're acting rightly.</li>
+          <li>
+            If we are acting rightly, then we're treating others as we would
+            like to be treated.
+          </li>
+          <li>
+            If we're treating others as we would like to be treated, then we're
+            acting rightly.
+          </li>
         </ol>
-        <p>Hmmm, it appears a loop is forming. Condition (1) supports the conclusion, Condition (2). Condition (2) assumes that we are acting rightly if we are treating others the way we would like to be treated. Wait a second, the conclusion just restated Condition (1)!</p>
-        <p>Alas, the conditions of the golden rule assume each other rather than using sound reasoning and evidence. It's called circular reasoning and is a logical fallacy (a fancy word for an invalid argument). Surprise! You have been guided by flawed logic your entire childhood!</p>
+        <p>
+          Hmmm, it appears a loop is forming. Condition (1) supports the
+          conclusion, Condition (2). Condition (2) assumes that we are acting
+          rightly if we are treating others the way we would like to be treated.
+          Wait a second, the conclusion just restated Condition (1)!
+        </p>
+        <p>
+          Alas, the conditions of the golden rule assume each other rather than
+          using sound reasoning and evidence. It's called circular reasoning and
+          is a logical fallacy (a fancy word for an invalid argument). Surprise!
+          You have been guided by flawed logic your entire childhood!
+        </p>
         <p>Let's dive deeper!</p>
-        <p>The Conditions (1) and (2) attempt to define moral rightness with fairness. If you think it is right to treat someone in a specific fashion, then you should accept that same treatment from the receiver. In addition, you would always be acting wrongly if you were to treat someone differently than how you would treat yourself.</p>
-        <p>It really makes you think that the masochists in elementary school had the upper hand huh?</p>
-        <p>Suppose we create our own version of the Golden Rule, what would that look like? We could begin by creating an equation for the original golden rule:</p>
+        <p>
+          The Conditions (1) and (2) attempt to define moral rightness with
+          fairness. If you think it is right to treat someone in a specific
+          fashion, then you should accept that same treatment from the receiver.
+          In addition, you would always be acting wrongly if you were to treat
+          someone differently than how you would treat yourself.
+        </p>
+        <p>
+          It really makes you think that the masochists in elementary school had
+          the upper hand huh?
+        </p>
+        <p>
+          Suppose we create our own version of the Golden Rule, what would that
+          look like? We could begin by creating an equation for the original
+          golden rule:
+        </p>
         <p class="text-center bg-gray-200 p-4 rounded-md font-mono">x = y</p>
-        <p>To be as concise and inclusive as possible, let's focus on individual factors (specific action considered), contextual factors (context in which the action occurs), impact on others (consequences of the action on others), and values (individual's personal values). This will be our framework for a new formula that measures ethical behavior rather than rightness. To quantify the components of our framework lets assign the following:</p>
+        <p>
+          To be as concise and inclusive as possible, let's focus on individual
+          factors (specific action considered), contextual factors (context in
+          which the action occurs), impact on others (consequences of the action
+          on others), and values (individual's personal values). This will be
+          our framework for a new formula that measures ethical behavior rather
+          than rightness. To quantify the components of our framework lets
+          assign the following:
+        </p>
         <ul class="list-disc list-inside">
-            <li>Let individual factors = &Sigma;<sup>n</sup><sub>i=1</sub> &beta;<sub>i</sub> * f<sub>i</sub></li>
-            <li>Let contextual factors = &gamma; &sdot; C</li>
-            <li>Let impact on other = &delta; &sdot; D</li>
-            <li>Let values = &epsilon; &sdot; V</li>
+          <li>
+            Let individual factors = &Sigma;<sup>n</sup
+            ><sub>i=1</sub> &beta;<sub>i</sub> * f<sub>i</sub>
+          </li>
+          <li>Let contextual factors = &gamma; &sdot; C</li>
+          <li>Let impact on other = &delta; &sdot; D</li>
+          <li>Let values = &epsilon; &sdot; V</li>
         </ul>
-        <p>To clarify the equation, we can contribute any number of individual factors to our equation and add the weighted contextual factors, weighted impact on others, and weighted values. The weights are defined as:</p>
-        <p class="text-center font-mono">&beta;<sub>1</sub>, &beta;<sub>2</sub>... &beta;<sub>n</sub>, &gamma;, &delta;, &epsilon;</p>
-        <p>Looping back to the original golden rule (x=y), we can define the new and improved formula to be:</p>
-        <p class="text-center bg-gray-200 p-4 rounded-md font-mono">X = &Sigma;<sup>n</sup><sub>i=1</sub> &beta;<sub>1</sub> &sdot; f<sub>1</sub> + &beta;<sub>n</sub> &sdot; f<sub>n</sub> + &gamma; &sdot; C + &delta; &sdot; D + &epsilon; &sdot; V</p>
-        <p>When we find 'X' for a given action, we can determine whether the action output (X) is a higher (ethical) or lower number (unethical).</p>
+        <p>
+          To clarify the equation, we can contribute any number of individual
+          factors to our equation and add the weighted contextual factors,
+          weighted impact on others, and weighted values. The weights are
+          defined as:
+        </p>
+        <p class="text-center font-mono">
+          &beta;<sub>1</sub>, &beta;<sub>2</sub>... &beta;<sub>n</sub>, &gamma;,
+          &delta;, &epsilon;
+        </p>
+        <p>
+          Looping back to the original golden rule (x=y), we can define the new
+          and improved formula to be:
+        </p>
+        <p class="text-center bg-gray-200 p-4 rounded-md font-mono">
+          X = &Sigma;<sup>n</sup><sub>i=1</sub> &beta;<sub>1</sub> &sdot; f<sub
+            >1</sub
+          >
+          + &beta;<sub>n</sub> &sdot; f<sub>n</sub> + &gamma; &sdot; C + &delta;
+          &sdot; D + &epsilon; &sdot; V
+        </p>
+        <p>
+          When we find 'X' for a given action, we can determine whether the
+          action output (X) is a higher (ethical) or lower number (unethical).
+        </p>
         <p>This raises a few questions:</p>
         <ul class="list-disc list-inside">
-            <li>How to determining the weights (&beta;, &gamma;, &delta;, &epsilon;)? These could vary significantly based on cultural and personal values.</li>
-            <li>The framework allows for objective comparison between actions, but we need a boundary conditions or normalization to make the scale more interpretable.</li>
-            <li>A temporal component to account for both short-term and long-term consequences of actions?</li>
+          <li>
+            How to determining the weights (&beta;, &gamma;, &delta;,
+            &epsilon;)? These could vary significantly based on cultural and
+            personal values.
+          </li>
+          <li>
+            The framework allows for objective comparison between actions, but
+            we need a boundary conditions or normalization to make the scale
+            more interpretable.
+          </li>
+          <li>
+            A temporal component to account for both short-term and long-term
+            consequences of actions?
+          </li>
         </ul>
-    </div>
-    <div class="text-center mt-12">
-        <a href="/blog" class="text-indigo-600 font-semibold hover:underline">&larr; Back to Blog</a>
-    </div>
-</article>
+      </div>
+      <div class="text-center mt-12">
+        <a href="/blog" class="text-indigo-600 font-semibold hover:underline"
+          >&larr; Back to Blog</a
+        >
+      </div>
+    </article>
+  </main>
 </body>

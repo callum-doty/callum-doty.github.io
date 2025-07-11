@@ -1,73 +1,176 @@
 <head>
-    <link rel="stylesheet" href="/src/styles.css">
-    <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/src/styles.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/src/animation.js" defer></script>
 </head>
 <body>
-    <script type="module" src="/src/header.js"></script>
+  <script type="module" src="/src/header.js"></script>
+  <main>
     <article class="container mx-auto px-6 py-12 max-w-3xl">
-    <header class="mb-12 text-center">
-        <h1 class="text-4xl font-bold">DUI: Drinking, Driving, and Bayesian Analysis</h1>
+      <header class="mb-12 text-center">
+        <h1 class="text-4xl font-bold">
+          DUI: Drinking, Driving, and Bayesian Analysis
+        </h1>
         <p class="text-black text-sm mt-2">Published on November 15, 2024</p>
-    </header>
-    <div class="prose lg:prose-xl mx-auto text-black leading-relaxed">
-        <p>You've just hit a milestone - you're 16 and finally have your driver's license in hand. The freedom and independence you feel are exhilarating. Eager to enjoy your newfound autonomy, you hop into your car for an evening drive. But as luck would have it, your adventure takes an unexpected turn when a police officer flags you down for a routine traffic stop.</p>
-        <p>The officer's demeanor is stern, and you sense their suspicion as they request to conduct a few tests. Despite feeling nervous, you comply, and take a breathalyzer test to determine if you're under the influence of alcohol. You test positive and are promptly arrested.</p>
+      </header>
+      <div class="prose lg:prose-xl mx-auto text-black leading-relaxed">
+        <p>
+          You've just hit a milestone - you're 16 and finally have your driver's
+          license in hand. The freedom and independence you feel are
+          exhilarating. Eager to enjoy your newfound autonomy, you hop into your
+          car for an evening drive. But as luck would have it, your adventure
+          takes an unexpected turn when a police officer flags you down for a
+          routine traffic stop.
+        </p>
+        <p>
+          The officer's demeanor is stern, and you sense their suspicion as they
+          request to conduct a few tests. Despite feeling nervous, you comply,
+          and take a breathalyzer test to determine if you're under the
+          influence of alcohol. You test positive and are promptly arrested.
+        </p>
         <p class="font-bold">Keep in mind:</p>
         <ul class="list-disc list-inside">
-            <li>The breathalyzer indicates false drunkenness in only 5% of cases when the driver is sober</li>
-            <li>The breathalyzers never fail to detect a truly drunk person</li>
-            <li>One in a thousand drivers in your region drive drunk</li>
+          <li>
+            The breathalyzer indicates false drunkenness in only 5% of cases
+            when the driver is sober
+          </li>
+          <li>The breathalyzers never fail to detect a truly drunk person</li>
+          <li>One in a thousand drivers in your region drive drunk</li>
         </ul>
-        <p>Fast forward to the trial, and the situation feels dire. Despite your protests of innocence, the breathalyzer test results are presented as evidence against you. The prosecutor paints a grim picture, arguing that there's a mere 5% chance of your innocence, citing the breathalyzer's supposed accuracy rate of 95%.</p>
-        <p>With the evidence resting heavily on your shoulders, you're faced with the daunting task of proving your innocence beyond a reasonable doubt. The stakes are high, and the thought of a DUI conviction looming over you feels suffocating. It's a moment where you can't help but feel like your life is hanging in the balance.</p>
-        <p class="text-2xl font-bold text-center my-8">What if I told you that based on the positive breathalyzer test, the probability that you were driving drunk is less than 2%....</p>
-        <p>Hopefully, I caught your attention. To explain this, I will introduce a few key concepts. First, Bayes theorem, named after the Reverend Thomas Bayes, is a fundamental concept in probability theory and statistics. It describes the probability of an event, based on prior knowledge of conditions that might be related to the event.</p>
-        <p>There are many variations but for this context it is expressed as:</p>
-        <p class="text-center bg-gray-200 p-4 rounded-md font-mono">P(A | B) = P(B | A) × P(A) / P(B)</p>
+        <p>
+          Fast forward to the trial, and the situation feels dire. Despite your
+          protests of innocence, the breathalyzer test results are presented as
+          evidence against you. The prosecutor paints a grim picture, arguing
+          that there's a mere 5% chance of your innocence, citing the
+          breathalyzer's supposed accuracy rate of 95%.
+        </p>
+        <p>
+          With the evidence resting heavily on your shoulders, you're faced with
+          the daunting task of proving your innocence beyond a reasonable doubt.
+          The stakes are high, and the thought of a DUI conviction looming over
+          you feels suffocating. It's a moment where you can't help but feel
+          like your life is hanging in the balance.
+        </p>
+        <p class="text-2xl font-bold text-center my-8">
+          What if I told you that based on the positive breathalyzer test, the
+          probability that you were driving drunk is less than 2%....
+        </p>
+        <p>
+          Hopefully, I caught your attention. To explain this, I will introduce
+          a few key concepts. First, Bayes theorem, named after the Reverend
+          Thomas Bayes, is a fundamental concept in probability theory and
+          statistics. It describes the probability of an event, based on prior
+          knowledge of conditions that might be related to the event.
+        </p>
+        <p>
+          There are many variations but for this context it is expressed as:
+        </p>
+        <p class="text-center bg-gray-200 p-4 rounded-md font-mono">
+          P(A | B) = P(B | A) × P(A) / P(B)
+        </p>
         <p>If we were to describe the formula above, it would translate to:</p>
         <ul class="list-disc list-inside">
-            <li><strong>P(A | B)</strong> is the conditional probability of event A occurring given that event B has occurred.</li>
-            <li><strong>P(B | A)</strong> is the conditional probability of event B occurring given that event A has occurred.</li>
-            <li><strong>P(A)</strong> and <strong>P(B)</strong> are the probabilities of events A and B occurring independently of each other.</li>
+          <li>
+            <strong>P(A | B)</strong> is the conditional probability of event A
+            occurring given that event B has occurred.
+          </li>
+          <li>
+            <strong>P(B | A)</strong> is the conditional probability of event B
+            occurring given that event A has occurred.
+          </li>
+          <li>
+            <strong>P(A)</strong> and <strong>P(B)</strong> are the
+            probabilities of events A and B occurring independently of each
+            other.
+          </li>
         </ul>
         <p>Let's apply Bayes Theorem to your situation. Let:</p>
         <ul class="list-disc list-inside">
-            <li><strong>D</strong> = You are drunk</li>
-            <li><strong>S</strong> = You are sober</li>
-            <li><strong>tD</strong> = The test indicates you are drunk</li>
+          <li><strong>D</strong> = You are drunk</li>
+          <li><strong>S</strong> = You are sober</li>
+          <li><strong>tD</strong> = The test indicates you are drunk</li>
         </ul>
         <p>The new equation would look like this:</p>
-        <p class="text-center bg-gray-200 p-4 rounded-md font-mono">P(D | tD) = P(tD | D) × P(D) / P(tD)</p>
-        <p>This may look a bit intimidating, lets translate this into natural language:</p>
+        <p class="text-center bg-gray-200 p-4 rounded-md font-mono">
+          P(D | tD) = P(tD | D) × P(D) / P(tD)
+        </p>
+        <p>
+          This may look a bit intimidating, lets translate this into natural
+          language:
+        </p>
         <ul class="list-disc list-inside">
-            <li><strong>Pr(D)</strong> is the prior probability of D</li>
-            <li><strong>Pr(D | tD)</strong> is the posterior probability of D</li>
-            <li><strong>Pr(tD | D)</strong> is the likelihood of D</li>
-            <li><strong>Pr(tD)</strong> is the unconditional probability of the positive breathalyzer result</li>
+          <li><strong>Pr(D)</strong> is the prior probability of D</li>
+          <li><strong>Pr(D | tD)</strong> is the posterior probability of D</li>
+          <li><strong>Pr(tD | D)</strong> is the likelihood of D</li>
+          <li>
+            <strong>Pr(tD)</strong> is the unconditional probability of the
+            positive breathalyzer result
+          </li>
         </ul>
-        <p>So, the probability of you driving drunk given a positive test is equal to the probability of a positive test correctly diagnosing you as being drunk multiplied by the probability of you being drunk divided by the unconditional probability of a positive breathalyzer.</p>
-        <p>We have all but one piece of information to solve the equation. We need to find <strong>Pr(tD)</strong>. To calculate Pr(tD), you need to consider all possible scenarios where a positive test result could occur, regardless of whether the person is intoxicated or not.</p>
+        <p>
+          So, the probability of you driving drunk given a positive test is
+          equal to the probability of a positive test correctly diagnosing you
+          as being drunk multiplied by the probability of you being drunk
+          divided by the unconditional probability of a positive breathalyzer.
+        </p>
+        <p>
+          We have all but one piece of information to solve the equation. We
+          need to find <strong>Pr(tD)</strong>. To calculate Pr(tD), you need to
+          consider all possible scenarios where a positive test result could
+          occur, regardless of whether the person is intoxicated or not.
+        </p>
         <p>Lets use:</p>
-        <p class="text-center bg-gray-200 p-4 rounded-md font-mono">Pr(tD) = Pr(tD | D) x Pr(D) + Pr(tD | S) x Pr(S)</p>
-        <p>Translated to natural language: The probability of you driving drunk given a positive test multiplied by the probability of you being drunk added to the probability of a false positive from a test multiplied by the probability of you being sober.</p>
-        <p>We can find Pr(tD) using the information I said to keep in mind, remember that only one in a thousand drivers in your region drives drunk, so Pr(D) = .001 and Pr(S) = .999. Also recall that the breathalyzer indicates false drunkenness in only 5% of cases when the driver is sober, and never fails to detect a drunk person. We can assign Pr(tD | D) = 1 and Pr(tD | S) = .05. So:</p>
+        <p class="text-center bg-gray-200 p-4 rounded-md font-mono">
+          Pr(tD) = Pr(tD | D) x Pr(D) + Pr(tD | S) x Pr(S)
+        </p>
+        <p>
+          Translated to natural language: The probability of you driving drunk
+          given a positive test multiplied by the probability of you being drunk
+          added to the probability of a false positive from a test multiplied by
+          the probability of you being sober.
+        </p>
+        <p>
+          We can find Pr(tD) using the information I said to keep in mind,
+          remember that only one in a thousand drivers in your region drives
+          drunk, so Pr(D) = .001 and Pr(S) = .999. Also recall that the
+          breathalyzer indicates false drunkenness in only 5% of cases when the
+          driver is sober, and never fails to detect a drunk person. We can
+          assign Pr(tD | D) = 1 and Pr(tD | S) = .05. So:
+        </p>
         <ul class="list-disc list-inside font-mono">
-            <li>Pr(D) = 0.001</li>
-            <li>Pr(S) = 0.999</li>
-            <li>Pr(tD | D) = 1</li>
-            <li>Pr(tD | S) = 0.05</li>
+          <li>Pr(D) = 0.001</li>
+          <li>Pr(S) = 0.999</li>
+          <li>Pr(tD | D) = 1</li>
+          <li>Pr(tD | S) = 0.05</li>
         </ul>
         <p>Sweet! So now we plug in our number to find Pr(tD):</p>
-        <p class="text-center bg-gray-200 p-4 rounded-md font-mono">(1 x .001) + (.05 x .999) = 0.05095</p>
+        <p class="text-center bg-gray-200 p-4 rounded-md font-mono">
+          (1 x .001) + (.05 x .999) = 0.05095
+        </p>
         <p>Pr(tD) = 0.05095</p>
         <p>Lets plug in the new value for Pr(tD) into the original problem.</p>
-        <p class="text-center bg-gray-200 p-4 rounded-md font-mono">Pr(D | tD) = (1 x .001) / .05095 = 0.01962709</p>
-        <p>Convert this to a percentage, the probability that you were driving drunk, based on the positive breathalyzer test alone, is <strong>1.96%</strong></p>
+        <p class="text-center bg-gray-200 p-4 rounded-md font-mono">
+          Pr(D | tD) = (1 x .001) / .05095 = 0.01962709
+        </p>
+        <p>
+          Convert this to a percentage, the probability that you were driving
+          drunk, based on the positive breathalyzer test alone, is
+          <strong>1.96%</strong>
+        </p>
         <p class="text-2xl font-bold text-center my-8">Life changing right?</p>
-        <p>When we think about the quality of a test, what we want to know, what we're testing for, and how we make sense of the results to make decisions, it is easy to make mistakes. In the case of this situation, the evidence of a 95% accurate breathalyzer appears convincing, but the line is not clearly cut.</p>
-    </div>
-    <div class="text-center mt-12">
-        <a href="/blog" class="text-indigo-600 font-semibold hover:underline">&larr; Back to Blog</a>
-    </div>
-</article>
+        <p>
+          When we think about the quality of a test, what we want to know, what
+          we're testing for, and how we make sense of the results to make
+          decisions, it is easy to make mistakes. In the case of this situation,
+          the evidence of a 95% accurate breathalyzer appears convincing, but
+          the line is not clearly cut.
+        </p>
+      </div>
+      <div class="text-center mt-12">
+        <a href="/blog" class="text-indigo-600 font-semibold hover:underline"
+          >&larr; Back to Blog</a
+        >
+      </div>
+    </article>
+  </main>
 </body>

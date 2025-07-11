@@ -77,3 +77,21 @@ header {
     border-bottom: 1px solid black;
   }
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+main {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+main.fade-out {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}

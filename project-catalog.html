@@ -1,231 +1,260 @@
 <head>
   <link rel="stylesheet" href="/src/styles.css" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="src/animation.js" defer></script>
 </head>
 <body>
   <script type="module" src="/src/header.js"></script>
-<article class="container mx-auto px-6 py-12 max-w-4xl">
-  <header class="text-center mb-12">
-    <h1 class="text-4xl font-bold text-gray-900 mb-2">Project Catalog</h1>
-    <p class="text-xl text-gray-600 mb-6">AI-Powered File Management System</p>
-    <div class="bg-gray-50 p-6 rounded-lg border border-black">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
-        <div class="text-center">
-          <div class="font-semibold text-gray-900">Role</div>
-          <div class="text-gray-600">Full-Stack Software Engineer</div>
+  <main>
+    <article class="container mx-auto px-6 py-12 max-w-4xl">
+      <header class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-gray-900 mb-2">Project Catalog</h1>
+        <p class="text-xl text-gray-600 mb-6">
+          AI-Powered File Management System
+        </p>
+        <div class="bg-gray-50 p-6 rounded-lg border border-black">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+            <div class="text-center">
+              <div class="font-semibold text-gray-900">Role</div>
+              <div class="text-gray-600">Full-Stack Software Engineer</div>
+            </div>
+            <div class="text-center">
+              <div class="font-semibold text-gray-900">Duration</div>
+              <div class="text-gray-600">6 months (Ongoing)</div>
+            </div>
+            <div class="text-center">
+              <div class="font-semibold text-gray-900">Team</div>
+              <div class="text-gray-600">Solo Project</div>
+            </div>
+          </div>
         </div>
-        <div class="text-center">
-          <div class="font-semibold text-gray-900">Duration</div>
-          <div class="text-gray-600">6 months (Ongoing)</div>
+      </header>
+
+      <!-- Tech Stack -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">
+          Technology Stack
+        </h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div
+            class="bg-blue-50 p-4 rounded-lg text-center border border-black"
+          >
+            <div class="font-semibold text-blue-900">Backend</div>
+            <div class="text-sm text-blue-700 mt-1">
+              Python, Flask, PostgreSQL
+            </div>
+          </div>
+          <div
+            class="bg-green-50 p-4 rounded-lg text-center border border-black"
+          >
+            <div class="font-semibold text-green-900">Frontend</div>
+            <div class="text-sm text-green-700 mt-1">
+              JavaScript, Tailwind CSS
+            </div>
+          </div>
+          <div
+            class="bg-purple-50 p-4 rounded-lg text-center border border-black"
+          >
+            <div class="font-semibold text-purple-900">AI/ML</div>
+            <div class="text-sm text-purple-700 mt-1">
+              OpenAI, Anthropic, Tesseract
+            </div>
+          </div>
+          <div
+            class="bg-orange-50 p-4 rounded-lg text-center border border-black"
+          >
+            <div class="font-semibold text-orange-900">Infrastructure</div>
+            <div class="text-sm text-orange-700 mt-1">
+              Docker, Redis, Celery
+            </div>
+          </div>
         </div>
-        <div class="text-center">
-          <div class="font-semibold text-gray-900">Team</div>
-          <div class="text-gray-600">Solo Project</div>
+      </section>
+
+      <!-- Problem Statement -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">The Problem</h2>
+        <div
+          class="bg-red-50 border-l-4 border-red-400 p-6 rounded-r-lg border border-black"
+        >
+          <p class="text-lg text-gray-800 leading-relaxed">
+            During the 2024 election cycle, I observed that graphic designers
+            were spending <strong>1-5 minutes per file search</strong> in our
+            Dropbox system. With hundreds of daily file requests, this
+            inefficiency was costing the team
+            <strong>hours of productive time weekly</strong>. Our existing file
+            system lacked semantic understanding of political content, making it
+            impossible to search by campaign themes, candidate messaging, or
+            visual elements.
+          </p>
         </div>
-      </div>
-    </div>
-  </header>
+      </section>
 
-  <!-- Tech Stack -->
-  <section class="mb-12">
-    <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">
-      Technology Stack
-    </h2>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="bg-blue-50 p-4 rounded-lg text-center border border-black">
-        <div class="font-semibold text-blue-900">Backend</div>
-        <div class="text-sm text-blue-700 mt-1">Python, Flask, PostgreSQL</div>
-      </div>
-      <div class="bg-green-50 p-4 rounded-lg text-center border border-black">
-        <div class="font-semibold text-green-900">Frontend</div>
-        <div class="text-sm text-green-700 mt-1">JavaScript, Tailwind CSS</div>
-      </div>
-      <div class="bg-purple-50 p-4 rounded-lg text-center border border-black">
-        <div class="font-semibold text-purple-900">AI/ML</div>
-        <div class="text-sm text-purple-700 mt-1">
-          OpenAI, Anthropic, Tesseract
+      <!-- Solution Overview -->
+      <section class="mb-12 bg-indigo-50 p-8 rounded-lg border border-black">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">The Solution</h2>
+        <p class="text-lg text-gray-800 leading-relaxed mb-4">
+          I designed and built a full-stack AI-powered catalog system that
+          automatically analyzes, tags, and semantically understands political
+          design files. The application integrates with existing Dropbox
+          workflows while providing intelligent search capabilities that uses
+          context and data.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+          <div>
+            <h3 class="font-semibold text-gray-900 mb-2">Key Capabilities</h3>
+            <ul class="text-gray-700 space-y-1">
+              <li>• AI-powered content analysis and tagging</li>
+              <li>• OCR text extraction from images</li>
+              <li>• Semantic search with natural language queries</li>
+              <li>• Keyword mapping based on a taxonomy</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-semibold text-gray-900 mb-2">Technical Features</h3>
+            <ul class="text-gray-700 space-y-1">
+              <li>
+                • AI-Powered Document Analysis with Multi-Modal LLM Integration
+              </li>
+              <li>• Vector Search with Semantic Enhancement</li>
+              <li>• Distributed Task Processing with Celery</li>
+              <li>• Multi-Layer Caching Architecture</li>
+            </ul>
+          </div>
         </div>
-      </div>
-      <div class="bg-orange-50 p-4 rounded-lg text-center border border-black">
-        <div class="font-semibold text-orange-900">Infrastructure</div>
-        <div class="text-sm text-orange-700 mt-1">Docker, Redis, Celery</div>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  <!-- Problem Statement -->
-  <section class="mb-12">
-    <h2 class="text-2xl font-bold text-gray-900 mb-4">The Problem</h2>
-    <div
-      class="bg-red-50 border-l-4 border-red-400 p-6 rounded-r-lg border border-black"
-    >
-      <p class="text-lg text-gray-800 leading-relaxed">
-        During the 2024 election cycle, I observed that graphic designers were
-        spending <strong>1-5 minutes per file search</strong> in our Dropbox
-        system. With hundreds of daily file requests, this inefficiency was
-        costing the team <strong>hours of productive time weekly</strong>. Our
-        existing file system lacked semantic understanding of political content,
-        making it impossible to search by campaign themes, candidate messaging,
-        or visual elements.
-      </p>
-    </div>
-  </section>
-
-  <!-- Solution Overview -->
-  <section class="mb-12 bg-indigo-50 p-8 rounded-lg border border-black">
-    <h2 class="text-2xl font-bold text-gray-900 mb-4">The Solution</h2>
-    <p class="text-lg text-gray-800 leading-relaxed mb-4">
-      I designed and built a full-stack AI-powered catalog system that
-      automatically analyzes, tags, and semantically understands political
-      design files. The application integrates with existing Dropbox workflows
-      while providing intelligent search capabilities that uses context and
-      data.
-    </p>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-      <div>
-        <h3 class="font-semibold text-gray-900 mb-2">Key Capabilities</h3>
-        <ul class="text-gray-700 space-y-1">
-          <li>• AI-powered content analysis and tagging</li>
-          <li>• OCR text extraction from images</li>
-          <li>• Semantic search with natural language queries</li>
-          <li>• Keyword mapping based on a taxonomy</li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="font-semibold text-gray-900 mb-2">Technical Features</h3>
-        <ul class="text-gray-700 space-y-1">
-          <li>
-            • AI-Powered Document Analysis with Multi-Modal LLM Integration
-          </li>
-          <li>• Vector Search with Semantic Enhancement</li>
-          <li>• Distributed Task Processing with Celery</li>
-          <li>• Multi-Layer Caching Architecture</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- Technical Challenges -->
-  <section class="mb-12">
-    <h2 class="text-2xl font-bold text-gray-900 mb-4">
-      Technical Challenges Solved
-    </h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div class="bg-white p-6 rounded-lg border border-black">
-        <h3 class="font-semibold text-gray-900 mb-2">
-          Monolithic and Lax &rarr; Modularized and Strict
-        </h3>
-        <p class="text-gray-700 text-sm">
-          Iteratively fine-tuned custom prompts for political content analysis,
-          achieving high accuracy in extracting campaign themes, candidate
-          information, and visual elements from diverse political materials.
-        </p>
-      </div>
-      <div class="bg-white p-6 rounded-lg border border-black">
-        <h3 class="font-semibold text-gray-900 mb-2">Database Iteration</h3>
-        <p class="text-gray-700 text-sm">
-          Architected a scalable relational database that integrates the
-          pgvector extension to support high-performance vector search across
-          diverse and complex datasets.
-        </p>
-      </div>
-      <div class="bg-white p-6 rounded-lg border border-black">
-        <h3 class="font-semibold text-gray-900 mb-2">
-          Prompt &rarr; Parser &rarr; Database &rarr; Taxonomy
-        </h3>
-        <p class="text-gray-700 text-sm">
-          Designed a robust system where AI prompts generate metadata, content
-          parsers validate and refine classification accuracy, a strategic
-          PostgreSQL database stores this metadata, logic strings important data
-          together to send to an embedding API, and extracted keywords are
-          mapped to a custom taxonomy schema.
-        </p>
-      </div>
-      <div class="bg-white p-6 rounded-lg border border-black">
-        <h3 class="font-semibold text-gray-900 mb-2">Production Deployment</h3>
-        <p class="text-gray-700 text-sm">
-          Containerized the entire application stack with Docker, implementing
-          CI/CD pipelines for seamless deployment to cloud infrastructure.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Impact Metrics -->
-  <section class="mb-12">
-    <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">
-      Measurable Impact
-    </h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div
-        class="bg-white p-8 rounded-lg border border-black text-center border-t-4 border-t-indigo-500"
-      >
-        <div class="text-4xl font-bold text-indigo-600 mb-2">90%</div>
-        <div class="text-gray-600 font-medium">Reduction in Search Time</div>
-        <div class="text-sm text-gray-500 mt-1">From 1-5 min to 5-30 sec</div>
-      </div>
-      <div
-        class="bg-white p-8 rounded-lg border border-black text-center border-t-4 border-t-green-500"
-      >
-        <div class="text-4xl font-bold text-green-600 mb-2">>1 hrs</div>
-        <div class="text-gray-600 font-medium">Weekly Time Savings</div>
-        <div class="text-sm text-gray-500 mt-1">Per designer team member</div>
-      </div>
-      <div
-        class="bg-white p-8 rounded-lg border border-black text-center border-t-4 border-t-purple-500"
-      >
-        <div class="text-4xl font-bold text-purple-600 mb-2">1000+</div>
-        <div class="text-gray-600 font-medium">Files Processed</div>
-        <div class="text-sm text-gray-500 mt-1">
-          Automatically tagged & indexed
+      <!-- Technical Challenges -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">
+          Technical Challenges Solved
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-white p-6 rounded-lg border border-black">
+            <h3 class="font-semibold text-gray-900 mb-2">
+              Monolithic and Lax &rarr; Modularized and Strict
+            </h3>
+            <p class="text-gray-700 text-sm">
+              Iteratively fine-tuned custom prompts for political content
+              analysis, achieving high accuracy in extracting campaign themes,
+              candidate information, and visual elements from diverse political
+              materials.
+            </p>
+          </div>
+          <div class="bg-white p-6 rounded-lg border border-black">
+            <h3 class="font-semibold text-gray-900 mb-2">Database Iteration</h3>
+            <p class="text-gray-700 text-sm">
+              Architected a scalable relational database that integrates the
+              pgvector extension to support high-performance vector search
+              across diverse and complex datasets.
+            </p>
+          </div>
+          <div class="bg-white p-6 rounded-lg border border-black">
+            <h3 class="font-semibold text-gray-900 mb-2">
+              Prompt &rarr; Parser &rarr; Database &rarr; Taxonomy
+            </h3>
+            <p class="text-gray-700 text-sm">
+              Designed a robust system where AI prompts generate metadata,
+              content parsers validate and refine classification accuracy, a
+              strategic PostgreSQL database stores this metadata, logic strings
+              important data together to send to an embedding API, and extracted
+              keywords are mapped to a custom taxonomy schema.
+            </p>
+          </div>
+          <div class="bg-white p-6 rounded-lg border border-black">
+            <h3 class="font-semibold text-gray-900 mb-2">
+              Production Deployment
+            </h3>
+            <p class="text-gray-700 text-sm">
+              Containerized the entire application stack with Docker,
+              implementing CI/CD pipelines for seamless deployment to cloud
+              infrastructure.
+            </p>
+          </div>
         </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  <!-- Key Features -->
-  <section class="mb-12 bg-gray-50 p-8 rounded-lg border border-black">
-    <h2 class="text-2xl font-bold text-gray-900 mb-6">Key Features</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div>
-        <h3 class="text-lg font-semibold text-gray-900 mb-3">
-          Intelligent Search
-        </h3>
-        <p class="text-gray-700 mb-4">
-          Natural language queries like "taxes" or "healthcare" are able to be
-          queried along with a filter that uses a custom taxonomy to return
-          relevant files.
-        </p>
+      <!-- Impact Metrics -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">
+          Measurable Impact
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div
+            class="bg-white p-8 rounded-lg border border-black text-center border-t-4 border-t-indigo-500"
+          >
+            <div class="text-4xl font-bold text-indigo-600 mb-2">90%</div>
+            <div class="text-gray-600 font-medium">
+              Reduction in Search Time
+            </div>
+            <div class="text-sm text-gray-500 mt-1">
+              From 1-5 min to 5-30 sec
+            </div>
+          </div>
+          <div
+            class="bg-white p-8 rounded-lg border border-black text-center border-t-4 border-t-green-500"
+          >
+            <div class="text-4xl font-bold text-green-600 mb-2">>1 hrs</div>
+            <div class="text-gray-600 font-medium">Weekly Time Savings</div>
+            <div class="text-sm text-gray-500 mt-1">
+              Per designer team member
+            </div>
+          </div>
+          <div
+            class="bg-white p-8 rounded-lg border border-black text-center border-t-4 border-t-purple-500"
+          >
+            <div class="text-4xl font-bold text-purple-600 mb-2">1000+</div>
+            <div class="text-gray-600 font-medium">Files Processed</div>
+            <div class="text-sm text-gray-500 mt-1">
+              Automatically tagged & indexed
+            </div>
+          </div>
+        </div>
+      </section>
 
-        <h3 class="text-lg font-semibold text-gray-900 mb-3">
-          Automated Tagging
-        </h3>
-        <p class="text-gray-700">
-          AI-powered analysis extracts political themes, visual elements,
-          candidate information, and campaign messaging
-        </p>
-      </div>
-      <div>
-        <h3 class="text-lg font-semibold text-gray-900 mb-3">
-          View, Download, and Provide Feedback
-        </h3>
-        <p class="text-gray-700 mb-4">
-          Options to view files in the browser, download them, or provide
-          feedback per file to improve future accuracy
-        </p>
+      <!-- Key Features -->
+      <section class="mb-12 bg-gray-50 p-8 rounded-lg border border-black">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Key Features</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-3">
+              Intelligent Search
+            </h3>
+            <p class="text-gray-700 mb-4">
+              Natural language queries like "taxes" or "healthcare" are able to
+              be queried along with a filter that uses a custom taxonomy to
+              return relevant files.
+            </p>
 
-        <h3 class="text-lg font-semibold text-gray-900 mb-3">
-          Analytics Dashboard
-        </h3>
-        <p class="text-gray-700">
-          Usage metrics, search patterns, and system performance monitoring for
-          continuous optimization
-        </p>
-      </div>
-    </div>
-  </section>
+            <h3 class="text-lg font-semibold text-gray-900 mb-3">
+              Automated Tagging
+            </h3>
+            <p class="text-gray-700">
+              AI-powered analysis extracts political themes, visual elements,
+              candidate information, and campaign messaging
+            </p>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-3">
+              View, Download, and Provide Feedback
+            </h3>
+            <p class="text-gray-700 mb-4">
+              Options to view files in the browser, download them, or provide
+              feedback per file to improve future accuracy
+            </p>
 
-  <!-- Links and Demo 
+            <h3 class="text-lg font-semibold text-gray-900 mb-3">
+              Analytics Dashboard
+            </h3>
+            <p class="text-gray-700">
+              Usage metrics, search patterns, and system performance monitoring
+              for continuous optimization
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Links and Demo 
   <section class="mb-12 text-center">
     <h2 class="text-2xl font-bold text-gray-900 mb-6">View the Project</h2>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
@@ -251,34 +280,36 @@
   </section>
   -->
 
-  <!-- Reflection -->
-  <section
-    class="bg-gradient-to-r from-indigo-50 to-purple-50 p-8 rounded-lg border border-black"
-  >
-    <h2 class="text-2xl font-bold text-gray-900 mb-4">
-      Project Impact & Learning
-    </h2>
-    <p class="text-lg text-gray-800 leading-relaxed">
-      This project demonstrates my ability to identify real business problems,
-      research and plan potential solutions, architect a solution, and iterate
-      based on user feedback. It showcases full-stack development skills, AI
-      integration expertise, and project management capabilities. The web app is
-      still being improved upon before being fully deployed.
-    </p>
-    <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-      <div class="bg-white p-4 rounded-lg border border-black">
-        <div class="font-semibold text-gray-900">Business Impact</div>
-        <div class="text-gray-600">Solved real workflow inefficiencies</div>
-      </div>
-      <div class="bg-white p-4 rounded-lg border border-black">
-        <div class="font-semibold text-gray-900">Technical Growth</div>
-        <div class="text-gray-600">Advanced AI/ML integration skills</div>
-      </div>
-      <div class="bg-white p-4 rounded-lg border border-black">
-        <div class="font-semibold text-gray-900">Leadership</div>
-        <div class="text-gray-600">Self-directed project execution</div>
-      </div>
-    </div>
-  </section>
-</article>
+      <!-- Reflection -->
+      <section
+        class="bg-gradient-to-r from-indigo-50 to-purple-50 p-8 rounded-lg border border-black"
+      >
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">
+          Project Impact & Learning
+        </h2>
+        <p class="text-lg text-gray-800 leading-relaxed">
+          This project demonstrates my ability to identify real business
+          problems, research and plan potential solutions, architect a solution,
+          and iterate based on user feedback. It showcases full-stack
+          development skills, AI integration expertise, and project management
+          capabilities. The web app is still being improved upon before being
+          fully deployed.
+        </p>
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+          <div class="bg-white p-4 rounded-lg border border-black">
+            <div class="font-semibold text-gray-900">Business Impact</div>
+            <div class="text-gray-600">Solved real workflow inefficiencies</div>
+          </div>
+          <div class="bg-white p-4 rounded-lg border border-black">
+            <div class="font-semibold text-gray-900">Technical Growth</div>
+            <div class="text-gray-600">Advanced AI/ML integration skills</div>
+          </div>
+          <div class="bg-white p-4 rounded-lg border border-black">
+            <div class="font-semibold text-gray-900">Leadership</div>
+            <div class="text-gray-600">Self-directed project execution</div>
+          </div>
+        </div>
+      </section>
+    </article>
+  </main>
 </body>

@@ -1,52 +1,95 @@
 <head>
-    <link rel="stylesheet" href="../src/styles.css">
-    <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../src/styles.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="src/animation.js" defer></script>
 </head>
 <body>
-    <script type="module" src="/src/header.js"></script>
+  <script type="module" src="/src/header.js"></script>
+  <main>
     <article class="container mx-auto px-6 py-12 max-w-4xl">
-        <header class="text-center mb-12">
-            <h1 class="text-4xl font-bold">Real-Time Analytics Dashboard</h1>
-            <div class="mt-4 text-black grid grid-cols-2 md:grid-cols-3 gap-4">
-                <div><strong>Role:</strong> Lead Engineer</div>
-                <div><strong>Tech:</strong> Go, Kafka, React, K8s</div>
-                <div><strong>Duration:</strong> 6 Months</div>
+      <header class="text-center mb-12">
+        <h1 class="text-4xl font-bold">Real-Time Analytics Dashboard</h1>
+        <div class="mt-4 text-black grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div><strong>Role:</strong> Lead Engineer</div>
+          <div><strong>Tech:</strong> Go, Kafka, React, K8s</div>
+          <div><strong>Duration:</strong> 6 Months</div>
+        </div>
+      </header>
+
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold mb-4">The Initial Challenge</h2>
+        <p class="text-lg text-black leading-relaxed">
+          The marketing team was flying blind. They relied on a daily data dump
+          from our main production database to assess campaign performance. This
+          meant a 24-hour delay in crucial insights, leading to wasted ad spend
+          and missed opportunities. The existing system was simple but slow, and
+          the business was starting to feel the pain.
+        </p>
+      </section>
+
+      <section class="mb-12 bg-indigo-50 p-8 rounded-lg">
+        <h2 class="text-2xl font-bold mb-4">
+          The Decision: Simplify or Add Complexity?
+        </h2>
+        <p class="text-lg text-black leading-relaxed">
+          The initial request was to "make the daily report run faster." A
+          simple path would have been to optimize the existing SQL queries.
+          However, after investigating, I realized this would only provide a
+          marginal improvement. The core problem was the batch-processing
+          architecture itself.
+        </p>
+        <p class="text-lg text-black leading-relaxed mt-4">
+          I made the case to
+          <strong class="text-indigo-700">add architectural complexity</strong>
+          by introducing a real-time streaming pipeline. This was a significant
+          departure from the original ask. I had to convince stakeholders that
+          the upfront investment in a more complex system (using Kafka and a
+          separate data stream) would provide disproportionate value by enabling
+          not just this, but a whole new class of real-time features in the
+          future.
+        </p>
+      </section>
+
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold mb-4">Action & Solution</h2>
+        <p class="text-lg text-black leading-relaxed">
+          I led a small team to build a proof-of-concept. We used a Go service
+          to capture relevant events from our application and publish them to a
+          Kafka topic. A separate consumer service processed these events in
+          real-time, aggregating the data into a time-series database. The
+          front-end was a React dashboard that polled for new data every few
+          seconds. This decoupled system was more complex to build and maintain,
+          but it was infinitely more scalable and powerful.
+        </p>
+      </section>
+
+      <section class="mb-12 text-center">
+        <h2 class="text-2xl font-bold mb-4">Measurable Impact</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-white p-6 rounded-lg shadow">
+            <div class="text-5xl font-bold text-indigo-600"><1 min</div>
+            <div class="mt-2 text-black">Reduction in Data Latency</div>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow">
+            <div class="text-5xl font-bold text-indigo-600">15%</div>
+            <div class="mt-2 text-black">
+              Improvement in Ad Spend Efficiency
             </div>
-        </header>
+          </div>
+        </div>
+      </section>
 
-        <section class="mb-12">
-            <h2 class="text-2xl font-bold mb-4">The Initial Challenge</h2>
-            <p class="text-lg text-black leading-relaxed">The marketing team was flying blind. They relied on a daily data dump from our main production database to assess campaign performance. This meant a 24-hour delay in crucial insights, leading to wasted ad spend and missed opportunities. The existing system was simple but slow, and the business was starting to feel the pain.</p>
-        </section>
-
-        <section class="mb-12 bg-indigo-50 p-8 rounded-lg">
-            <h2 class="text-2xl font-bold mb-4">The Decision: Simplify or Add Complexity?</h2>
-            <p class="text-lg text-black leading-relaxed">The initial request was to "make the daily report run faster." A simple path would have been to optimize the existing SQL queries. However, after investigating, I realized this would only provide a marginal improvement. The core problem was the batch-processing architecture itself.</p>
-            <p class="text-lg text-black leading-relaxed mt-4">I made the case to <strong class="text-indigo-700">add architectural complexity</strong> by introducing a real-time streaming pipeline. This was a significant departure from the original ask. I had to convince stakeholders that the upfront investment in a more complex system (using Kafka and a separate data stream) would provide disproportionate value by enabling not just this, but a whole new class of real-time features in the future.</p>
-        </section>
-
-        <section class="mb-12">
-            <h2 class="text-2xl font-bold mb-4">Action & Solution</h2>
-            <p class="text-lg text-black leading-relaxed">I led a small team to build a proof-of-concept. We used a Go service to capture relevant events from our application and publish them to a Kafka topic. A separate consumer service processed these events in real-time, aggregating the data into a time-series database. The front-end was a React dashboard that polled for new data every few seconds. This decoupled system was more complex to build and maintain, but it was infinitely more scalable and powerful.</p>
-        </section>
-
-        <section class="mb-12 text-center">
-            <h2 class="text-2xl font-bold mb-4">Measurable Impact</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white p-6 rounded-lg shadow">
-                    <div class="text-5xl font-bold text-indigo-600"><1 min</div>
-                    <div class="mt-2 text-black">Reduction in Data Latency</div>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow">
-                    <div class="text-5xl font-bold text-indigo-600">15%</div>
-                    <div class="mt-2 text-black">Improvement in Ad Spend Efficiency</div>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2 class="text-2xl font-bold mb-4">Personal Reflection</h2>
-            <p class="text-lg text-black leading-relaxed">This project was a pivotal moment for me. It reinforced my belief that our job isn't just to write code, but to solve the right problem. By looking past the simple request and identifying the root cause, we delivered a solution that had a far greater impact than what was initially imagined. It was a lesson in the strategic value of well-justified technical complexity.</p>
-        </section>
+      <section>
+        <h2 class="text-2xl font-bold mb-4">Personal Reflection</h2>
+        <p class="text-lg text-black leading-relaxed">
+          This project was a pivotal moment for me. It reinforced my belief that
+          our job isn't just to write code, but to solve the right problem. By
+          looking past the simple request and identifying the root cause, we
+          delivered a solution that had a far greater impact than what was
+          initially imagined. It was a lesson in the strategic value of
+          well-justified technical complexity.
+        </p>
+      </section>
     </article>
+  </main>
 </body>
