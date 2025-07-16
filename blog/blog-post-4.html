@@ -2,84 +2,93 @@
   <link rel="stylesheet" href="/src/styles.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="/src/animation.js" defer></script>
+  <!-- Add serif font from Google Fonts for a more academic/article look -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Lora', serif;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: sans-serif; /* Keep headings sans-serif for contrast */
+    }
+  </style>
 </head>
 <body>
   <script type="module" src="/src/header.js"></script>
   <main>
-    <article class="container mx-auto px-6 py-12 max-w-3xl">
+    <!-- Increased width for better readability, closer to a document format -->
+    <article class="container mx-auto px-6 py-12 max-w-4xl">
       <header class="mb-12 text-center">
         <h1 class="text-4xl font-bold">Love Island</h1>
-        <p class="text-lg mt-2">
-          A reflection of the American Mental.
-        </p>
-        <p class="text-black text-sm mt-2">Published on July 16, 2025</p>
       </header>
-      <div class="prose lg:prose-xl mx-auto text-black leading-relaxed">
-        <p class="text-center bg-gray-200 p-4 rounded-md font-mono">
-          (P → Q) ∧ (Q → X) ∴ (P → X)
-        </p>
-        <ul class="list-disc list-inside">
-            <li>(P → Q): Love Island (P) embodies a specific set of pathological values (Q).</li>
-            <li>(Q → X): This set of pathological values (Q) are characteristic features of an unhealthy society (X).</li>
-            <li>(P → X): Therefore, the popularity of Love Island (P) is a symptom of an unhealthy society (X).</li>
-        </ul>
+      <!-- Using prose for nice typography defaults, and custom font style -->
+      <div class="prose lg:prose-lg max-w-none mx-auto text-black leading-relaxed">
         <p>
-            Let's begin by defining Love Island (P). Love Island is a reality television show where contestants ("Islanders") are isolated in a villa and must remain "coupled up" with another contestant to survive elimination and win a cash prize. 
+          I have been off social media for some time now, but every now and then something viral slips through the cracks. Love island is one of those things. After a 1 hour watch and seeing the discourse it brings online, I can see how this TV show reflects the American mental. Short version, it is not good. Long version, I deduce via logical syllogism why America's infatuation with Love Island is a symptom of an unhealthy society.
         </p>
+        
+        <div class="bg-gray-100 border-l-4 border-gray-500 p-4 my-6">
+            <p class="text-center font-mono text-lg">
+              (P → Q) ∧ (Q → X) ∴ (P → X)
+            </p>
+            <ul class="list-none mt-4">
+                <li><strong>(P → Q):</strong> Love Island (P) embodies a specific set of pathological values (Q).</li>
+                <li><strong>(Q → X):</strong> This set of pathological values (Q) are characteristic features of an unhealthy society (X).</li>
+                <li><strong>(P → X):</strong> Therefore, the popularity of Love Island (P) is a symptom of an unhealthy society (X).</li>
+            </ul>
+        </div>
+
         <p>
-            Then, define the pathological values of Love Island (Q): I have broken this down into four categories that I observed: 
-        </p>
-        <ul class="list-disc list-inside">
-            <li>The Commodification of the Self: The transformation of one's personality, relationships, and body into a marketable product.</li>
-            <li>The Gamification of Intimacy: The framing of romantic connection as a strategic, transactional contest for survival and reward.</li>
-            <li>Shallow Public Discourse: A mode of engagement that prioritizes spectacle, gossip, and interpersonal conflict over substance, nuance, and critical thought.</li>
-            <li>Destructive Aspirations: The promotion of unrealistic physical ideals and a definition of success based on fame.</li>
-        </ul>
-        <p>
-            Lastly, define an unhealthy society (X) broadly. I broke this down into four characteristics:
-        </p>
-        <ul class="list-disc list-inside">
-            <li>Perverted Core Values: A culture where values like individualism and achievement are distorted into narcissism and the pursuit of fame.</li>
-            <li>Demographic Decline: A state of falling marriage and sub-replacement birth rates.</li>
-            <li>A "Shallow State": A public sphere marked by polarization, anxiety, and a hunger for that 15 minutes of fame.</li>
-            <li>Negative Public Health Outcomes: A social environment contributes to widespread mental health issues, such as anxiety and body dysmorphia.</li>
-        </ul>
-        <h2 class="text-2xl font-bold mt-8">(P → Q): Let’s deduce that Love Island (P) embodies pathological values (Q).</h2>
-        <p>
-            Love Island is an efficient machine of consumerism.  Every element/contestant is for sale. The show is a bridge into the "influencer-industrial complex," a market that ballooned to an estimated $21.1 billion in 2023. The primary motivation for most contestants isn't love, but the acquisition of fame and the financial gains after the fact. Upon leaving the island, former contestants can earn six or seven figures with major fashion and beauty partnerships. Each contestants’ on-screen persona is an audition for brands. What this means is that any quality, like "authenticity", becomes a selling point. This creates a culture where a person's value is tied directly to their physical features and the persona they adopt.
+            Let's begin by defining <strong>Love Island (P)</strong>. Love Island is a reality television show where contestants ("Islanders") are isolated in a villa and must remain "coupled up" with another contestant to survive elimination and win a cash prize.
         </p>
         <p>
-            The format of Love Island is "amorphous," because the main output is drama. Survival requires contestants to couple up, which incentivises strategy over romantic connection. The byproduct is that any authentic interaction becomes suspect (funny enough, I see a lot of overlap with modern dating culture). The show's central theme, ironically, becomes the debate over who is "genuine" and who is just "playing a game".
+            Then, define the <strong>pathological values of Love Island (Q)</strong>: I have broken this down into four categories that I observed:
         </p>
+        <ol class="list-decimal pl-5 space-y-2">
+            <li><strong>The Commodification of the Self:</strong> The transformation of one's personality, relationships, and body into a marketable product.</li>
+            <li><strong>The Gamification of Intimacy:</strong> The framing of romantic connection as a strategic, transactional contest for survival and reward.</li>
+            <li><strong>Shallow Public Discourse:</strong> A mode of engagement that prioritizes spectacle, gossip, and interpersonal conflict over substance, nuance, and critical thought.</li>
+            <li><strong>Destructive Aspirations:</strong> The promotion of unrealistic physical ideals and a definition of success based on fame.</li>
+        </ol>
         <p>
-            Love Island offers "low-stakes" interpersonal drama. The narrative is simple: who looks the best, who has the best “energy”, who is sleeping with whom, and who has alliances.  This aligns with the "shallow state," a mode of public life that rejects depth and knowledge in favor of spectacle and emotion. Viewers consume this content and it slowly shapes their reality.
+            Lastly, define an <strong>unhealthy society (X)</strong> broadly. I broke this down into four characteristics:
         </p>
-        <p>
-            Love Island has a lack of body diversity. This means contestants fit a narrow category of slim and fit. This is not an issue until you factor in the surgically enhanced physical traits. The data is not public so this is speculation, but I estimate that at least ⅘ contestants are enhanced spanning from teeth whitening to BBL. There is plenty of research proving that exposing people to unattainable body standards has a negative impact on viewers' mental health and body image.
-        </p>
-        <h2 class="text-2xl font-bold mt-8">(Q → X): Let’s deduce that these values are features of an unhealthy society.</h2>
-        <p>
-            A healthy society is built on values like community, equality, and humanitarianism. In an unhealthy society, these values become twisted. Core American ideals of individualism and achievement devolve into an obsession with self-branding and the pursuit of fame. Materialism becomes the dominant metric for success, fueling a culture that commodifies all aspects of life. When a generation's (gen alpha) top career aspiration is to be an “influencer,” we risk becoming a nation of glorified salesmen.
-        </p>
-        <p>
-            A healthy society is marked by demographic optimism including stable family formation and birth rates at or near replacement level. An unhealthy society exhibits demographic pessimism. In the U.S., marriage rates have been falling for decades. The U.S. birth rate has been below the replacement level of 2.1 for over a decade, with the 2023 rate at 1.62 births per woman. This signals a lack of confidence in the future and relationships. This is correlated to a culture that gamifies intimacy, trivializes commitment, and views partnerships as disposable.
-        </p>
-        <p>
-            A healthy society has a public sphere that values reason, nuance, and critical thinking. An unhealthy society has a "shallow state," where public discourse is driven by emotion, spectacle, and ideology rather than facts and critical thought. Media consists of visceral reactions, fragmented news sources, and increased polarization. This (reality) creates political anxiety, with 76% of Americans reporting the nation's future as a significant source of stress.
-        </p>
-        <p>
-            A healthy society creates social and physical environments that promote well-being for all. An unhealthy society promotes aspirations that are detrimental to public health. Imagine a source of media that pushes materialism, unrealistic body standards, and a degradation of romantic relationships. Oh wait.
-        </p>
-        <h2 class="text-2xl font-bold mt-8">( P → X): Love Island's Popularity is a Symptom</h2>
+        <ol class="list-decimal pl-5 space-y-2">
+            <li><strong>Perverted Core Values:</strong> A culture where values like individualism and achievement are distorted into narcissism and the pursuit of fame.</li>
+            <li><strong>Demographic Decline:</strong> A state of falling marriage and sub-replacement birth rates.</li>
+            <li><strong>A "Shallow State":</strong> A public sphere marked by polarization, anxiety, and a hunger for that 15 minutes of fame.</li>
+            <li><strong>Negative Public Health Outcomes:</strong> A social environment contributes to widespread mental health issues, such as anxiety and body dysmorphia.</li>
+        </ol>
+
+        <h2 class="text-2xl font-bold mt-12 mb-4">(P → Q): Let’s deduce that Love Island (P) embodies pathological values (Q).</h2>
+        <ol class="list-decimal pl-5 space-y-4">
+            <li>Love Island is an efficient machine of consumerism. Every element/contestant is for sale. The show is a bridge into the "influencer-industrial complex," a market that ballooned to an estimated $21.1 billion in 2023. The primary motivation for most contestants isn't love, but the acquisition of fame and the financial gains after the fact. Upon leaving the island, former contestants can earn six or seven figures with major fashion and beauty partnerships. Each contestants’ on-screen persona is an audition for brands. What this means is that any quality, like "authenticity", becomes a selling point. This creates a culture where a person's value is tied directly to their physical features and the persona they adopt.</li>
+            <li>The format of Love Island is "amorphous," because the main output is drama. Survival requires contestants to couple up, which incentivises strategy over romantic connection. The byproduct is that any authentic interaction becomes suspect (funny enough, I see a lot of overlap with modern dating culture). The show's central theme, ironically, becomes the debate over who is "genuine" and who is just "playing a game".</li>
+            <li>Love Island offers "low-stakes" interpersonal drama. The narrative is simple: who looks the best, who has the best “energy”, who is sleeping with whom, and who has alliances. This aligns with the "shallow state," a mode of public life that rejects depth and knowledge in favor of spectacle and emotion. Viewers consume this content and it slowly shapes their reality.</li>
+            <li>Love Island has a lack of body diversity. This means contestants fit a narrow category of slim and fit. This is not an issue until you factor in the surgically enhanced physical traits. The data is not public so this is speculation, but I estimate that at least ⅘ contestants are enhanced spanning from teeth whitening to BBL. There is plenty of research proving that exposing people to unattainable body standards has a negative impact on viewers' mental health and body image.</li>
+        </ol>
+
+        <h2 class="text-2xl font-bold mt-12 mb-4">(Q → X): Let’s deduce that these values are features of an unhealthy society.</h2>
+        <ol class="list-decimal pl-5 space-y-4">
+            <li>A healthy society is built on values like community, equality, and humanitarianism. In an unhealthy society, these values become twisted. Core American ideals of individualism and achievement devolve into an obsession with self-branding and the pursuit of fame. Materialism becomes the dominant metric for success, fueling a culture that commodifies all aspects of life. When a generation's (gen alpha) top career aspiration is to be an “influencer,” we risk becoming a nation of glorified salesmen.</li>
+            <li>A healthy society is marked by demographic optimism including stable family formation and birth rates at or near replacement level. An unhealthy society exhibits demographic pessimism. In the U.S., marriage rates have been falling for decades. The U.S. birth rate has been below the replacement level of 2.1 for over a decade, with the 2023 rate at 1.62 births per woman. This signals a lack of confidence in the future and relationships. This is correlated to a culture that gamifies intimacy, trivializes commitment, and views partnerships as disposable.</li>
+            <li>A healthy society has a public sphere that values reason, nuance, and critical thinking. An unhealthy society has a "shallow state," where public discourse is driven by emotion, spectacle, and ideology rather than facts and critical thought. Media consists of visceral reactions, fragmented news sources, and increased polarization. This (reality) creates political anxiety, with 76% of Americans reporting the nation's future as a significant source of stress.</li>
+            <li>A healthy society creates social and physical environments that promote well-being for all. An unhealthy society promotes aspirations that are detrimental to public health. Imagine a source of media that pushes materialism, unrealistic body standards, and a degradation of romantic relationships. Oh wait.</li>
+        </ol>
+
+        <h2 class="text-2xl font-bold mt-12 mb-4">( P → X): Love Island's Popularity is a Symptom</h2>
         <p>
             Love Island reflects, packages, and popularizes the pathologies that characterize a society in decline. It is a symptom of an unhealthy society. The show provides a form of escapism tailored to a public that is anxious, cynical about commitment, and accustomed to a shallow, market-driven culture. Love Island is a mirror, and its popularity confirms the reflection.
         </p>
       </div>
-      <div class="text-center mt-12">
-        <a href="/blog" class="text-indigo-600 font-semibold hover:underline"
+      <footer class="text-center mt-12">
+         <p class="text-sm text-gray-500">Published on July 16, 2025</p>
+        <a href="/blog" class="text-indigo-600 font-semibold hover:underline mt-4 inline-block"
           >&larr; Back to Blog</a
         >
-      </div>
+      </footer>
     </article>
   </main>
 </body>
