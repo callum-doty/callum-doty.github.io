@@ -1,246 +1,419 @@
-import debounce from './utils/debounce.js';
-import * as noise from './utils/noise.js';
-
 export default class HomepageHero {
-  constructor(elem) {
-    this.elem = elem;
-    this.noise = noise.noise;
-    this.canvas = this.elem.querySelector(".js-homepage-hero-canvas");
-    this.ctx = this.canvas.getContext("2d");
-    this.tempField = null;
-    this.field = null;
-    this.size = 30;
-    this.lineWidthDefault = 2;
-    this.lineWidth = this.lineWidthDefault;
-    this.mx = null;
-    this.my = null;
-    this.lineLengthDefault = 0.5;
-    this.defaultRotate = 0.5;
-    this.lineLength = this.lineLengthDefault;
-    this.video = this.elem.querySelector("#video");
-    this.animationFrameId = null;
-    this.isHovering = false;
-    this.isAnimating = false;
-    this.previousScrollPosition = 0;
-    this.isInViewport = true;
-    this.scrollBuffer = 10;
-    this.animationFrame = null;
-    this.isInitialized = false;
-
-    this.mouseMoveHandler = this.mouseMoveHandler.bind(this);
-    this.handleMouseEnter = this.handleMouseEnter.bind(this);
-    this.handleMouseLeave = this.handleMouseLeave.bind(this);
-    this.reset = this.reset.bind(this);
-
-    this.classes = {
-      isScrolled: 'homepageHero--is-scrolled'
-    };
-
-    this.lastClassState = this.elem.classList.contains(this.classes.isScrolled);
-  }
-
-  mouseMoveHandler(e) {
-    const mousePos = this.getMousePos(this.canvas, e);
-    this.mx = mousePos.x;
-    this.my = mousePos.y;
-  }
-
-  handleAnimation(direction) {
-    if (this.animationFrame && this.isAnimating) {
-        cancelAnimationFrame(this.animationFrame);
-    }
-
-    this.isAnimating = true;
-    let animationVal = direction === "down" ? 0 : 100;
-
-    const animate = () => {
-        if ((direction === "down" && animationVal >= 100) || (direction === "up" && animationVal <= 0)) {
-            this.isAnimating = false;
-            if (direction === "down") {
-                this.isInViewport = false;
-            }
-            return;
-        }
-
-        const speed = 4;  // Adjust this value to control the speed of the animation
-        direction === "down" ? animationVal += speed : animationVal -= speed;
-
-        this.lineWidth = Math.floor(this.lineWidthDefault + animationVal * 4 / 9);
-        this.animationFrame = requestAnimationFrame(animate);
-    };
-
-    this.animationFrame = requestAnimationFrame(animate);
-}
-
-
-
-  getMousePos(canvas, evt) {
-    var rect = canvas.getBoundingClientRect();
-    return {
-      x: evt.clientX - rect.left,
-      y: evt.clientY - rect.top
-    };
-  }
-
-  drawField() {
-    this.tempField = this.field;
-    for (let x = 0; x < this.columns; x++) {
-      for (let y = 0; y < this.rows; y++) {
-        let angle = this.field[x][y][0];
-
-        this.ctx.save();
-        this.ctx.translate(x * this.size, y * this.size);
-        this.ctx.rotate(angle);
-        this.ctx.strokeStyle = `hsl(0, 0%, ${this.field[x][y][3]}%)`;
-        this.ctx.beginPath();
-        this.ctx.moveTo(0, 0);
-        this.ctx.lineTo(0, (this.size - 10) * this.field[x][y][1]);
-        this.ctx.stroke();
-        this.ctx.restore();
-      }
-    }
-
-    this.ctx.globalCompositeOperation = 'destination-over';
-  }
-
-  clear() {
-    this.ctx.clearRect(0, 0, this.w, this.h);
-    this.ctx.fillStyle = "#FFF";
-    this.ctx.fillRect(0, 0, this.w, this.h);
-
-    this.ctx.globalCompositeOperation = 'source-over';
-  }
-
-  draw(now) {
-    this.ctx.lineWidth = this.lineWidth;
-
-    if (this.animationFrameId) {
-      cancelAnimationFrame(this.animationFrameId);
-    }
-
-    this.animationFrameId = requestAnimationFrame(this.draw.bind(this));
-
-    if (this.isInViewport) {
-      this.calculateField();
-      this.noiseZ = Math.floor(now) * 0.000198;
-      this.clear();
-      this.drawField();
-    }
-  }
-
-  calculateField() {
-    for (let x = 0; x < this.columns; x++) {
-      for (let y = 0; y < this.rows; y++) {
-        let angle = this.noise.noise3D(x / 50, y / 50, this.noiseZ) * Math.PI * 2;
-        let simplexLength = this.noise.noise3D(x / 100 + 40000, y / 100 + 40000, this.noiseZ);
-        let length =  simplexLength > 0.25 ? simplexLength : 0.25;
-        let lightness = (this.noise.noise3D(x / 10 + 20000, y / 10 + 20000, this.noiseZ * 4) + 1) / 2 * 80;
-
-        this.field[x][y][0] = angle;
-
-        if (this.isHovering && this.mx !== null) {
-          let particleX = x * this.size;
-          let particleY = y * this.size;
-          let dx = this.mx - particleX;
-          let dy = this.my - particleY;
-          let distance = Math.sqrt(dx * dx + dy * dy);
-          let maxDistance = 150;
-
-          if (distance < maxDistance) {
-            let growth = (1 - (distance / maxDistance)) * 0.75;
-            length += growth;
-          }
-        }
-
-        this.field[x][y][1] = length;
-        this.field[x][y][3] = lightness;
-      }
-    }
-  }
-
-  initField() {
-    if (!this.field) {
-      this.field = new Array(this.columns);
-    }
-    for (let x = 0; x < this.columns; x++) {
-      if (!this.field[x]) {
-        this.field[x] = new Array(this.rows);
-      }
-      for (let y = 0; y < this.rows; y++) {
-        this.field[x][y] = [0, 0, 0, 0];
-      }
-    }
-  }
-
-  handleMouseLeave() {
-    this.isHovering = false;
-    this.mx = null;
-    this.my = null;
-  }
-
-  handleMouseEnter() {
-    this.isHovering = true;
-  }
-
-  reset() {
-    // console.log("reset");
-    const dpr = (window.devicePixelRatio && window.devicePixelRatio > 1) ? window.devicePixelRatio : 1;
-    const rect = this.canvas.getBoundingClientRect();
-
-    this.canvas.width = rect.width * dpr;
-    this.canvas.height = rect.height * dpr;
-    this.ctx.scale(dpr, dpr);
-
-    this.w = this.canvas.width;
-    this.h = this.canvas.height;
-    this.noise.seed(Math.random);
-    this.columns = Math.floor(this.w / this.size) + 1;
-    this.rows = Math.floor(this.h / this.size) + 1;
-
-    // console.table({ w: this.w, h: this.h, columns: this.columns, rows: this.rows, dpr, size: this.size, lineWidth: this.lineWidth, lineLength: this.lineLength, canvasWidth: this.canvas.width, canvasHeight: this.canvas.height});
-
-    this.initField();
+  constructor(container) {
+    this.container = container;
+    this.canvas = null;
+    this.ctx = null;
+    this.animationId = null;
   }
 
   init() {
-    this.reset();
-    const mutationObserver = new MutationObserver((mutationsList, observer) => {
-      for (let mutation of mutationsList) {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-          const currentClassState = mutation.target.classList.contains(this.classes.isScrolled);
-          const scrollPos = window.scrollY;
+    // MIS Unified Background — Vanilla JS (no HTML)
+    // Creates a fixed <canvas> behind the page and runs the animation.
 
-          // Do nothing if the class state hasn't changed
-          if (this.lastClassState === currentClassState) return;
+    // ---------- Canvas bootstrap (DPR-aware, non-blocking) ----------
+    this.canvas = document.createElement('canvas');
+    this.ctx = this.canvas.getContext('2d', { alpha: false });
+    Object.assign(this.canvas.style, {
+      position: 'fixed',
+      inset: '0',
+      width: '100%',
+      height: '100%',
+      zIndex: '-1',
+      pointerEvents: 'none',
+    });
+    document.body.appendChild(this.canvas);
 
-          // Do nothing if scrollpost if below the height of the hero
-          if (scrollPos > this.elem.offsetHeight) return;
+    let DPR = Math.min(2, window.devicePixelRatio || 1);
+    let W = 0, H = 0;
 
-          // Update last class state
-          this.lastClassState = currentClassState;
+    const resize = () => {
+      DPR = Math.min(2, window.devicePixelRatio || 1);
+      W = this.canvas.width  = Math.floor(innerWidth * DPR);
+      H = this.canvas.height = Math.floor(innerHeight * DPR);
+      this.canvas.style.width = innerWidth + 'px';
+      this.canvas.style.height = innerHeight + 'px';
+      world.reseed();
+    };
+    addEventListener('resize', resize, { passive: true });
 
+    // ---------- Controls / Parameters ----------
+    const params = {
+      // Global harmony (DeLone & McLean)
+      systemQuality: 0.85,   // smooth integration / less noise
+      infoQuality:   0.85,   // visual sharpness (alpha/contrast)
+      serviceQuality:0.85,   // stability (damping)
 
-          if (currentClassState && scrollPos < this.elem.offsetHeight/2) {
-            this.handleAnimation('down');
-          } else if(!currentClassState && scrollPos < this.elem.offsetHeight + 10){
-            this.isInViewport = true;
-            this.handleAnimation("up");
+      // Population
+      density: 0.0002,      // particles per px^2
+      maxEdgesPerNode: 3,    // ANT: cap nearby links
+
+      // Flow field
+      k: 0.0017,             // spatial frequency
+      timeScale: 0.12,       // temporal frequency
+      jitter: 0.15,          // random walk (reduced by systemQuality)
+      baseSpeed: 0.005,       // global speed
+      damping: 0.96,         // velocity damping (raised by serviceQuality)
+
+      // Social alignment
+      socialAlign: 0.45,     // align to local peers
+
+      // Diffusion waves
+      waveInterval: 4000,    // ms between seeds
+      waveStrength: 1.1,     // impulse strength
+      waveDecay: 0.985,      // frame decay
+
+      // Structuration grid / Institutional lattice
+      gridStep: 90,          // px at DPR=1
+      gridAlpha: 0.06,
+      latticePull: 0.035,
+
+      // Rendering
+      lineWidth: 1.35,
+      antEdgeAlpha: 0.08,
+      adoptionAccent: '#2058ff',
+      monoStroke: '#0a0a0a',
+      bg: '#ffffff',
+    };
+
+    // Scale params by quality knobs
+    const tuneByQuality = () => {
+      jitterScalar   = params.jitter * (1 - 0.5*params.systemQuality);
+      dampingScalar  = 1 - (1-params.damping)*(params.serviceQuality);
+      gridAlpha      = params.gridAlpha * (0.7 + 0.6*params.infoQuality);
+      edgeAlpha      = params.antEdgeAlpha * (0.6 + 0.8*params.infoQuality);
+    };
+    let jitterScalar = params.jitter, dampingScalar = params.damping, gridAlpha = params.gridAlpha, edgeAlpha = params.antEdgeAlpha;
+    tuneByQuality();
+
+    // ---------- Utilities ----------
+    const rand = (a,b)=>a + Math.random()*(b-a);
+    const clamp = (x,a,b)=>Math.max(a,Math.min(b,x));
+
+    // Field: smooth curl-ish vector without noise lib.
+    const field = (x, y, t) => {
+      const k = params.k;
+      const s1 = Math.sin((y*k*1.7) + 0.6*Math.sin(t*0.7));
+      const c1 = Math.cos((x*k*1.3) - 0.9*t);
+      const s2 = Math.sin((x*k*0.9) + 0.8*Math.cos(t*0.33));
+      const c2 = Math.cos((y*k*1.1) + 0.5*t);
+      // curl-like combination
+      let fx = s1 + c2*0.7 - s2*0.5;
+      let fy = c1 - s1*0.6 + c2*0.4;
+      return [fx, fy];
+    };
+
+    // ---------- World state ----------
+    const world = {
+      nodes: [],
+      hubs: [],
+      edges: [], // transient ANT edges [i,j,alpha,phase]
+      wave: {active:false, x:0, y:0, radius:0, strength:0},
+      lastWave: 0,
+
+      reseed(){
+        const count = Math.floor(W*H*params.density);
+        this.nodes = [];
+        for(let i=0;i<count;i++){
+          this.nodes.push({
+            x: Math.random()*W,
+            y: Math.random()*H,
+            vx: 0, vy: 0,
+            life: rand(0,5),
+            ttl: rand(8,16),
+            adoption: 0, // how "adopted" (Diffusion)
+          });
+        }
+
+        this.hubs = [];
+        this.edges = [];
+        this.lastWave = performance.now();
+        this.wave.active = false;
+      }
+    };
+
+    // ---------- Interaction ----------
+    const pointer = {x:0, y:0, down:false, has:false};
+    addEventListener('mousemove', e => { pointer.x = e.clientX*DPR; pointer.y = e.clientY*DPR; pointer.has = true; }, {passive:true});
+    addEventListener('touchmove', e => { const t=e.touches[0]; if(t){ pointer.x=t.clientX*DPR; pointer.y=t.clientY*DPR; pointer.has=true; } }, {passive:true});
+    addEventListener('mousedown', ()=> pointer.down=true);
+    addEventListener('mouseup',   ()=> pointer.down=false);
+    addEventListener('touchstart',()=> pointer.down=true, {passive:true});
+    addEventListener('touchend',  ()=> pointer.down=false, {passive:true});
+
+    // ---------- Rendering helpers ----------
+    const drawGrid = (t) => {
+      this.ctx.save();
+      this.ctx.globalAlpha = gridAlpha;
+      this.ctx.strokeStyle = '#000';
+      this.ctx.lineWidth = 1;
+
+      // Slight structural "breathing" (Structuration)
+      const wob = 3*DPR*Math.sin(t*0.2);
+      const step = params.gridStep*DPR;
+
+      for(let x=0; x<=W; x+=step){
+        this.ctx.beginPath();
+        this.ctx.moveTo(x + wob, 0);
+        this.ctx.lineTo(x - wob, H);
+        this.ctx.stroke();
+      }
+      for(let y=0; y<=H; y+=step){
+        this.ctx.beginPath();
+        this.ctx.moveTo(0, y - wob);
+        this.ctx.lineTo(W, y + wob);
+        this.ctx.stroke();
+      }
+      this.ctx.restore();
+    };
+
+    const drawHubs = (t) => {
+      // Hubs removed
+    };
+
+    const drawANTEdges = (t) => {
+      this.ctx.save();
+      this.ctx.lineWidth = 1*DPR;
+      for(const e of world.edges){
+        const [i, j, alpha, phase] = e;
+        const a = world.nodes[i], b = world.nodes[j];
+        if(!a || !b) continue;
+        const pulsate = (0.6 + 0.4*Math.sin(t*2 + phase));
+        this.ctx.globalAlpha = edgeAlpha * alpha * pulsate;
+        this.ctx.strokeStyle = '#000';
+        this.ctx.beginPath();
+        this.ctx.moveTo(a.x, a.y);
+        this.ctx.lineTo(b.x, b.y);
+        this.ctx.stroke();
+      }
+      this.ctx.restore();
+    };
+
+    // ---------- Physics / Update ----------
+    const update = (now, dt) => {
+      const t = now*0.001*params.timeScale;
+
+      // Diffusion wave seeding
+      if(now - world.lastWave > params.waveInterval){
+        world.lastWave = now;
+        world.wave.active = true;
+        world.wave.x = rand(W*0.2, W*0.8);
+        world.wave.y = rand(H*0.2, H*0.8);
+        world.wave.radius = 0;
+        world.wave.strength = params.waveStrength;
+      }
+      if(world.wave.active){
+        world.wave.radius += 220*DPR*dt; // expand
+        world.wave.strength *= params.waveDecay;
+        if(world.wave.strength < 0.02) world.wave.active=false;
+      }
+
+      // Clear ANT edges
+      world.edges.length = 0;
+
+      // Spatial grid for neighbor queries (simple binning)
+      const cell = 80*DPR, cols = Math.ceil(W/cell), rows = Math.ceil(H/cell);
+      const bins = Array.from({length:cols*rows}, ()=>[]);
+      const binIndex = (x,y)=> clamp(Math.floor(x/cell),0,cols-1) + cols*clamp(Math.floor(y/cell),0,rows-1);
+
+      world.nodes.forEach((p, idx) => { bins[binIndex(p.x,p.y)].push(idx); });
+
+      // Update nodes
+      const maxConn = params.maxEdgesPerNode;
+      world.nodes.forEach((p, i) => {
+        // Base flow (Structuration-guided)
+        const [fx, fy] = field(p.x, p.y, t);
+        let ax = fx, ay = fy;
+
+        // Hub attraction removed
+
+        // Diffusion of Innovations: outward impulse on wavefront
+        if(world.wave.active){
+          const dx = p.x - world.wave.x, dy = p.y - world.wave.y;
+          const d = Math.sqrt(dx*dx + dy*dy)+1e-4;
+          const band = Math.abs(d - world.wave.radius);
+          if(band < 60*DPR){
+            const w = world.wave.strength * (1 - band/(60*DPR));
+            ax += (dx/d) * 2.0 * w;
+            ay += (dx/d) * 2.0 * w;
+            p.adoption = Math.min(1, p.adoption + 0.03); // becomes "adopted"
           }
         }
+
+        // Institutional lattice pressure: nudge toward grid intersections
+        const step = params.gridStep*DPR;
+        const gx = Math.round(p.x/step)*step, gy = Math.round(p.y/step)*step;
+        ax += (gx - p.x)*params.latticePull;
+        ay += (gy - p.y)*params.latticePull;
+
+        // Grid-point settling: reduce motion when near intersections
+        const distToGrid = Math.sqrt((p.x - gx)*(p.x - gx) + (p.y - gy)*(p.y - gy));
+        const settlingRadius = 15*DPR; // radius around grid points where settling occurs
+        const gridDamping = distToGrid < settlingRadius ? 
+          0.3 + 0.7 * (distToGrid / settlingRadius) : 1.0; // stronger damping closer to grid
+
+        // Task–Technology Fit: reward alignment with nearby grid axis
+        const vmag = Math.hypot(p.vx, p.vy) + 1e-6;
+        const vxn = p.vx/vmag, vyn = p.vy/vmag;
+        const alignX = Math.abs(vxn);  // ~1 when moving horizontally
+        const alignY = Math.abs(vyn);  // ~1 when moving vertically
+        const fit = Math.max(alignX, alignY);
+        const speedBoost = 1 + 0.5*(fit - 0.5); // ranges ~0.75..1.25
+
+        // Social influence: align with local peers
+        let alignCount = 0, axN=0, ayN=0, conn=0;
+        const bi = binIndex(p.x,p.y);
+        const bx = bi % cols, by = Math.floor(bi/cols);
+        for(let oy=-1; oy<=1; oy++){
+          for(let ox=-1; ox<=1; ox++){
+            const cx = bx+ox, cy = by+oy;
+            if(cx<0||cy<0||cx>=cols||cy>=rows) continue;
+            for(const j of bins[cx + cols*cy]){
+              if(j===i) continue;
+              const q = world.nodes[j];
+              const dx = q.x - p.x, dy = q.y - p.y;
+              const d2 = dx*dx + dy*dy;
+              if(d2 < (140*DPR)*(140*DPR)){
+                // alignment vector
+                const m = Math.hypot(q.vx,q.vy) + 1e-6;
+                axN += q.vx/m; ayN += q.vy/m; alignCount++;
+                // ANT edges (limit per node)
+                if(conn < maxConn){
+                  world.edges.push([i, j, 1 - d2/((140*DPR)*(140*DPR)), Math.random()*6.28]);
+                  conn++;
+                }
+              }
+            }
+          }
+        }
+        if(alignCount>0){
+          ax += params.socialAlign * (axN/alignCount);
+          ay += params.socialAlign * (ayN/alignCount);
+        }
+
+        // Pointer influence (inspect/repel with mouse)
+        if(pointer.has){
+          const dx = pointer.x - p.x, dy = pointer.y - p.y;
+          const d2 = dx*dx + dy*dy + 1e-2;
+          const inv = 1/Math.sqrt(d2);
+          const sgn = pointer.down ? -1 : 1; // hold to repel
+          ax += sgn * 1.0 * dx * inv * 0.6;
+          ay += sgn * 1.0 * dy * inv * 0.6;
+        }
+
+        // Integrate velocity with grid-point settling
+        const base = params.baseSpeed * speedBoost;
+        p.vx = (p.vx + ax) * (dampingScalar * gridDamping);
+        p.vy = (p.vy + ay) * (dampingScalar * gridDamping);
+        p.vx += (Math.random()-0.5) * jitterScalar;
+        p.vy += (Math.random()-0.5) * jitterScalar;
+
+        // Position advance
+        p.x += p.vx * base;
+        p.y += p.vy * base;
+
+        // Wrap softly
+        if(p.x < -10) p.x = W+10;
+        if(p.x > W+10) p.x = -10;
+        if(p.y < -10) p.y = H+10;
+        if(p.y > H+10) p.y = -10;
+
+        // Lifecycle (used to vary stroke/alpha subtly)
+        p.life += dt;
+        if(p.life > p.ttl){ // respawn random
+          p.x = Math.random()*W; p.y = Math.random()*H; p.vx=0; p.vy=0;
+          p.life = 0; p.ttl = rand(8,16); p.adoption = 0;
+        }
+      });
+    };
+
+    // ---------- Draw ----------
+    const draw = (now) => {
+      this.ctx.globalCompositeOperation = 'source-over';
+      this.ctx.globalAlpha = 1;
+      this.ctx.fillStyle = params.bg;
+      this.ctx.fillRect(0,0,W,H);
+
+      const t = now*0.001;
+
+      // Structuration grid behind everything
+      drawGrid(t);
+
+      // Hubs removed
+
+      // ANT edges (process-oriented ties)
+      drawANTEdges(t);
+
+      // Particle dots (quantitative, clean)
+      for(const p of world.nodes){
+        // Adoption accent (Diffusion) & monochrome base
+        const vmag = Math.hypot(p.vx, p.vy);
+        const adopt = p.adoption;
+        if(adopt > 0.4 && vmag > 0.6){
+          this.ctx.fillStyle = params.adoptionAccent;
+          this.ctx.globalAlpha = 0.4 + 0.2*adopt;
+        } else {
+          this.ctx.fillStyle = params.monoStroke;
+          this.ctx.globalAlpha = 0.3 + 0.2*params.infoQuality;
+        }
+
+        // Draw dot with constant size
+        const dotSize = params.lineWidth * DPR * 2;
+        this.ctx.beginPath();
+        this.ctx.arc(p.x, p.y, dotSize, 0, Math.PI*2);
+        this.ctx.fill();
       }
-    });
 
-    mutationObserver.observe(this.elem, { attributes: true });
+      // Optional: subtle wavefront ring (for aesthetics / legibility)
+      if(world.wave.active){
+        this.ctx.globalAlpha = 0.06;
+        this.ctx.strokeStyle = params.adoptionAccent;
+        this.ctx.lineWidth = 2*DPR;
+        this.ctx.beginPath();
+        this.ctx.arc(world.wave.x, world.wave.y, world.wave.radius, 0, Math.PI*2);
+        this.ctx.stroke();
+      }
 
+      this.ctx.globalAlpha = 1;
+    };
 
-    this.draw(performance.now());
+    // ---------- Main loop ----------
+    let last = performance.now();
+    const frame = (now) => {
+      const dt = Math.min(0.033, (now - last)/1000);
+      last = now;
+      update(now, dt);
+      draw(now);
+      this.animationId = requestAnimationFrame(frame);
+    };
 
-    if (window.matchMedia('(hover: hover)').matches) {
-      this.elem.addEventListener("mousemove", this.mouseMoveHandler);
-      this.elem.addEventListener("mouseenter", this.handleMouseEnter);
-      this.elem.addEventListener("mouseleave", this.handleMouseLeave);
+    // ---------- Initialize ----------
+    resize();
+    world.reseed();
+    this.animationId = requestAnimationFrame(frame);
+
+    // ---------- Optional tiny API ----------
+    window.MISBackground = {
+      setQuality({system, info, service}={}){
+        if(system!==undefined)  params.systemQuality = clamp(system,0,1);
+        if(info!==undefined)    params.infoQuality   = clamp(info,0,1);
+        if(service!==undefined) params.serviceQuality= clamp(service,0,1);
+        tuneByQuality();
+      },
+      setDensity(mult=1){
+        params.density = clamp(params.density*mult, 0.00005, 0.0006);
+        world.reseed();
+      },
+      reseed: ()=> world.reseed(),
+    };
+  }
+
+  destroy() {
+    if (this.animationId) {
+      cancelAnimationFrame(this.animationId);
+      this.animationId = null;
     }
-
-    window.addEventListener("resize", debounce(this.reset.bind(this), 500));
+    if (this.canvas && this.canvas.parentNode) {
+      this.canvas.parentNode.removeChild(this.canvas);
+    }
   }
 }

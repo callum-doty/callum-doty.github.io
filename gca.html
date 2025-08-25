@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta viewport="width=device-width, initial-scale=1.0">
+    <title>GCA Methodology & Data Framework</title>
+    <script>
+        function showTab(event, tabId) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all tab buttons
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(button => button.classList.remove('active'));
+            
+            // Show selected tab content
+            document.getElementById(tabId).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+        
+        function calculateGCA() {
+            // Lifestyle Filter
+            const lifestyle = [
+                parseFloat(document.getElementById('lifestyle1').value) * 0.7,
+                parseFloat(document.getElementById('lifestyle2').value) * 1.0,
+                parseFloat(document.getElementById('lifestyle3').value) * 1.0,
+                parseFloat(document.getElementById('lifestyle4').value) * 0.8
+            ];
+            const lifestyleScore = lifestyle.reduce((a, b) => a + b, 0);
+            
+            // Learning Filter
+            const learning = [
+                parseFloat(document.getElementById('learning1').value) * 0.7,
+                parseFloat(document.getElementById('learning2').value) * 0.9,
+                parseFloat(document.getElementById('learning3').value) * 0.9
+            ];
+            const learningScore = learning.reduce((a, b) => a + b, 0);
+            
+            // Future Filter
+            const future = [
+                parseFloat(document.getElementById('future1').value) * 0.9,
+                parseFloat(document.getElementById('future2').value) * 0.9,
+                parseFloat(document.getElementById('future3').value) * 0.8
+            ];
+            const futureScore = future.reduce((a, b) => a + b, 0);
+            
+            // Relationship Filter
+            const relationship = [
+                parseFloat(document.getElementById('relationship1').value) * 1.0,
+                parseFloat(document.getElementById('relationship2').value) * 0.9,
+                parseFloat(document.getElementById('relationship3').value) * 0.9,
+                parseFloat(document.getElementById('relationship4').value) * 1.0
+            ];
+            const relationshipScore = relationship.reduce((a, b) => a + b, 0);
+            
+            // Determine pass/fail for each filter
+            const lifestylePassed = lifestyleScore >= 1.5;
+            const learningPassed = learningScore >= 1.3;
+            const futurePassed = futureScore >= 1.3;
+            const relationshipPassed = relationshipScore >= 1.7;
+            
+            const totalScore = lifestyleScore + learningScore + futureScore + relationshipScore;
+            
+            let resultHtml = `
+                <h4>GCA Assessment Results</h4>
+                <p><strong>Lifestyle Filter:</strong> ${lifestyleScore.toFixed(2)} ${lifestylePassed ? '✅ PASS' : '❌ FAIL'} (Threshold: 1.5)</p>
+                <p><strong>Learning Filter:</strong> ${learningScore.toFixed(2)} ${learningPassed ? '✅ PASS' : '❌ FAIL'} (Threshold: 1.3)</p>
+                <p><strong>Future Filter:</strong> ${futureScore.toFixed(2)} ${futurePassed ? '✅ PASS' : '❌ FAIL'} (Threshold: 1.3)</p>
+                <p><strong>Relationship Filter:</strong> ${relationshipScore.toFixed(2)} ${relationshipPassed ? '✅ PASS' : '❌ FAIL'} (Threshold: 1.7)</p>
+                <hr>
+                <p><strong>Total GCA Score:</strong> ${totalScore.toFixed(2)}</p>
+            `;
+            
+            if (lifestylePassed && learningPassed && futurePassed && relationshipPassed) {
+                resultHtml += '<p style="color: green; font-weight: bold;">🎉 HIGH COMPATIBILITY - Proceed to deeper connection</p>';
+            } else if (lifestylePassed && learningPassed && futurePassed) {
+                resultHtml += '<p style="color: orange; font-weight: bold;">⚠️ MEDIUM COMPATIBILITY - Relationship filter needs work</p>';
+            } else {
+                resultHtml += '<p style="color: red; font-weight: bold;">❌ LOW COMPATIBILITY - Consider moving on</p>';
+            }
+            
+            document.getElementById('gcaResults').innerHTML = resultHtml;
+            document.getElementById('gcaResults').style.display = 'block';
+        }
+        
+        function logInteraction() {
+            const interactionData = {
+                timestamp: new Date().toISOString(),
+                location: document.getElementById('location').value,
+                timeSpent: document.getElementById('timeSpent').value,
+                ageRange: document.getElementById('ageRange').value,
+                educationLevel: document.getElementById('educationLevel').value,
+                profession: document.getElementById('profession').value,
+                growthOrientation: document.getElementById('growthOrientation').value,
+                learningMindset: document.getElementById('learningMindset').value,
+                futurePlanning: document.getElementById('futurePlanning').value,
+                relationshipCompat: document.getElementById('relationshipCompat').value,
+                notes: document.getElementById('interactionNotes').value
+            };
+            
+            // Store in localStorage for demo purposes
+            let interactions = JSON.parse(localStorage.getItem('kcInteractions') || '[]');
+            interactions.push(interactionData);
+            localStorage.setItem('kcInteractions', JSON.stringify(interactions));
+            
+            document.getElementById('quickResults').innerHTML = 
+                `<p style="color: green;">✅ Interaction logged successfully! Total interactions: ${interactions.length}</p>`;
+            document.getElementById('quickResults').style.display = 'block';
+            
+            // Clear form
+            document.getElementById('location').value = '';
+            document.getElementById('timeSpent').value = '';
+            document.getElementById('profession').value = '';
+            document.getElementById('interactionNotes').value = '';
+        }
+        
+        function exportData() {
+            const interactions = JSON.parse(localStorage.getItem('kcInteractions') || '[]');
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(interactions, null, 2));
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", "kc_interactions_export.json");
+            document.body.appendChild(downloadAnchorNode);
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+        }
+        
+        // Live Data Dashboard Functions
+        function getBackendUrl() {
+            const url = document.getElementById('backendUrl').value.trim();
+            return url || 'http://localhost:3000';
+        }
+        
+        async function testConnection() {
+            const backendUrl = getBackendUrl();
+            const statusDiv = document.getElementById('connectionStatus');
+            
+            try {
+                statusDiv.style.display = 'block';
+                statusDiv.innerHTML = '<p>🔄 Testing connection...</p>';
+                
+                const response = await fetch(`${backendUrl}/api/data`);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    statusDiv.innerHTML = `
+                        <p style="color: green;">✅ Connection successful!</p>
+                        <p><strong>Data freshness:</strong> ${data.timestamp}</p>
+                        <p><strong>Total locations:</strong> ${Object.values(data.data).reduce((sum, arr) => sum + arr.length, 0)}</p>
+                    `;
+                } else {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+            } catch (error) {
+                statusDiv.innerHTML = `
+                    <p style="color: red;">❌ Connection failed</p>
+                    <p><strong>Error:</strong> ${error.message}</p>
+                    <p><strong>Tip:</strong> Make sure your backend is running and the URL is correct.</p>
+                `;
+            }
+        }
+        
+        async function loadData(dataType) {
+            const backendUrl = getBackendUrl();
+            const elementMap = {
+                'meetup_groups': 'meetupData',
+                'climbing_gyms': 'climbingData',
+                'university_programs': 'universityData',
+                'coworking_spaces': 'coworkingData'
+            };
+            
+            const elementId = elementMap[dataType];
+            const element = document.getElementById(elementId);
+            
+            try {
+                element.innerHTML = '🔄 Loading...';
+                
+                const response = await fetch(`${backendUrl}/api/data/${dataType}`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.success && result.data.length > 0) {
+                    let html = `<p><strong>Count:</strong> ${result.count}</p>`;
+                    html += '<div style="max-height: 200px; overflow-y: auto; margin-top: 10px;">';
+                    
+                    result.data.forEach((item, index) => {
+                        html += `<div style="border-bottom: 1px solid #eee; padding: 8px 0; font-size: 0.9em;">`;
+                        html += `<strong>${item.name}</strong><br>`;
+                        
+                        if (dataType === 'meetup_groups') {
+                            html += `📍 ${item.location} | 👥 ${item.member_count} members | 🏷️ ${item.category}`;
+                        } else if (dataType === 'climbing_gyms') {
+                            html += `📍 ${item.address} | 💰 ${item.membership_pricing || 'N/A'}`;
+                        } else if (dataType === 'university_programs') {
+                            html += `🏫 ${item.institution} | 👩‍🎓 ${item.female_enrollment_pct}% female | 👥 ${item.total_enrollment} students`;
+                        } else if (dataType === 'coworking_spaces') {
+                            html += `📍 ${item.address} | 👥 ${item.membership_count} members | 💼 ${item.industry_mix}`;
+                        }
+                        
+                        html += '</div>';
+                    });
+                    
+                    html += '</div>';
+                    html += `<p style="font-size: 0.8em; color: #666; margin-top: 10px;">Last updated: ${new Date(result.timestamp).toLocaleString()}</p>`;
+                    element.innerHTML = html;
+                } else {
+                    element.innerHTML = '<p style="color: orange;">⚠️ No data available</p>';
+                }
+            } catch (error) {
+                element.innerHTML = `<p style="color: red;">❌ Error: ${error.message}</p>`;
+            }
+        }
+        
+        async function loadGCAReport() {
+            const backendUrl = getBackendUrl();
+            const reportDiv = document.getElementById('gcaReport');
+            
+            try {
+                reportDiv.innerHTML = '🔄 Generating report...';
+                
+                const response = await fetch(`${backendUrl}/api/data/report`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    const report = result.report;
+                    let html = `
+                        <h4>🏆 Top 10 GCA Compatible Locations</h4>
+                        <div style="max-height: 300px; overflow-y: auto;">
+                    `;
+                    
+                    report.top_10_locations.forEach((location, index) => {
+                        html += `
+                            <div style="border: 1px solid #ddd; margin: 10px 0; padding: 15px; border-radius: 5px;">
+                                <h5 style="margin: 0 0 10px 0;">${index + 1}. ${location.name}</h5>
+                                <p style="margin: 5px 0;"><strong>GCA Score:</strong> ${location.gca_score.toFixed(1)}/5.0</p>
+                                <p style="margin: 5px 0;"><strong>Location:</strong> ${location.location}</p>
+                                <p style="margin: 5px 0;"><strong>Demographics:</strong> ${location.target_demographic}</p>
+                                <p style="margin: 5px 0;"><strong>Best Times:</strong> ${location.best_times}</p>
+                                <p style="margin: 5px 0;"><strong>Frequency:</strong> ${location.weekly_frequency}</p>
+                            </div>
+                        `;
+                    });
+                    
+                    html += '</div>';
+                    
+                    // Add category breakdown
+                    html += '<h4>📊 Category Analysis</h4>';
+                    Object.entries(report.by_category).forEach(([category, data]) => {
+                        html += `
+                            <div style="margin: 10px 0; padding: 10px; background: #f8f9fa; border-radius: 5px;">
+                                <strong>${category.replace('_', ' ').toUpperCase()}:</strong> 
+                                ${data.total_locations} locations, 
+                                Avg GCA Score: ${data.average_gca_score.toFixed(1)}
+                            </div>
+                        `;
+                    });
+                    
+                    // Add optimal schedule
+                    html += '<h4>📅 Optimal Weekly Schedule</h4>';
+                    html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">';
+                    Object.entries(report.optimal_schedule).forEach(([day, activity]) => {
+                        html += `
+                            <div style="padding: 10px; background: #e3f2fd; border-radius: 5px; text-align: center;">
+                                <strong>${day.toUpperCase()}</strong><br>
+                                ${activity.time}<br>
+                                <em>${activity.activity}</em>
+                            </div>
+                        `;
+                    });
+                    html += '</div>';
+                    
+                    html += `<p style="font-size: 0.8em; color: #666; margin-top: 15px;">Report generated: ${new Date(result.timestamp).toLocaleString()}</p>`;
+                    reportDiv.innerHTML = html;
+                } else {
+                    reportDiv.innerHTML = '<p style="color: red;">❌ Failed to generate report</p>';
+                }
+            } catch (error) {
+                reportDiv.innerHTML = `<p style="color: red;">❌ Error: ${error.message}</p>`;
+            }
+        }
+        
+        async function triggerScraping() {
+            const backendUrl = getBackendUrl();
+            const statusDiv = document.getElementById('scrapingStatus');
+            
+            try {
+                statusDiv.style.display = 'block';
+                statusDiv.innerHTML = '<p>🔄 Initiating data scraping...</p>';
+                
+                const response = await fetch(`${backendUrl}/api/scrape`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({})
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    statusDiv.innerHTML = `
+                        <p style="color: green;">✅ Scraping completed successfully!</p>
+                        <p><strong>Completed:</strong> ${result.timestamp}</p>
+                        <p><strong>Message:</strong> ${result.message}</p>
+                    `;
+                    
+                    // Auto-refresh data cards
+                    setTimeout(() => {
+                        loadData('meetup_groups');
+                        loadData('climbing_gyms');
+                        loadData('university_programs');
+                        loadData('coworking_spaces');
+                    }, 1000);
+                } else {
+                    statusDiv.innerHTML = `
+                        <p style="color: red;">❌ Scraping failed</p>
+                        <p><strong>Error:</strong> ${result.message}</p>
+                    `;
+                }
+            } catch (error) {
+                statusDiv.innerHTML = `
+                    <p style="color: red;">❌ Scraping failed</p>
+                    <p><strong>Error:</strong> ${error.message}</p>
+                `;
+            }
+        }
+        
+        async function checkScrapingStatus() {
+            const backendUrl = getBackendUrl();
+            const statusDiv = document.getElementById('scrapingStatus');
+            
+            try {
+                statusDiv.style.display = 'block';
+                statusDiv.innerHTML = '<p>🔄 Checking status...</p>';
+                
+                const response = await fetch(`${backendUrl}/api/scrape/status`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    const status = result.status;
+                    let statusColor = 'blue';
+                    let statusIcon = '📊';
+                    
+                    if (status.status === 'completed') {
+                        statusColor = 'green';
+                        statusIcon = '✅';
+                    } else if (status.status === 'failed') {
+                        statusColor = 'red';
+                        statusIcon = '❌';
+                    } else if (status.status === 'running') {
+                        statusColor = 'orange';
+                        statusIcon = '🔄';
+                    }
+                    
+                    statusDiv.innerHTML = `
+                        <p style="color: ${statusColor};">${statusIcon} Status: ${status.status.toUpperCase()}</p>
+                        <p><strong>Message:</strong> ${status.message}</p>
+                        <p><strong>Last Update:</strong> ${new Date(status.timestamp).toLocaleString()}</p>
+                    `;
+                } else {
+                    statusDiv.innerHTML = '<p style="color: red;">❌ Failed to get status</p>';
+                }
+            } catch (error) {
+                statusDiv.innerHTML = `<p style="color: red;">❌ Error: ${error.message}</p>`;
+            }
+        }
+        
+        // Auto-load data when Live Data tab is first opened
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set default backend URL if running locally
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                document.getElementById('backendUrl').value = 'http://localhost:3000';
+            }
+        });
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+        
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .tab-button {
+            flex: 1;
+            padding: 15px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #6c757d;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-button.active {
+            background: #007bff;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 30px;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .scoring-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #28a745;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .data-table th {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .data-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #f1f3f4;
+            font-size: 0.9rem;
+        }
+        
+        .calculator {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .calculator input, .calculator select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        .calculator button {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 5px 0 0;
+        }
+        
+        .result-box {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        
+        .data-source {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+        
+        .validation-metric {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+        
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .metric-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-left: 4px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>GCA Methodology Framework</h1>
+            <p>Data-Driven Scoring, Collection & Validation System</p>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab(event, 'scoring')">GCA Scoring System</button>
+            <button class="tab-button" onclick="showTab(event, 'data-sources')">KC Data Collection</button>
+            <button class="tab-button" onclick="showTab(event, 'live-data')">Live Data Dashboard</button>
+            <button class="tab-button" onclick="showTab(event, 'validation')">Testing Framework</button>
+            <button class="tab-button" onclick="showTab(event, 'tools')">Implementation Tools</button>
+        </div>
+        
+        <div id="scoring" class="tab-content active">
+            <h2>GCA Scoring Methodology</h2>
+            
+            <div class="scoring-section">
+                <h3>Mathematical Framework</h3>
+                <p><strong>Total GCA Score = Σ(Question Score × Weight × Filter Weight)</strong></p>
+                <p>Each response gets scored: -1 (incompatible), 0 (neutral), +1 (highly compatible)</p>
+                <p>Must meet minimum threshold for each filter to advance</p>
+            </div>
+            
+            <h3>Filter 1: Lifestyle (Threshold: ≥1.5)</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Question</th>
+                        <th>Weight</th>
+                        <th>+1 Indicators</th>
+                        <th>0 Indicators</th>
+                        <th>-1 Indicators</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>"What would you love to get better at?"</td>
+                        <td>0.7</td>
+                        <td>Specific skills, measurable goals, mentions training/courses</td>
+                        <td>General interests, hobby mentions</td>
+                        <td>No specific goals, purely consumption-focused</td>
+                    </tr>
+                    <tr>
+                        <td>"What does a fulfilling life look like?"</td>
+                        <td>1.0</td>
+                        <td>Growth-oriented, building something, impact-focused</td>
+                        <td>Balance-focused, standard life goals</td>
+                        <td>Purely comfort/entertainment focused</td>
+                    </tr>
+                    <tr>
+                        <td>"What does your ideal relationship look like?"</td>
+                        <td>1.0</td>
+                        <td>Partnership in growth, mutual support of goals</td>
+                        <td>Standard relationship values</td>
+                        <td>Purely emotional/entertainment focused</td>
+                    </tr>
+                    <tr>
+                        <td>"What are you excited about?"</td>
+                        <td>0.8</td>
+                        <td>Projects, learning opportunities, challenges</td>
+                        <td>Events, experiences</td>
+                        <td>Only entertainment/social activities</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Filter 2: Learning (Threshold: ≥1.3)</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Question</th>
+                        <th>Weight</th>
+                        <th>+1 Indicators</th>
+                        <th>0 Indicators</th>
+                        <th>-1 Indicators</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>"Most challenging thing tackled recently?"</td>
+                        <td>0.7</td>
+                        <td>Complex skills, difficult subjects, sustained effort</td>
+                        <td>Work challenges, life changes</td>
+                        <td>No challenges or avoids difficulty</td>
+                    </tr>
+                    <tr>
+                        <td>"How do you approach something new?"</td>
+                        <td>0.9</td>
+                        <td>Research, structured learning, seeks resources</td>
+                        <td>Trial and error, asks for help</td>
+                        <td>Avoids new things, expects others to teach</td>
+                    </tr>
+                    <tr>
+                        <td>"What fascinates but haven't explored?"</td>
+                        <td>0.9</td>
+                        <td>Specific subjects, has learning plan/timeline</td>
+                        <td>General interests, someday goals</td>
+                        <td>Nothing specific, no learning interests</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Filter 3: Future (Threshold: ≥1.3)</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Question</th>
+                        <th>Weight</th>
+                        <th>+1 Indicators</th>
+                        <th>0 Indicators</th>
+                        <th>-1 Indicators</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>"How do you envision next few years?"</td>
+                        <td>0.9</td>
+                        <td>Specific career/skill goals, building trajectory</td>
+                        <td>General life goals, standard progression</td>
+                        <td>"Don't plan that far" or purely experience-focused</td>
+                    </tr>
+                    <tr>
+                        <td>"What does financial stability mean?"</td>
+                        <td>0.9</td>
+                        <td>Investment mindset, building assets, supporting family</td>
+                        <td>Emergency fund, debt-free living</td>
+                        <td>Just covering expenses, YOLO mentality</td>
+                    </tr>
+                    <tr>
+                        <td>"Where do you want to be in career?"</td>
+                        <td>0.8</td>
+                        <td>Leadership roles, expertise development, impact goals</td>
+                        <td>Advancement, skill growth</td>
+                        <td>No career ambitions, just working for money</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Filter 4: Relationship (Threshold: ≥1.7)</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Question</th>
+                        <th>Weight</th>
+                        <th>+1 Indicators</th>
+                        <th>0 Indicators</th>
+                        <th>-1 Indicators</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>"How would you support intensive goals?"</td>
+                        <td>1.0</td>
+                        <td>Has own goals, understands dedication, offers specific support</td>
+                        <td>General supportiveness, flexibility</td>
+                        <td>Sees goals as excessive, expects constant attention</td>
+                    </tr>
+                    <tr>
+                        <td>"How do you handle conflict?"</td>
+                        <td>0.9</td>
+                        <td>Direct communication, problem-solving focus</td>
+                        <td>Avoids conflict but works through it</td>
+                        <td>Drama-oriented, emotional reactions only</td>
+                    </tr>
+                    <tr>
+                        <td>"What does emotional intimacy look like?"</td>
+                        <td>0.9</td>
+                        <td>Vulnerability in growth, shared challenges, deep conversations</td>
+                        <td>Emotional sharing, quality time</td>
+                        <td>Only surface-level connection, avoids depth</td>
+                    </tr>
+                    <tr>
+                        <td>Schedule reveal reaction</td>
+                        <td>1.0</td>
+                        <td>Impressed/energized, asks about goals, relates own structure</td>
+                        <td>Understanding, flexible</td>
+                        <td>Concerned/overwhelmed, sees as problematic</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="calculator">
+                <h3>GCA Score Calculator</h3>
+                <p>Enter scores for each question (-1, 0, or 1):</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                    <div>
+                        <h4>Lifestyle Filter</h4>
+                        <label>Get better at (0.7): <input type="number" id="lifestyle1" min="-1" max="1" step="1" value="0"></label>
+                        <label>Fulfilling life (1.0): <input type="number" id="lifestyle2" min="-1" max="1" step="1" value="0"></label>
+                        <label>Ideal relationship (1.0): <input type="number" id="lifestyle3" min="-1" max="1" step="1" value="0"></label>
+                        <label>Excited about (0.8): <input type="number" id="lifestyle4" min="-1" max="1" step="1" value="0"></label>
+                    </div>
+                    
+                    <div>
+                        <h4>Learning Filter</h4>
+                        <label>Challenging thing (0.7): <input type="number" id="learning1" min="-1" max="1" step="1" value="0"></label>
+                        <label>Approach new (0.9): <input type="number" id="learning2" min="-1" max="1" step="1" value="0"></label>
+                        <label>Fascinating unexplored (0.9): <input type="number" id="learning3" min="-1" max="1" step="1" value="0"></label>
+                    </div>
+                    
+                    <div>
+                        <h4>Future Filter</h4>
+                        <label>Next few years (0.9): <input type="number" id="future1" min="-1" max="1" step="1" value="0"></label>
+                        <label>Financial stability (0.9): <input type="number" id="future2" min="-1" max="1" step="1" value="0"></label>
+                        <label>Career goals (0.8): <input type="number" id="future3" min="-1" max="1" step="1" value="0"></label>
+                    </div>
+                    
+                    <div>
+                        <h4>Relationship Filter</h4>
+                        <label>Support goals (1.0): <input type="number" id="relationship1" min="-1" max="1" step="1" value="0"></label>
+                        <label>Handle conflict (0.9): <input type="number" id="relationship2" min="-1" max="1" step="1" value="0"></label>
+                        <label>Emotional intimacy (0.9): <input type="number" id="relationship3" min="-1" max="1" step="1" value="0"></label>
+                        <label>Schedule reaction (1.0): <input type="number" id="relationship4" min="-1" max="1" step="1" value="0"></label>
+                    </div>
+                </div>
+                
+                <button onclick="calculateGCA()">Calculate GCA Score</button>
+                <div id="gcaResults" class="result-box" style="display: none;"></div>
+            </div>
+        </div>
+        
+        <div id="data-sources" class="tab-content">
+            <h2>Kansas City Data Collection Framework</h2>
+            
+            <h3>Priority Data Sources (Ranked by Reliability)</h3>
+            
+            <div class="data-source">
+                <h4>Tier 1: Government/Official Data (High Reliability)</h4>
+                <ul>
+                    <li><strong>US Census/American Community Survey:</strong> Education, occupation, age demographics by zip code</li>
+                    <li><strong>University Enrollment Reports:</strong> UMKC, Rockhurst publish annual demographics</li>
+                    <li><strong>KC Economic Development:</strong> Professional industry breakdowns</li>
+                    <li><strong>Missouri Department of Higher Education:</strong> Graduate program enrollments</li>
+                </ul>
+                <p><strong>Collection Method:</strong> Direct download from official sites, FOIA requests where needed</p>
+            </div>
+            
+            <div class="data-source">
+                <h4>Tier 2: Commercial/Platform Data (Medium Reliability)</h4>
+                <ul>
+                    <li><strong>Meetup.com API:</strong> Group demographics, attendance patterns, interests</li>
+                    <li><strong>LinkedIn Sales Navigator:</strong> Professional demographics by location/industry</li>
+                    <li><strong>Yelp/Google Business:</strong> Gym/activity center reviews mentioning demographics</li>
+                    <li><strong>Eventbrite:</strong> Professional development event attendee patterns</li>
+                </ul>
+                <p><strong>Collection Method:</strong> API calls, web scraping (respecting ToS), manual research</p>
+            </div>
+            
+            <div class="data-source">
+                <h4>Tier 3: Observational Data (Low Reliability, High Specificity)</h4>
+                <ul>
+                    <li><strong>Location Visits:</strong> Direct observation of demographics at target locations</li>
+                    <li><strong>Event Attendance:</strong> Networking events, workshops, fitness classes</li>
+                    <li><strong>Social Media:</strong> Local hashtags, location tags, group memberships</li>
+                </ul>
+                <p><strong>Collection Method:</strong> Systematic observation, social media analysis, attendance tracking</p>
+            </div>
+            
+            <h3>Specific Data Points to Collect</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Location Type</th>
+                        <th>Key Metrics</th>
+                        <th>Collection Method</th>
+                        <th>Update Frequency</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Climbing Gyms</td>
+                        <td>Member demographics, class times, skill levels, age ranges</td>
+                        <td>Direct inquiry, observation, membership surveys</td>
+                        <td>Quarterly</td>
+                    </tr>
+                    <tr>
+                        <td>Coworking Spaces</td>
+                        <td>Industry mix, company types, member ages, networking event attendance</td>
+                        <td>Membership data requests, event observation</td>
+                        <td>Monthly</td>
+                    </tr>
+                    <tr>
+                        <td>Graduate Programs</td>
+                        <td>Enrollment by program/gender, evening class schedules, study locations</td>
+                        <td>Official university data, campus observation</td>
+                        <td>Annually</td>
+                    </tr>
+                    <tr>
+                        <td>Professional Meetups</td>
+                        <td>Attendance demographics, recurring attendees, industry focus</td>
+                        <td>Meetup API, event attendance tracking</td>
+                        <td>Weekly</td>
+                    </tr>
+                    <tr>
+                        <td>Coffee Shops/Study Spaces</td>
+                        <td>Peak hours, professional vs. student mix, repeat customers</td>
+                        <td>Time-based observation, staff inquiries</td>
+                        <td>Monthly</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="code-block">
+<strong>Sample Data Collection Script (Python):</strong>
+
+# Meetup API data collection
+import requests
+import pandas as pd
+
+def get_meetup_data(city, categories):
+    api_key = "YOUR_API_KEY"
+    base_url = "https://api.meetup.com/find/groups"
+    
+    data = []
+    for category in categories:
+        params = {
+            'location': city,
+            'category': category,
+            'key': api_key,
+            'page': 200
+        }
+        response = requests.get(base_url, params=params)
+        groups = response.json()
+        
+        for group in groups:
+            data.append({
+                'name': group['name'],
+                'members': group['members'],
+                'category': category,
+                'location': group.get('city', ''),
+                'description': group.get('description', '')
+            })
+    
+    return pd.DataFrame(data)
+
+# Professional categories to target
+categories = ['tech', 'career-business', 'health-wellbeing', 'education-learning']
+kc_meetups = get_meetup_data('Kansas City, MO', categories)
+            </div>
+        </div>
+        
+        <div id="live-data" class="tab-content">
+            <h2>Live Data Dashboard</h2>
+            
+            <div class="scoring-section">
+                <h3>Backend API Status</h3>
+                <p>Connect to your deployed backend to view live scraped data from Kansas City locations.</p>
+                <div style="margin: 15px 0;">
+                    <label>Backend URL: <input type="text" id="backendUrl" placeholder="https://your-backend.railway.app" style="width: 300px; margin-left: 10px;"></label>
+                    <button onclick="testConnection()" style="margin-left: 10px;">Test Connection</button>
+                </div>
+                <div id="connectionStatus" class="result-box" style="display: none;"></div>
+            </div>
+            
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <h4>🎪 Meetup Groups</h4>
+                    <div id="meetupData">Loading...</div>
+                    <button onclick="loadData('meetup_groups')" style="margin-top: 10px;">Refresh Data</button>
+                </div>
+                
+                <div class="metric-card">
+                    <h4>🧗 Climbing Gyms</h4>
+                    <div id="climbingData">Loading...</div>
+                    <button onclick="loadData('climbing_gyms')" style="margin-top: 10px;">Refresh Data</button>
+                </div>
+                
+                <div class="metric-card">
+                    <h4>🎓 University Programs</h4>
+                    <div id="universityData">Loading...</div>
+                    <button onclick="loadData('university_programs')" style="margin-top: 10px;">Refresh Data</button>
+                </div>
+                
+                <div class="metric-card">
+                    <h4>💼 Coworking Spaces</h4>
+                    <div id="coworkingData">Loading...</div>
+                    <button onclick="loadData('coworking_spaces')" style="margin-top: 10px;">Refresh Data</button>
+                </div>
+            </div>
+            
+            <div class="scoring-section">
+                <h3>GCA Compatibility Report</h3>
+                <button onclick="loadGCAReport()" style="margin-bottom: 15px;">Generate Live Report</button>
+                <div id="gcaReport">Click "Generate Live Report" to see the latest GCA compatibility analysis.</div>
+            </div>
+            
+            <div class="scoring-section">
+                <h3>Data Scraping Controls</h3>
+                <p>Trigger fresh data collection from Kansas City sources:</p>
+                <div style="margin: 15px 0;">
+                    <button onclick="triggerScraping()" style="margin-right: 10px;">🔄 Run Full Scraping</button>
+                    <button onclick="checkScrapingStatus()" style="margin-right: 10px;">📊 Check Status</button>
+                </div>
+                <div id="scrapingStatus" class="result-box" style="display: none;"></div>
+            </div>
+        </div>
+        
+        <div id="validation" class="tab-content">
+            <h2>Testing & Validation Framework</h2>
+            
+            <h3>Hypothesis Testing Structure</h3>
+            
+            <div class="validation-metric">
+                <h4>Primary Hypothesis</h4>
+                <p><strong>H1:</strong> Women in individual sports (climbing, strength training) have higher GCA scores than general population</p>
+                <p><strong>H0:</strong> No significant difference in GCA scores between groups</p>
+                <p><strong>Test Method:</strong> t-test comparing mean GCA scores, minimum n=30 per group</p>
+            </div>
+            
+            <div class="validation-metric">
+                <h4>Secondary Hypotheses</h4>
+                <ul>
+                    <li><strong>H2:</strong> Graduate students score higher on Learning and Future filters</li>
+                    <li><strong>H3:</strong> Coworking space members score higher on Lifestyle filter</li>
+                    <li><strong>H4:</strong> Evening activities yield higher GCA scores than weekend activities</li>
+                    <li><strong>H5:</strong> Professional development events correlate with Relationship filter scores</li>
+                </ul>
+            </div>
+            
+            <h3>Data Collection Validation Metrics</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Target</th>
+                        <th>Measurement Method</th>
+                        <th>Validation Period</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Conversation Initiation Rate</td>
+                        <td>5+ per week</td>
+                        <td>Daily activity log</td>
+                        <td>4 weeks</td>
+                    </tr>
+                    <tr>
+                        <td>GCA Filter 1 Pass Rate</td>
+                        <td>30%+</td>
+                        <td>Systematic GCA scoring</td>
+                        <td>8 weeks</td>
+                    </tr>
+                    <tr>
+                        <td>Location Efficiency</td>
+                        <td>Conversations per hour</td>
+                        <td>Time tracking + interaction logging</td>
+                        <td>12 weeks</td>
+                    </tr>
+                    <tr>
+                        <td>Activity Type Correlation</td>
+                        <td>R² > 0.3 with GCA scores</td>
+                        <td>Statistical correlation analysis</td>
+                        <td>16 weeks</td>
+                    </tr>
+                    <tr>
+                        <td>Demographic Prediction Accuracy</td>
+                        <td>75%+ accuracy</td>
+                        <td>Predicted vs. actual demographics</td>
+                        <td>Ongoing</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>A/B Testing Framework</h3>
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <h4>Test A: Time of Day</h4>
+                    <p><strong>Variable:</strong> Morning vs. Evening activities</p>
+                    <p><strong>Metric:</strong> GCA score distribution</p>
+                    <p><strong>Duration:</strong> 6 weeks alternating</p>
+                    <p><strong>Sample Size:</strong> 20+ interactions per condition</p>
+                </div>
+                
+                <div class="metric-card">
+                    <h4>Test B: Location Type</h4>
+                    <p><strong>Variable:</strong> Fitness vs. Professional spaces</p>
+                    <p><strong>Metric:</strong> Filter pass rates</p>
+                    <p><strong>Duration:</strong> 8 weeks</p>
+                    <p><strong>Sample Size:</strong> 25+ per location type</p>
+                </div>
+                
+                <div class="metric-card">
+                    <h4>Test C: Approach Method</h4>
+                    <p><strong>Variable:</strong> Activity-based vs. professional networking</p>
+                    <p><strong>Metric:</strong> Conversation depth + GCA progression</p>
+                    <p><strong>Duration:</strong> 10 weeks</p>
+                    <p><strong>Sample Size:</strong> 15+ per approach</p>
+                </div>
+            </div>
+            
+            <h3>Data Quality Assurance</h3>
+            <div class="validation-metric">
+                <h4>Bias Detection & Mitigation</h4>
+                <ul>
+                    <li><strong>Selection Bias:</strong> Rotate locations and times systematically</li>
+                    <li><strong>Confirmation Bias:</strong> Use blind scoring (someone else scores interactions)</li>
+                    <li><strong>Survivorship Bias:</strong> Track all interactions, not just successful ones</li>
+                    <li><strong>Temporal Bias:</strong> Account for seasonal variations in activities</li>
+                </ul>
+            </div>
+            
+            <div class="validation-metric">
+                <h4>Statistical Significance Requirements</h4>
+                <ul>
+                    <li><strong>Alpha Level:</strong> 0.05 (95% confidence)</li>
+                    <li><strong>Power:</strong> 0.80 (80% chance of detecting real effect)</li>
+                    <li><strong>Effect Size:</strong> Cohen's d ≥ 0.5 (medium effect)</li>
+                    <li><strong>Multiple Comparisons:</strong> Bonferroni correction applied</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div id="tools" class="tab-content">
+            <h2>Implementation Tools & Scripts</h2>
+            
+            <h3>Data Collection Dashboard</h3>
+            <div class="code-block">
+<strong>Daily Interaction Tracker (Google Sheets Integration):</strong>
+
+```python
+import gspread
+from datetime import datetime
+import json
+
+class GCATracker:
+    def __init__(self, sheet_key):
+        gc = gspread.service_account()
+        self.sheet = gc.open_by_key(sheet_key).sheet1
+        
+    def log_interaction(self, location, time_spent, demographics, 
+                       gca_scores, notes):
+        row = [
+            datetime.now().isoformat(),
+            location,
+            time_spent,
+            demographics['age_range'],
+            demographics['profession'],
+            demographics['education'],
+            json.dumps(gca_scores),
+            notes
+        ]
+        self.sheet.append_row(row)
+        
+    def calculate_location_efficiency(self, location, days=30):
+        # Analyze conversations per hour by location
+        pass
+        
+    def get_gca_statistics(self):
+        # Return pass rates by filter
+        pass
+```
+            </div>
+            
+            <h3>KC Demographic Data Scraper</h3>
+            <div class="code-block">
+<strong>Automated Data Collection:</strong>
+
+```python
+# Meetup.com data scraper
+async def scrape_meetup_groups():
+    categories = {
+        'tech': 34,
+        'career-business': 2,
+        'health-wellbeing': 14,
+        'education-learning': 16
+    }
+    
+    kc_data = []
+    for category, cat_id in categories.items():
+        url = f"https://api.meetup.com/find/groups?location=Kansas+City,+MO&category={cat_id}"
+        # API implementation
+        pass
+    
+# LinkedIn Sales Navigator automation
+def get_linkedin_professionals(industry, location):
+    # Use selenium to gather public profile data
+    pass
+    
+# University enrollment scraper
+def scrape_university_data():
+    universities = [
+        'https://www.umkc.edu/registrar/enrollment-statistics/',
+        'https://www.rockhurst.edu/about/facts-figures'
+    ]
+    # Scrape enrollment demographics
+    pass
+```
+            </div>
+            
+            <h3>GCA Scoring Mobile App Mockup</h3>
+            <div class="calculator">
+                <h4>Quick GCA Assessment Tool</h4>
+                <p>Rate each interaction immediately after conversation:</p>
+                
+                <label>Location: <input type="text" id="location" placeholder="e.g., RoKC Climbing"></label>
+                <label>Time Spent (minutes): <input type="number" id="timeSpent" placeholder="15"></label>
+                
+                <h5>Demographics (Optional)</h5>
+                <label>Estimated Age Range: 
+                    <select id="ageRange">
+                        <option>22-27</option>
+                        <option>28-33</option>
+                        <option>34-39</option>
+                        <option>40+</option>
+                    </select>
