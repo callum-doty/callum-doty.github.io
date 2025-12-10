@@ -14,10 +14,17 @@ app.get('/', (req, res) => {
 // Middleware to remove .html extension
 app.use((req, res, next) => {
   if (req.path.indexOf('.') === -1) {
-    const file = path.join(__dirname, `${req.path}.html`);
-    res.sendFile(file, (err) => {
+    // First try to find the file in the pages directory
+    const pagesFile = path.join(__dirname, 'pages', `${req.path}.html`);
+    res.sendFile(pagesFile, (err) => {
       if (err) {
-        next();
+        // If not found in pages, try root directory
+        const rootFile = path.join(__dirname, `${req.path}.html`);
+        res.sendFile(rootFile, (err) => {
+          if (err) {
+            next();
+          }
+        });
       }
     });
   } else {

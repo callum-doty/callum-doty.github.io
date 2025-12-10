@@ -1,3 +1,10 @@
+/**
+ * Page transition animations
+ * Uses Configuration Pattern for animation timing
+ */
+
+import { CONFIG } from './config.js';
+
 document.addEventListener("DOMContentLoaded", () => {
   const links = document.querySelectorAll("a");
 
@@ -13,11 +20,11 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       const main = document.querySelector("main");
       if (main) {
-        main.classList.add("fade-out");
+        main.classList.add(CONFIG.CLASSES.FADE_OUT);
       }
       setTimeout(() => {
         window.location.href = href;
-      }, 250);
+      }, CONFIG.ANIMATION.PAGE_TRANSITION_DURATION);
     });
   });
 });

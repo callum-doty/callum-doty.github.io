@@ -1,6 +1,6 @@
 <head>
   <link rel="icon" type="image/png" href="assets/cd.png" />
-  <link rel="stylesheet" href="src/styles.css" />
+  <link rel="stylesheet" href="styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -8,38 +8,71 @@
     rel="stylesheet"
   />
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="src/animation.js" defer></script>
+  <script src="js/animation.js" defer></script>
+  <style>
+.slide-shadow-btn {
+  position: relative;
+}
+
+.slide-shadow-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #9ca3af; /* gray-400 */
+  border-radius: 0;
+  z-index: -1;
+  transform: translate(0, 0);
+  transition: transform 0.2s ease-in-out;
+}
+
+.slide-shadow-btn:hover::after {
+  transform: translate(10px, 10px);
+}
+
+.slide-shadow-btn span {
+  position: relative;
+  z-index: 10;
+}
+  </style>
 </head>
-<div class="homepage-hero min-h-screen flex flex-col items-left justify-center">
-  <canvas class="js-homepage-hero-canvas"></canvas>
-  <div class="max-w-4xl w-full text-center">
-    <h1
-      class="text-2xl md:text-5xl max-w-md font-bold custom-hero-text text-left"
-    >
-      Callum Doty
-    </h1>
-    <p
-      class="mt-2 text-lg md:text-xl max-w-sm font-bold custom-hero-text text-left"
-    >
-      Product Developer & Designer
-    </p>
-    <blockquote
-      class="mt-8 text-base md:text-lg max-w-md custom-hero-text text-left"
-    >
-      Half the challenge is defining the problem — including whether to simplify
-      or add complexity.
-    </blockquote>
-    <div
-      id="card-container"
-      class="mt-10 grid grid-cols-1 max-w-md gap-8 w-full"
-    >
-      <!-- Cards will be inserted here -->
+<body>
+  <div class="homepage-hero min-h-screen flex flex-col items-left justify-center">
+    <canvas class="js-homepage-hero-canvas"></canvas>
+    <div class="max-w-4xl w-full text-center">
+      <h1
+        class="text-2xl md:text-5xl max-w-md font-bold custom-hero-text text-left"
+      >
+        Callum Doty
+      </h1>
+      <p
+        class="mt-2 text-lg md:text-xl max-w-sm font-bold custom-hero-text text-left"
+      >
+        Product Developer & Designer
+      </p>
+      <blockquote
+        class="mt-8 text-base md:text-lg max-w-md custom-hero-text text-left"
+      >
+        "Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away." -- Antoine de Saint-Exupéry
+      </blockquote>
+      <div class="mt-6 flex flex-col gap-4 max-w-md">
+        <a href="pages/simple.html" class="slide-shadow-btn border-2 border-black px-6 py-7 bg-white text-black font-semibold text-3xl transition-all duration-200 ease-in-out hover:bg-black hover:text-white">
+          <span class="flex items-center justify-center h-full w-full">
+            SUMMARY
+          </span>
+        </a>
+        
+        <a href="pages/complex.html" class="slide-shadow-btn border-2 border-black px-6 py-7 bg-white text-black font-semibold text-3xl transition-all duration-200 ease-in-out hover:bg-black hover:text-white">
+          <span class="flex items-center justify-center h-full w-full">
+            PROCESS
+          </span>
+        </a>
+      </div>
     </div>
     <script type="module">
-      import HomepageHero from "./src/homepage-hero.js";
+      import HomepageHero from "./js/homepage-hero.js";
       const hero = new HomepageHero(document.querySelector(".homepage-hero"));
       hero.init();
     </script>
-    <script type="module" src="/src/index.js"></script>
+    <script type="module" src="/js/index.js"></script>
   </div>
-</div>
+</body>

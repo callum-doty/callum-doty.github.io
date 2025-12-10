@@ -1,10 +1,16 @@
 <head>
-  <link rel="stylesheet" href="/src/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="src/animation.js" defer></script>
+  <link rel="stylesheet" href="/styles.css" />
+  <script src="/js/animation.js" defer></script>
 </head>
 <body>
-  <script type="module" src="/src/header.js"></script>
+  <script type="module" src="/js/header.js"></script>
   <main>
     <div class="container mx-auto px-6 py-12">
       <h1 class="text-2xl md:text-3xl font-bold text-center mb-12">
@@ -13,29 +19,25 @@
       <div class="flex justify-center">
         <div class="grid md:grid-cols-1 lg:grid-cols-1 gap-8 max-w-sm">
           <!-- Project Card 1 -->
-          <a href="/project-catalog" class="block">
-            <div
-              class="bg-white rounded-lg border border-black overflow-hidden transform hover:-translate-y-2 transition-transform duration-300"
-            >
+          <a href="/pages/project-catalog.html" class="project-card-container">
+            <div class="project-card">
               <img
                 src="/assets/simplechart.png"
-                alt="Project A"
-                class="w-full h-48 object-cover object-scale-down pt-4"
+                alt="Project Catalog"
+                class="project-card-image"
               />
-              <div class="p-6">
-                <h3 class="text-xl font-bold">Project Catalog</h3>
-                <p class="mt-2 text-sm text-black">
+              <div class="project-card-content">
+                <h3 class="project-card-title">Project Catalog</h3>
+                <p class="project-card-text">
                   <strong>Problem:</strong> Time-consuming file searches for
                   account managers.
                 </p>
-                <p class="mt-2 text-sm text-black">
+                <p class="project-card-text">
                   <strong>My Approach:</strong> Built a full-stack AI-powered
                   app for intelligent file retrieval.
                 </p>
-                <div class="mt-4 text-center">
-                  <span class="text-indigo-600 font-semibold"
-                    >View Case Study</span
-                  >
+                <div class="project-card-cta">
+                  View Case Study
                 </div>
               </div>
             </div>

@@ -1,10 +1,10 @@
 <head>
-  <link rel="stylesheet" href="/src/styles.css" />
+  <link rel="stylesheet" href="/styles.css" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="src/animation.js" defer></script>
+  <script src="/js/animation.js" defer></script>
 </head>
 <body>
-  <script type="module" src="/src/header.js"></script>
+  <script type="module" src="/js/header.js"></script>
   <main>
     <article class="container mx-auto px-6 py-12 max-w-4xl">
       <header class="text-center mb-12">
@@ -12,7 +12,7 @@
         <p class="text-xl text-gray-600 mb-6">
           AI-Powered Political File Management System
         </p>
-        <div class="bg-gray-50 p-6 rounded-lg border border-black">
+        <div class="bg-gray-50 p-6 border-2 border-black">
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
             <div class="text-center">
               <div class="font-semibold text-gray-900">Role</div>
@@ -37,7 +37,7 @@
         </h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div
-            class="bg-blue-50 p-4 rounded-lg text-center border border-black"
+            class="bg-blue-50 p-4 text-center border-2 border-black"
           >
             <div class="font-semibold text-blue-900">Backend</div>
             <div class="text-sm text-blue-700 mt-1">
@@ -47,7 +47,7 @@
             </div>
           </div>
           <div
-            class="bg-green-50 p-4 rounded-lg text-center border border-black"
+            class="bg-green-50 p-4 text-center border-2 border-black"
           >
             <div class="font-semibold text-green-900">Frontend</div>
             <div class="text-sm text-green-700 mt-1">
@@ -56,7 +56,7 @@
             </div>
           </div>
           <div
-            class="bg-purple-50 p-4 rounded-lg text-center border border-black"
+            class="bg-purple-50 p-4 text-center border-2 border-black"
           >
             <div class="font-semibold text-purple-900">AI/ML</div>
             <div class="text-sm text-purple-700 mt-1">
@@ -67,7 +67,7 @@
             </div>
           </div>
           <div
-            class="bg-orange-50 p-4 rounded-lg text-center border border-black"
+            class="bg-orange-50 p-4 text-center border-2 border-black"
           >
             <div class="font-semibold text-orange-900">Infrastructure</div>
             <div class="text-sm text-orange-700 mt-1">
@@ -83,7 +83,7 @@
       <!-- Problem Statement -->
       <section class="mb-12">
         <div
-          class="bg-red-50 border-l-4 border-red-400 p-6 rounded-r-lg border border-black"
+          class="p-6 border-2 border-black"
         >
           <h2 class="text-2xl font-bold text-gray-900 mb-4">The Challenge</h2>
           <p class="text-lg text-gray-800 leading-relaxed">
@@ -105,7 +105,7 @@
       </section>
 
       <!-- Solution Overview -->
-      <section class="mb-12 bg-indigo-50 p-8 rounded-lg border border-black">
+      <section class="mb-12 bg-indigo-50 p-8 border-2 border-black">
         <h2 class="text-2xl font-bold text-gray-900 mb-4">The Solution</h2>
         <p class="text-lg text-gray-800 leading-relaxed mb-4">
           I designed and built a full-stack AI-powered catalog system that
@@ -116,8 +116,8 @@
         </p>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
           <div>
-            <h3 class="font-semibold text-gray-900 mb-2">Key Capabilities</h3>
-            <ul class="text-gray-700 space-y-1">
+            <h3 class="font-semibold text-black mb-2">Key Capabilities</h3>
+            <ul class="text-black space-y-1">
               <li>• AI-powered content analysis and tagging</li>
               <li>• OCR text extraction from images</li>
               <li>• Semantic search with natural language queries</li>
@@ -126,8 +126,8 @@
             </ul>
           </div>
           <div>
-            <h3 class="font-semibold text-gray-900 mb-2">Technical Features</h3>
-            <ul class="text-gray-700 space-y-1">
+            <h3 class="font-semibold text-black mb-2">Technical Features</h3>
+            <ul class="text-black space-y-1">
               <li>• Multi-modal LLM integration (GPT-4, Claude)</li>
               <li>• Vector search with pgvector extension</li>
               <li>• Distributed task processing</li>
@@ -140,13 +140,13 @@
 
       <!-- Technical Architecture -->
       <section class="mb-12">
-        <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">
+        <h2 class="text-2xl font-bold text-black mb-6 text-center">
           Technical Architecture
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="bg-white p-6 rounded-lg border border-black">
-            <h3 class="font-semibold text-gray-900 mb-2">System Design</h3>
-            <ul class="text-gray-700 space-y-2 text-sm">
+          <div class="bg-white p-6 border-2 border-black">
+            <h3 class="font-semibold text-black mb-2">System Design</h3>
+            <ul class="text-black space-y-2 text-sm">
               <li>
                 <strong>FastAPI Backend:</strong> High-performance async API
                 with automatic OpenAPI documentation
@@ -165,9 +165,9 @@
               </li>
             </ul>
           </div>
-          <div class="bg-white p-6 rounded-lg border border-black">
-            <h3 class="font-semibold text-gray-900 mb-2">AI Pipeline</h3>
-            <ul class="text-gray-700 space-y-2 text-sm">
+          <div class="bg-white p-6 border-2 border-black">
+            <h3 class="font-semibold text-black mb-2">AI Pipeline</h3>
+            <ul class="text-black space-y-2 text-sm">
               <li>
                 <strong>Document Ingestion:</strong> Multi-format file
                 processing with preview generation
@@ -191,48 +191,48 @@
 
       <!-- Technical Challenges -->
       <section class="mb-12">
-        <h2 class="text-2xl font-bold text-gray-900 mb-4">
+        <h2 class="text-2xl font-bold text-black mb-4">
           Technical Challenges Solved
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="bg-white p-6 rounded-lg border border-black">
-            <h3 class="font-semibold text-gray-900 mb-2">
+          <div class="bg-white p-6 border-2 border-black">
+            <h3 class="font-semibold text-black mb-2">
               Monolithic → Modular Architecture
             </h3>
-            <p class="text-gray-700 text-sm">
+            <p class="text-black text-sm">
               Refactored from a monolithic Flask application to a modular
               FastAPI architecture with clear separation of concerns.
               Implemented service-oriented design with dedicated modules for AI
               processing, search, taxonomy management, and document handling.
             </p>
           </div>
-          <div class="bg-white p-6 rounded-lg border border-black">
-            <h3 class="font-semibold text-gray-900 mb-2">
+          <div class="bg-white p-6 border-2 border-black">
+            <h3 class="font-semibold text-black mb-2">
               Advanced Database Design
             </h3>
-            <p class="text-gray-700 text-sm">
+            <p class="text-black text-sm">
               Architected a scalable PostgreSQL schema with pgvector extension
               for high-performance vector similarity search. Implemented complex
               many-to-many relationships for document-taxonomy mappings with
               optimized indexing strategies.
             </p>
           </div>
-          <div class="bg-white p-6 rounded-lg border border-black">
-            <h3 class="font-semibold text-gray-900 mb-2">
+          <div class="bg-white p-6 border-2 border-black">
+            <h3 class="font-semibold text-black mb-2">
               AI Prompt Engineering
             </h3>
-            <p class="text-gray-700 text-sm">
+            <p class="text-black text-sm">
               Developed sophisticated prompt templates for political content
               analysis, achieving high accuracy in extracting campaign themes,
               candidate information, and visual elements. Implemented fallback
               strategies across multiple LLM providers.
             </p>
           </div>
-          <div class="bg-white p-6 rounded-lg border border-black">
-            <h3 class="font-semibold text-gray-900 mb-2">
+          <div class="bg-white p-6 border-2 border-black">
+            <h3 class="font-semibold text-black mb-2">
               Production Deployment
             </h3>
-            <p class="text-gray-700 text-sm">
+            <p class="text-black text-sm">
               Containerized the entire application stack with Docker,
               implementing comprehensive security measures, rate limiting, and
               monitoring. Designed for cloud deployment with horizontal scaling
@@ -244,61 +244,61 @@
 
       <!-- Impact Metrics -->
       <section class="mb-12">
-        <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">KPIs</h2>
+        <h2 class="text-2xl font-bold text-black mb-6 text-center">KPIs</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div
-            class="bg-white p-8 rounded-lg border border-black text-center border-t-4 border-t-indigo-500"
+            class="bg-white p-8 border-2 border-black text-center"
           >
             <div class="text-4xl font-bold text-indigo-600 mb-2">TBD</div>
-            <div class="text-gray-600 font-medium">
+            <div class="text-black font-bold">
               First-Round Approval Rate
             </div>
-            <div class="text-sm text-gray-500 mt-1">
+            <div class="text-sm text-black mt-1">
               Client designs approved without major revisions
             </div>
           </div>
           <div
-            class="bg-white p-8 rounded-lg border border-black text-center border-t-4 border-t-green-500"
+            class="bg-white p-8 border-2 border-black text-center"
           >
             <div class="text-4xl font-bold text-green-600 mb-2">TBD</div>
-            <div class="text-gray-600 font-medium">Design Quality Score</div>
-            <div class="text-sm text-gray-500 mt-1">
+            <div class="text-black font-bold">Design Quality Score</div>
+            <div class="text-sm text-black mt-1">
               Average rating for relevance & effectiveness
             </div>
           </div>
           <div
-            class="bg-white p-8 rounded-lg border border-black text-center border-t-4 border-t-purple-500"
+            class="bg-white p-8 border-2 border-black text-center"
           >
             <div class="text-4xl font-bold text-purple-600 mb-2">TBD</div>
-            <div class="text-gray-600 font-medium">
+            <div class="text-black font-bold">
               Creative Diversity Index
             </div>
-            <div class="text-sm text-gray-500 mt-1">
+            <div class="text-sm text-black mt-1">
               Use of varied design patterns & historical references
             </div>
           </div>
         </div>
 
-        <div class="mt-8 bg-gray-50 p-8 rounded-lg border border-black">
+        <div class="mt-8 bg-gray-50 p-8 border-2 border-black">
           <h3 class="text-lg font-semibold text-gray-900 mb-6 text-center">
             KPI Definitions
           </h3>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
-              <h4 class="font-semibold text-gray-900 mb-2">
+              <h4 class="font-semibold text-black mb-2">
                 Design Relevance & Appropriateness
               </h4>
-              <ul class="text-gray-700 space-y-1 text-sm">
+              <ul class="text-black space-y-1 text-sm">
                 <li>• Compare recent designs to pre-system designs</li>
                 <li>• Track client approval rates or revision requests</li>
                 <li>• How well designs match campaign messaging/themes</li>
               </ul>
             </div>
             <div>
-              <h4 class="font-semibold text-gray-900 mb-2">
+              <h4 class="font-semibold text-black mb-2">
                 Creative Diversity & Innovation
               </h4>
-              <ul class="text-gray-700 space-y-1 text-sm">
+              <ul class="text-black space-y-1 text-sm">
                 <li>• Are designers using more diverse design patterns?</li>
                 <li>• Frequency of drawing from past successful campaigns</li>
                 <li>
@@ -307,10 +307,10 @@
               </ul>
             </div>
             <div>
-              <h4 class="font-semibold text-gray-900 mb-2">
+              <h4 class="font-semibold text-black mb-2">
                 Design Process Quality
               </h4>
-              <ul class="text-gray-700 space-y-1 text-sm">
+              <ul class="text-black space-y-1 text-sm">
                 <li>
                   • Fewer revisions needed when designers start with better
                   inspiration
@@ -326,33 +326,33 @@
       </section>
 
       <!-- Key Features -->
-      <section class="mb-12 bg-gray-50 p-8 rounded-lg border border-black">
-        <h2 class="text-2xl font-bold text-gray-900 mb-6">Key Features</h2>
+      <section class="mb-12 bg-gray-50 p-8 border-2 border-black">
+        <h2 class="text-2xl font-bold text-black mb-6">Key Features</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
-            <h3 class="text-lg font-semibold text-gray-900 mb-3">
+            <h3 class="text-lg font-semibold text-black mb-3">
               Intelligent Search
             </h3>
-            <p class="text-gray-700 mb-4">
+            <p class="text-black mb-4">
               Natural language queries like "healthcare policy graphics" or
               "Biden campaign materials" return semantically relevant results
               using vector similarity search and custom political taxonomy.
             </p>
 
-            <h3 class="text-lg font-semibold text-gray-900 mb-3">
+            <h3 class="text-lg font-semibold text-black mb-3">
               Automated Tagging
             </h3>
-            <p class="text-gray-700">
+            <p class="text-black">
               AI-powered analysis extracts political themes, visual elements,
               candidate information, and campaign messaging automatically from
               uploaded documents.
             </p>
           </div>
           <div>
-            <h3 class="text-lg font-semibold text-gray-900 mb-3">
+            <h3 class="text-lg font-semibold text-black mb-3">
               Analytics Dashboard
             </h3>
-            <p class="text-gray-700 mb-4">
+            <p class="text-black mb-4">
               Minimal admin interface with usage metrics, search patterns,
               processing status, and system performance monitoring for
               continuous optimization.
@@ -361,7 +361,7 @@
             <h3 class="text-lg font-semibold text-gray-900 mb-3">
               Real-time Processing
             </h3>
-            <p class="text-gray-700">
+            <p class="text-black">
               Background processing with Celery workers ensures fast upload
               response times while comprehensive AI analysis happens
               asynchronously.
@@ -372,7 +372,7 @@
 
       <!-- Project Links -->
       <section class="mb-12 text-center">
-        <h2 class="text-2xl font-bold text-gray-900 mb-6">
+        <h2 class="text-2xl font-bold text-black mb-6">
           Explore the Project
         </h2>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
@@ -380,7 +380,7 @@
             href="https://github.com/callum-doty/pc-simple"
             target="_blank"
             rel="noopener noreferrer"
-            class="bg-gray-800 text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-900 transition-colors inline-flex items-center justify-center"
+            class="bg-gray-800 text-white px-8 py-3 font-semibold hover:bg-gray-900 transition-colors inline-flex items-center justify-center"
           >
             <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
               <path
@@ -393,7 +393,7 @@
           </a>
           <a
             href="#"
-            class="border-2 border-gray-300 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:border-gray-400 transition-colors"
+            class="border-2 border-black text-black px-8 py-3 font-semibold hover:border-gray-400 transition-colors"
           >
             Technical Documentation
           </a>
@@ -402,12 +402,12 @@
 
       <!-- Reflection -->
       <section
-        class="bg-gradient-to-r from-indigo-50 to-purple-50 p-8 rounded-lg border border-black"
+        class="bg-gradient-to-r from-indigo-50 to-purple-50 p-8 border-2 border-black"
       >
-        <h2 class="text-2xl font-bold text-gray-900 mb-4">
+        <h2 class="text-2xl font-bold text-black mb-4">
           Project Impact & Learning
         </h2>
-        <p class="text-lg text-gray-800 leading-relaxed">
+        <p class="text-lg text-black leading-relaxed">
           This project demonstrates my ability to identify real business
           problems, architect scalable solutions, and deliver measurable impact
           through full-stack development and AI integration. It showcases
@@ -415,18 +415,18 @@
           and machine learning implementation.
         </p>
         <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-          <div class="bg-white p-4 rounded-lg border border-black">
-            <div class="text-gray-600">
+          <div class="bg-white p-4 border-2 border-black">
+            <div class="text-black">
               Solved real workflow inefficiencies with quantifiable time savings
             </div>
           </div>
-          <div class="bg-white p-4 rounded-lg border border-black">
-            <div class="text-gray-600">
+          <div class="bg-white p-4 border-2 border-black">
+            <div class="text-black">
               Advanced AI/ML integration and modern web architecture
             </div>
           </div>
-          <div class="bg-white p-4 rounded-lg border border-black">
-            <div class="text-gray-600">
+          <div class="bg-white p-4 border-2 border-black">
+            <div class="text-black">
               Self-directed project execution from concept to deployment
             </div>
           </div>
