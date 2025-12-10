@@ -34,7 +34,7 @@ body {
 }
 
 .custom-card {
-  border: 1px solid #000000;
+  border: 2px solid #000000;
   background-color: #FFF;
   color: #000000;
   opacity: 0.8;
@@ -113,6 +113,45 @@ body {
   text-align: center;
   color: #4f46e5;
   font-weight: 600;
+}
+
+/* Competency Card Styles */
+.competency-card {
+  background-color: #FFF;
+  padding: 1.5rem;
+  border: 2px solid #000000;
+}
+
+.competency-card-indigo {
+  border-left: 4px solid #6366f1;
+}
+
+.competency-card-green {
+  border-left: 4px solid #22c55e;
+}
+
+.competency-card-purple {
+  border-left: 4px solid #a855f7;
+}
+
+.competency-card-orange {
+  border-left: 4px solid #f97316;
+}
+
+.competency-card-title-indigo {
+  color: #4338ca;
+}
+
+.competency-card-title-green {
+  color: #16a34a;
+}
+
+.competency-card-title-purple {
+  color: #7e22ce;
+}
+
+.competency-card-title-orange {
+  color: #ea580c;
 }
 
 /* Blog Card Styles */

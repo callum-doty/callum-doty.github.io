@@ -325,10 +325,10 @@ export class CompetencyCardComponent extends Component {
     const { title, color, sections } = this.props;
     
     const card = document.createElement('div');
-    card.className = `bg-white p-6 rounded-lg border border-black border-l-4 border-l-${color}-500`;
+    card.className = `competency-card competency-card-${color}`;
     
     const titleElement = document.createElement('h4');
-    titleElement.className = `text-xl font-bold mb-4 text-${color}-700`;
+    titleElement.className = `text-xl font-bold mb-4 competency-card-title-${color}`;
     titleElement.textContent = title;
     card.appendChild(titleElement);
     
