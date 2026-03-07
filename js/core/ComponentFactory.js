@@ -368,7 +368,7 @@ export class CompetencyCardComponent extends Component {
  */
 export class ProjectHighlightComponent extends Component {
   render() {
-    const { href, imagePath, title, problem, approach } = this.props;
+    const { href, title, description } = this.props;
     
     const link = document.createElement('a');
     link.href = href;
@@ -376,12 +376,6 @@ export class ProjectHighlightComponent extends Component {
     
     const card = document.createElement('div');
     card.className = 'project-card';
-    
-    const img = document.createElement('img');
-    img.src = imagePath;
-    img.alt = title;
-    img.className = 'project-card-image';
-    card.appendChild(img);
     
     const content = document.createElement('div');
     content.className = 'project-card-content';
@@ -391,20 +385,10 @@ export class ProjectHighlightComponent extends Component {
     titleElement.textContent = title;
     content.appendChild(titleElement);
     
-    const problemElement = document.createElement('p');
-    problemElement.className = 'project-card-text';
-    problemElement.innerHTML = `<strong>Problem:</strong> ${problem}`;
-    content.appendChild(problemElement);
-    
-    const approachElement = document.createElement('p');
-    approachElement.className = 'project-card-text';
-    approachElement.innerHTML = `<strong>My Approach:</strong> ${approach}`;
-    content.appendChild(approachElement);
-    
-    const ctaElement = document.createElement('div');
-    ctaElement.className = 'project-card-cta';
-    ctaElement.textContent = 'View Case Study';
-    content.appendChild(ctaElement);
+    const descriptionElement = document.createElement('p');
+    descriptionElement.className = 'project-card-text';
+    descriptionElement.textContent = description;
+    content.appendChild(descriptionElement);
     
     card.appendChild(content);
     link.appendChild(card);

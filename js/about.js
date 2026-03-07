@@ -15,11 +15,14 @@ const TIMELINE_DATA = [
     {
         title: 'Self-Initiated Curriculum',
         description: '',
-        date: 'Completed - June 2025',
+        date: 'Completed - March 2026',
         isLarge: true,
         hasList: true,
         listTitle: 'Collection of books studied:',
         listItems: [
+            'Options, Futures, and Other Derivatives',
+            'Database Systems',
+            'Introduction to Artificial Intelligence and Machine Learning',
             'Operating Systems: Three Easy Pieces',
             'Inside the Machine',
             'C++ Concurrency in Action',
@@ -110,11 +113,11 @@ function buildTimelineSection() {
     TIMELINE_DATA.forEach((item, index) => {
         const timelineItem = document.createElement('div');
         timelineItem.className = index === 0 || item.isLarge ? 
-            'border-l-2 border-indigo-200 pl-8 py-4 relative mt-6' : 
-            'border-l-2 border-indigo-200 pl-8 py-4 relative';
+            'border-l-4 border-black pl-8 py-4 relative mt-6' : 
+            'border-l-4 border-black pl-8 py-4 relative';
         
         const dot = document.createElement('div');
-        dot.className = 'absolute w-4 h-4 bg-indigo-600 rounded-full -left-2 top-4';
+        dot.className = 'absolute w-4 h-4 bg-black rounded-full -left-[10px] top-4';
         timelineItem.appendChild(dot);
         
         const itemTitle = document.createElement('h3');

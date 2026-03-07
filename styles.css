@@ -68,12 +68,15 @@ body {
   border-radius: 0;
   z-index: -1;
   transform: translate(0, 0);
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  opacity: 0;
 }
 
 .project-card-container:hover::after {
   transform: translate(10px, 10px);
+  opacity: 1;
 }
+
 
 .project-card {
   background-color: #FFF;
