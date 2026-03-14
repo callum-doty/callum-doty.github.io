@@ -29,8 +29,8 @@ function buildPageHeader() {
     meta.className = 'mt-6 flex flex-wrap justify-center gap-8 text-sm text-black';
 
     const metaItems = [
-        { label: 'Role', value: 'Research Engineer & Applied Mathematician' },
-        { label: 'Duration', value: '6 months (Sep 2025 – Feb 2026)' },
+        { label: 'Role', value: 'Researcher and Developer' },
+        { label: 'Duration', value: '4 months (December 2025 – March 2026)' },
         { label: 'Team', value: 'Solo Project' },
         { label: 'Status', value: 'Active Development' },
     ];
@@ -79,10 +79,44 @@ function buildOutcomeSection() {
     wrapper.appendChild(heading);
 
     const para = ComponentFactory.render('paragraph', {
-        text: 'By pooling information across races through hierarchical Bayesian shrinkage, the framework achieves 5.6× better parameter precision than siloed competitors who estimate each race independently. Full posterior sampling produces uncertainty estimates that are 40–70% more accurate than approximation methods. Operating across a portfolio of races enables volume discounts and shared fixed costs that save an estimated $60k per race — advantages that are structurally impossible when races are treated in isolation.',
+        text: 'By pooling information across races rather than analyzing each in isolation, I estimate this framework achieves 5.6× better parameter precision than competitors working race-by-race. I estimate the uncertainty estimates are 40–70% more accurate than standard approximation methods. And because the system operates across a portfolio of races, it can capture volume discounts and share fixed costs in ways that are structurally impossible for firms working one race at a time — saving an estimated $60,000 per race.',
         className: 'text-lg text-black leading-relaxed'
     });
     wrapper.appendChild(para);
+
+    // Using the Tool subsection
+    const toolHeading = document.createElement('h3');
+    toolHeading.className = 'text-xl font-bold text-black mt-8 mb-3';
+    toolHeading.textContent = 'Using the Tool';
+    wrapper.appendChild(toolHeading);
+
+    const toolIntro = ComponentFactory.render('paragraph', {
+        text: 'A consultant runs the optimizer by providing five inputs about their client\'s race:',
+        className: 'text-lg text-black leading-relaxed mb-4'
+    });
+    wrapper.appendChild(toolIntro);
+
+    const inputsList = document.createElement('ul');
+    inputsList.className = 'list-disc list-inside text-lg text-black leading-relaxed mb-4 space-y-2';
+    const inputs = [
+        'District — the race identifier (e.g., PA-17, TX-SEN)',
+        'Party — the candidate\'s party',
+        'Budget — total available spend in dollars',
+        'Months until election — how much of the campaign calendar remains',
+        'Recent polling — the most recent poll margin and sample size, if available'
+    ];
+    inputs.forEach(input => {
+        const li = document.createElement('li');
+        li.textContent = input;
+        inputsList.appendChild(li);
+    });
+    wrapper.appendChild(inputsList);
+
+    const toolDetails = ComponentFactory.render('paragraph', {
+        text: 'The system automatically pulls the remaining context it needs from public sources — FEC fundraising filings, historical election results, and economic indicators — so consultants don\'t need to gather data themselves. If a poll isn\'t available, the model proceeds using the district\'s structural characteristics alone.\n\nFrom those inputs, the optimizer produces a recommended service-by-service spending plan, a projected win probability, and a 90% confidence interval around that projection.',
+        className: 'text-lg text-black leading-relaxed'
+    });
+    wrapper.appendChild(toolDetails);
 
     const metrics = [
         { value: '5.6×', label: 'Better Parameter Precision' },
@@ -154,15 +188,11 @@ function initAxiomBSMPage() {
         article.appendChild(buildPageHeader());
         article.appendChild(buildSection(
     'Problem',
-    'Political campaigns — and the firms advising them — face a fundamental resource allocation problem with no rigorous solution: given a candidate and a budget, which services should they buy, in what amounts, and when? Traditional political analytics answer this by treating each race in isolation, producing high-variance parameter estimates, overconfident win probability predictions, and no systematic way to compare the value of a dollar across a portfolio of races. There is also no framework for the "inverted" client-facing question: given a budget, how should a candidate optimally invest across a catalog of 23 campaign services — digital persuasion, field GOTV, polling, broadcast TV, direct mail, and more — to maximize their probability of winning?'
-));
-article.appendChild(buildSection(
-    'Problem',
-    'Political campaigns — and the firms advising them — face a fundamental resource allocation problem with no rigorous solution: given a candidate and a budget, which services should they buy, in what amounts, and when? Traditional political analytics answer this by treating each race in isolation, producing high-variance parameter estimates, overconfident win probability predictions, and no systematic way to compare the value of a dollar across a portfolio of races. There is also no framework for the "inverted" client-facing question: given a budget, how should a candidate optimally invest across a catalog of 23 campaign services — digital persuasion, field GOTV, polling, broadcast TV, direct mail, and more — to maximize their probability of winning?'
+    'Political campaigns and the consulting firms that advise them face a practical challenge with no good solution: given a candidate and a limited budget, how should they spend their money across dozens of possible services — digital ads, door-knocking, TV, direct mail, polling, and more — to give themselves the best chance of winning?\n\nMost answer this question campaign by campaign, in isolation. That approach wastes information, produces unreliable predictions, and offers no systematic way to compare the value of a dollar spent in one race versus another. It also leaves candidates without a clear answer to the most pressing question they actually have: given my budget, what should I buy to maximize my chances of winning?'
 ));
 article.appendChild(buildSection(
     'Approach',
-    'Inspired by the Black-Scholes-Merton model, I built a six-model statistical pipeline structured as A → E → B → F → C → D. Model A estimates each race\'s baseline political environment by compressing seven economic indicators into three latent factors and computing a continuously updated prior win probability P₀. Model E segments the voter universe by ideology and persuadability, producing voter-level scores that modulate downstream treatment effects. Model B uses doubly robust AIPW causal inference to estimate how spending on each of 23 services actually moves votes — producing effectiveness parameters η (logit uplift per $1k) and λ (saturation threshold). Model F applies four-level Bayesian hierarchical shrinkage to pool those estimates across races, regions, and nationally, so data from a race in Ohio sharpens estimates for a race in Michigan. Model C combines the baseline from A and causal estimates from B/F into a full spend-to-probability curve P(d) for each race. Model D then solves a mixed-integer program to find the optimal service bundle for a given client budget — outputting which services to buy, how much to spend on each, and a projected win probability with 90% confidence intervals.'
+    'I built a six-model statistical pipeline. The models work in sequence:\n\nModel A establishes a baseline picture of each race — what the political environment looks like before any campaign spending, distilling economic and electoral indicators into a starting win probability.\n\nModel E maps the voter universe, scoring individual voters by ideology and persuadability so that later models know which voters are actually movable.\n\nModel B estimates the causal effect of each of 23 campaign services — how much does an additional $1,000 in door-knocking actually shift votes, and at what point does more spending stop paying off?\n\nModel F is where the system gains its core advantage: rather than treating each race in isolation, it uses Bayesian hierarchical shrinkage to pool information across races, regions, and the full national portfolio. Data from a competitive race in Ohio genuinely improves estimates for a similar race in Michigan.\n\nModel C combines the baseline and causal estimates into a full spend-to-win-probability curve for each race.\n\nModel D solves an optimization problem: given a client\'s budget, it finds the exact combination of services — how much of each, in what amounts — that maximizes their probability of winning, along with a projected outcome and confidence range.\n\nThe overall structure was inspired by the Black-Scholes-Merton model in finance, which similarly transformed an industry by replacing intuition-based pricing with a mathematical framework.'
 ));
         article.appendChild(buildOutcomeSection());
         article.appendChild(buildFooter());
