@@ -1,87 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
-    rel="stylesheet"
-  />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="/styles.css" />
-  <script src="/js/animation.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — Callum Doty</title>
+  <meta name="description" content="Writing by Callum Doty on Bayesian analysis, philosophy, and culture.">
+  <link rel="icon" type="image/png" href="/assets/cd.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/js/components/site-layout.js"></script>
 </head>
-<body>
-  <script type="module" src="/js/header.js"></script>
-  <main>
-    <div class="container mx-auto px-6 py-12">
-      <h1 class="text-3xl font-bold text-center mb-8">Blog</h1>
-      <div class="max-w-3xl mx-auto">
-        <div class="space-y-8">
-          <div class="blog-card-container">
-            <a
-              href="/pages/blog/blog-post-4.html"
-              class="block border-2 border-black p-6 hover:bg-gray-50 bg-white relative z-10"
-            >
-              <h2 class="text-2xl font-bold">
-                Love Island
-              </h2>
-              <p class="text-sm text-gray-500 mb-2">Published on July 16, 2025</p>
-              <p>
-                A reflection of the American Mental.
-              </p>
-              <span class="text-blue-500 hover:underline mt-4 inline-block"
-                >Read More →</span
-              >
-            </a>
-          </div>
-          <div class="blog-card-container">
-            <a
-              href="/pages/blog/blog-post-1.html"
-              class="block border-2 border-black p-6 hover:bg-gray-50 bg-white relative z-10"
-            >
-              <h2 class="text-2xl font-bold">
-                DUI: Drinking, Driving, and Bayesian Analysis
-              </h2>
-              <p class="text-sm text-gray-500 mb-2">Published on June 28, 2025</p>
-              <p>
-                What if I told you that based on a positive breathalyzer test, the
-                probability that you were driving drunk is less than 2%....
-              </p>
-              <span class="text-blue-500 hover:underline mt-4 inline-block"
-                >Read More →</span
-              >
-            </a>
-          </div>
-          <div class="blog-card-container">
-            <a
-              href="/pages/blog/blog-post-2.html"
-              class="block border-2 border-black p-6 hover:bg-gray-50 bg-white relative z-10"
-            >
-              <h2 class="text-2xl font-bold">Silver Rule</h2>
-              <p class="text-sm text-gray-500 mb-2">Published on June 15, 2025</p>
-              <p>
-                Limitations of the Golden Rule: 'Treat others the way you want to
-                be treated.'...
-              </p>
-              <span class="text-blue-500 hover:underline mt-4 inline-block"
-                >Read More →</span
-              >
-            </a>
-          </div>
-          <div class="blog-card-container">
-            <a
-              href="/pages/blog/blog-post-3.html"
-              class="block border-2 border-black p-6 hover:bg-gray-50 bg-white relative z-10"
-            >
-              <h2 class="text-2xl font-bold">Empathetic Salmon</h2>
-              <p class="text-sm text-gray-500 mb-2">Published on May 30, 2025</p>
-              <p>Improbable things happen more often than you'd think....</p>
-              <span class="text-blue-500 hover:underline mt-4 inline-block"
-                >Read More →</span
-              >
-            </a>
-          </div>
-        </div>
+<body class="flex flex-col min-h-screen">
+  <site-header></site-header>
+
+  <main class="flex-1 container mx-auto px-6 page-content max-w-3xl">
+    <h1 class="text-3xl font-bold text-center mb-12">Blog</h1>
+
+    <div class="space-y-6">
+
+      <div class="blog-card-container">
+        <a href="/pages/blog/blog-post-4.html" class="blog-card">
+          <h2 class="text-2xl font-bold">Love Island</h2>
+          <p class="text-sm text-white/50 mt-1 mb-3">July 16, 2025</p>
+          <p class="text-white/80">A reflection of the American Mental.</p>
+          <span class="mt-4 inline-block">Read More →</span>
+        </a>
       </div>
+
+      <div class="blog-card-container">
+        <a href="/pages/blog/blog-post-1.html" class="blog-card">
+          <h2 class="text-2xl font-bold">DUI: Drinking, Driving, and Bayesian Analysis</h2>
+          <p class="text-sm text-white/50 mt-1 mb-3">June 28, 2025</p>
+          <p class="text-white/80">What if I told you that based on a positive breathalyzer test, the probability that you were driving drunk is less than 2%...</p>
+          <span class="mt-4 inline-block">Read More →</span>
+        </a>
+      </div>
+
+      <div class="blog-card-container">
+        <a href="/pages/blog/blog-post-2.html" class="blog-card">
+          <h2 class="text-2xl font-bold">Silver Rule</h2>
+          <p class="text-sm text-white/50 mt-1 mb-3">June 15, 2025</p>
+          <p class="text-white/80">Limitations of the Golden Rule: 'Treat others the way you want to be treated.'</p>
+          <span class="mt-4 inline-block">Read More →</span>
+        </a>
+      </div>
+
+      <div class="blog-card-container">
+        <a href="/pages/blog/blog-post-3.html" class="blog-card">
+          <h2 class="text-2xl font-bold">Empathetic Salmon</h2>
+          <p class="text-sm text-white/50 mt-1 mb-3">May 30, 2025</p>
+          <p class="text-white/80">Improbable things happen more often than you'd think.</p>
+          <span class="mt-4 inline-block">Read More →</span>
+        </a>
+      </div>
+
     </div>
   </main>
+
+  <site-footer></site-footer>
 </body>
+</html>

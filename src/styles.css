@@ -1,0 +1,277 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'IBM Plex Sans', sans-serif;
+  --color-bg: #0B0F19;
+  --color-amber-400: #FBBF24;
+}
+
+/* ─── Base ──────────────────────────────────────────────── */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  color: white;
+  font-family: 'IBM Plex Sans', sans-serif;
+  background-color: #0B0F19;
+}
+
+/* ─── Page transition ────────────────────────────────────── */
+main {
+  transition: opacity 0.2s ease;
+}
+
+main.fade-out {
+  opacity: 0;
+}
+
+/* ─── Homepage hero ──────────────────────────────────────── */
+.homepage-hero {
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.js-homepage-hero-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  mask-image: linear-gradient(
+    to right,
+    black 0%,
+    black 35%,
+    transparent 42%,
+    transparent 58%,
+    black 65%,
+    black 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    black 0%,
+    black 35%,
+    transparent 42%,
+    transparent 58%,
+    black 65%,
+    black 100%
+  );
+}
+
+.homepage-hero > *:not(canvas) {
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Shared outline button ──────────────────────────────── */
+.btn-outline {
+  display: inline-block;
+  border: 2px solid white;
+  padding: 0.75rem 2rem;
+  font-weight: 700;
+  color: white;
+  border-radius: 0.25rem;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.btn-outline:hover {
+  background: white;
+  color: black;
+}
+
+/* ─── Hero CTA buttons ───────────────────────────────────── */
+.hero-btn {
+  position: relative;
+  border: 2px solid white;
+  border-radius: 0.25rem;
+  padding: 1.75rem 1.5rem;
+  background: transparent;
+  color: white;
+  font-weight: 600;
+  font-size: 1.875rem;
+  text-align: center;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.hero-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 0.25rem;
+  background: transparent;
+  z-index: -1;
+  transform: translate(0, 0);
+  transition: transform 0.2s ease-in-out;
+}
+
+.hero-btn:hover {
+  background: white;
+  color: black;
+}
+
+.hero-btn:hover::after {
+  transform: translate(10px, 10px);
+}
+
+/* ─── Project cards (work page) ─────────────────────────── */
+.project-card-container {
+  display: block;
+  position: relative;
+  text-decoration: none;
+}
+
+.project-card-container::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 0.25rem;
+  background: #9ca3af;
+  z-index: -1;
+  transform: translate(0, 0);
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  opacity: 0;
+}
+
+.project-card-container:hover::after {
+  transform: translate(8px, 8px);
+  opacity: 1;
+}
+
+.project-card {
+  border: 2px solid white;
+  border-radius: 0.25rem;
+  background: transparent;
+  position: relative;
+  z-index: 1;
+  padding: 2rem;
+  height: 100%;
+  transition: background 0.2s ease;
+}
+
+.project-card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.5rem;
+  transition: color 0.2s ease;
+}
+
+.project-card-text {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  transition: color 0.2s ease;
+}
+
+.project-card-container:hover .project-card {
+  background: white;
+}
+
+.project-card-container:hover .project-card-title,
+.project-card-container:hover .project-card-text {
+  color: black;
+}
+
+/* ─── Competency cards (about page) ─────────────────────── */
+.competency-card {
+  border: 2px solid white;
+  border-radius: 0.25rem;
+  padding: 1.5rem;
+  background: transparent;
+}
+
+/* ─── Case study pages ───────────────────────────────────── */
+.case-section {
+  margin-bottom: 3rem;
+  border-left: 4px solid white;
+  padding-left: 2rem;
+}
+
+.case-section h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.case-section p {
+  font-size: 1.125rem;
+  color: white;
+  line-height: 1.75;
+}
+
+.metric-card {
+  border: 2px solid white;
+  border-radius: 0.25rem;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.metric-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+.metric-label {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 0.25rem;
+}
+
+/* ─── Blog ───────────────────────────────────────────────── */
+.blog-card-container {
+  position: relative;
+}
+
+.blog-card-container::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 0.25rem;
+  background: #9ca3af;
+  z-index: -1;
+  transform: translate(0, 0);
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  opacity: 0;
+}
+
+.blog-card-container:hover::after {
+  transform: translate(6px, 6px);
+  opacity: 1;
+}
+
+.blog-card {
+  display: block;
+  border: 2px solid white;
+  border-radius: 0.25rem;
+  padding: 1.5rem;
+  position: relative;
+  z-index: 1;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.blog-card-container:hover .blog-card {
+  background: white;
+  color: black;
+}
+
+.blog-card-container:hover .blog-card * {
+  color: black;
+}
+
+/* ─── Shared page layout ─────────────────────────────────── */
+.page-content {
+  padding-top: 5rem;
+  padding-bottom: 6rem;
+}

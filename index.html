@@ -1,78 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <link rel="icon" type="image/png" href="assets/cd.png" />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
-    rel="stylesheet"
-  />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="js/animation.js" defer></script>
-  <style>
-.slide-shadow-btn {
-  position: relative;
-}
-
-.slide-shadow-btn::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: #9ca3af; /* gray-400 */
-  border-radius: 0;
-  z-index: -1;
-  transform: translate(0, 0);
-  transition: transform 0.2s ease-in-out;
-}
-
-.slide-shadow-btn:hover::after {
-  transform: translate(10px, 10px);
-}
-
-.slide-shadow-btn span {
-  position: relative;
-  z-index: 10;
-}
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Callum Doty — Product Developer &amp; Designer</title>
+  <meta name="description" content="Callum Doty — product developer and designer building systems that turn complex data into actionable decisions.">
+  <link rel="icon" type="image/png" href="/assets/cd.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/js/components/site-layout.js"></script>
 </head>
 <body>
-  <div class="homepage-hero min-h-screen flex flex-col items-left justify-center">
+  <div class="homepage-hero min-h-screen flex flex-col items-center justify-center">
     <canvas class="js-homepage-hero-canvas"></canvas>
-    <div class="max-w-4xl w-full text-center">
-      <h1
-        class="text-2xl md:text-5xl max-w-md font-bold custom-hero-text text-left"
-      >
+
+    <site-header></site-header>
+
+    <div class="max-w-4xl w-full text-center flex flex-col items-center py-20">
+      <h1 class="text-2xl md:text-5xl max-w-md font-bold text-white text-center">
         Callum Doty
       </h1>
-      <p
-        class="mt-2 text-lg md:text-xl max-w-sm font-bold custom-hero-text text-left"
-      >
-        Product Developer & Designer
+      <p class="mt-2 text-lg md:text-xl max-w-sm font-bold text-white text-center">
+        Product Developer &amp; Designer
       </p>
-      <blockquote
-        class="mt-8 text-base md:text-lg max-w-md custom-hero-text text-left"
-      >
-        "Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away." -- Antoine de Saint-Exupéry
+      <blockquote class="mt-8 text-base md:text-lg max-w-md text-white text-center">
+        "Progress demands that you never fall in love with your first ideas." — Dr. Simon Ramo
       </blockquote>
-      <div class="mt-6 flex flex-col gap-4 max-w-md">
-        <a href="pages/simple.html" class="slide-shadow-btn border-2 border-black px-6 py-7 bg-white text-black font-semibold text-3xl transition-all duration-200 ease-in-out hover:bg-black hover:text-white">
-          <span class="flex items-center justify-center h-full w-full">
-            SUMMARY
-          </span>
-        </a>
-        
-        <a href="pages/complex.html" class="slide-shadow-btn border-2 border-black px-6 py-7 bg-white text-black font-semibold text-3xl transition-all duration-200 ease-in-out hover:bg-black hover:text-white">
-          <span class="flex items-center justify-center h-full w-full">
-            PROCESS
-          </span>
-        </a>
+      <div class="mt-8 flex flex-col gap-4 max-w-sm w-full">
+        <a href="/pages/work.html" class="hero-btn">WORK</a>
+        <a href="/pages/about.html" class="hero-btn">ABOUT</a>
       </div>
     </div>
-    <script type="module">
-      import HomepageHero from "./js/homepage-hero.js";
-      const hero = new HomepageHero(document.querySelector(".homepage-hero"));
-      hero.init();
-    </script>
-    <script type="module" src="/js/index.js"></script>
+
+    <site-footer></site-footer>
   </div>
+
+  <script type="module">
+    import HomepageHero from '/js/homepage-hero.js';
+    const hero = new HomepageHero(document.querySelector('.homepage-hero'));
+    hero.init();
+  </script>
 </body>
+</html>
