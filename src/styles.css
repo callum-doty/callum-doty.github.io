@@ -2,7 +2,7 @@
 
 @theme {
   --font-sans: 'IBM Plex Sans', sans-serif;
-  --color-bg: #0B0F19;
+  --color-bg: #222021;
   --color-amber-400: #FBBF24;
 }
 
@@ -14,7 +14,7 @@ body {
   padding: 0;
   color: white;
   font-family: 'IBM Plex Sans', sans-serif;
-  background-color: #0B0F19;
+  background-color: #222021;
 }
 
 /* ─── Page transition ────────────────────────────────────── */
@@ -33,6 +33,7 @@ main.fade-out {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: #222021;
 }
 
 .js-homepage-hero-canvas {
@@ -268,6 +269,15 @@ main.fade-out {
 
 .blog-card-container:hover .blog-card * {
   color: black;
+}
+
+/* ─── Site header ────────────────────────────────────────── */
+.site-header {
+  background-color: #222021;
+}
+
+.site-mobile-menu {
+  background-color: #222021;
 }
 
 /* ─── Shared page layout ─────────────────────────────────── */

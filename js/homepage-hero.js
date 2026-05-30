@@ -21,7 +21,7 @@ export default class HomepageHero {
       this.elem.appendChild(this.canvas);
     }
     
-    this.ctx = this.canvas.getContext('2d', { alpha: false });
+    this.ctx = this.canvas.getContext('2d', { alpha: true });
     
     Object.assign(this.canvas.style, {
       position: 'absolute',
@@ -34,7 +34,7 @@ export default class HomepageHero {
 
     // Color palette
     this.COLORS = {
-      'slate': '#0B0F19',
+      'slate': '#222021',
       'charcoal': '#1E293B',
       'ash': '#94A3B8',
       'platinum': '#E2E8F0',
@@ -46,7 +46,7 @@ export default class HomepageHero {
       'amber-dim': '#D97706'
     };
 
-    this.BG = '#0B0F19';
+    this.BG = '#222021';
     this.INK = '#E2E8F0';
 
     // Settings
@@ -179,8 +179,7 @@ export default class HomepageHero {
 
   draw() {
     // Clear canvas
-    this.ctx.fillStyle = this.BG;
-    this.ctx.fillRect(0, 0, this.W, this.H);
+    this.ctx.clearRect(0, 0, this.W, this.H);
 
     // Draw dashed guide paths
     this.ctx.save();

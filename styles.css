@@ -448,10 +448,6 @@
   .rounded-full {
     border-radius: calc(infinity * 1px);
   }
-  .border-t {
-    border-top-style: var(--tw-border-style);
-    border-top-width: 1px;
-  }
   .border-t-2 {
     border-top-style: var(--tw-border-style);
     border-top-width: 2px;
@@ -466,12 +462,6 @@
   }
   .border-white {
     border-color: var(--color-white);
-  }
-  .border-white\/10 {
-    border-color: color-mix(in srgb, #fff 10%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      border-color: color-mix(in oklab, var(--color-white) 10%, transparent);
-    }
   }
   .border-white\/40 {
     border-color: color-mix(in srgb, #fff 40%, transparent);
@@ -719,7 +709,7 @@ body {
   padding: 0;
   color: white;
   font-family: 'IBM Plex Sans', sans-serif;
-  background-color: #0B0F19;
+  background-color: #222021;
 }
 main {
   transition: opacity 0.2s ease;
@@ -733,6 +723,7 @@ main.fade-out {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: #222021;
 }
 .js-homepage-hero-canvas {
   position: absolute;
@@ -933,6 +924,12 @@ main.fade-out {
 }
 .blog-card-container:hover .blog-card * {
   color: black;
+}
+.site-header {
+  background-color: #222021;
+}
+.site-mobile-menu {
+  background-color: #222021;
 }
 .page-content {
   padding-top: 5rem;

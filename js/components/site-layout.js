@@ -34,7 +34,7 @@ class SiteHeader extends HTMLElement {
     ).join('');
 
     this.innerHTML = `
-      <header class="py-4 fixed top-0 left-0 right-0 z-50">
+      <header class="site-header py-4 fixed top-0 left-0 right-0 z-50">
         <div class="container mx-auto px-6 text-center">
           <nav class="hidden md:flex justify-center gap-8" aria-label="Main navigation">
             ${navLinks}
@@ -50,7 +50,7 @@ class SiteHeader extends HTMLElement {
             </button>
           </div>
         </div>
-        <div id="mobile-menu" class="md:hidden hidden" role="navigation" aria-label="Mobile navigation">
+        <div id="mobile-menu" class="md:hidden hidden site-mobile-menu" role="navigation" aria-label="Mobile navigation">
           <nav class="px-2 pt-2 pb-4 text-center space-y-1">
             ${mobileNavLinks}
           </nav>
@@ -79,7 +79,7 @@ class SiteFooter extends HTMLElement {
 
     const footerClass = onHomepage()
       ? 'py-4 fixed bottom-0 left-0 right-0 z-50'
-      : 'py-6 border-t border-white/10 mt-auto';
+      : 'py-6 mt-auto';
 
     this.innerHTML = `
       <footer class="${footerClass}">
