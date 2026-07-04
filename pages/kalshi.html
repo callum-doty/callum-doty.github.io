@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kalshi Quantitative Trading — Callum Doty</title>
-  <meta name="description" content="Kalshi Quantitative Trading: a three-model ML ensemble system for trading NYC weather prediction markets on Kalshi.">
+  <title>Kalshi Weather Derivatives — Callum Doty</title>
+  <meta name="description" content="Kalshi Weather Derivatives: a quantitative trading system that turns probabilistic weather forecasts into disciplined trading decisions on Kalshi's NYC temperature markets.">
   <link rel="icon" type="image/png" href="/assets/cd.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,132 +20,250 @@
 
       <!-- Header -->
       <header class="text-center mb-16 border-b-2 border-white pb-10">
-        <h1 class="text-4xl font-bold text-white mb-3">Kalshi Quantitative Trading</h1>
-        <p class="text-lg text-white/80">ML Ensemble System for Weather Prediction Markets</p>
+        <h1 class="text-4xl font-bold text-white mb-3">Kalshi Weather Derivatives</h1>
+        <p class="text-lg text-white/80">Designing a quantitative decision system that transforms probabilistic weather forecasts into trading decisions under uncertainty</p>
         <div class="mt-6 flex flex-wrap justify-center gap-8 text-sm text-white">
-          <div><span class="font-bold">My Role:</span> Integration Lead &amp; TFT Engineer</div>
-          <div><span class="font-bold">Duration:</span> Feb 2026 – Present</div>
-          <div><span class="font-bold">Team:</span> 3-Person Equal Partnership</div>
-          <div><span class="font-bold">Status:</span> Paper Trading</div>
+          <div><span class="font-bold">Role:</span> Integration Lead &amp; Temporal Fusion Transformer Engineer</div>
+          <div><span class="font-bold">Team:</span> Three-Person Partnership (Equal Ownership)</div>
+          <div><span class="font-bold">Duration:</span> February 2026 – Present</div>
+          <div><span class="font-bold">Status:</span> Live Production, Real Capital Deployed</div>
         </div>
       </header>
 
-      <!-- Problem -->
+      <!-- Overview -->
       <section class="case-section">
-        <h2>Problem</h2>
+        <h2>Overview</h2>
         <p>
-          Weather prediction markets on Kalshi are systematically mispriced — the distribution of
-          bucket pricing is not confident early in the market. That gap creates a persistent edge
-          for a model that is directionally correct, paired with a trading strategy we have not
-          disclosed. The specific market we target: whether NYC Central Park's daily high
-          temperature falls within a given 1°F bucket.
+          Prediction markets do not reward accurate forecasts in isolation — they reward identifying
+          when market-implied probabilities are miscalibrated.
+        </p>
+        <p class="mt-4">
+          This project builds a quantitative trading system for Kalshi's daily high temperature
+          markets (NYC Central Park, 1°F buckets). Instead of predicting a single temperature, the
+          system estimates a full probability distribution over outcomes, compares it to
+          market-implied probabilities, and generates trading decisions based on expected value and
+          risk constraints.
+        </p>
+        <p class="mt-4">
+          The forecasting models are only one layer of the system. The core challenge is converting
+          uncertain predictions into disciplined, automated trading decisions under real market
+          conditions.
         </p>
       </section>
 
-      <!-- Market Research -->
+      <!-- Research -->
       <section class="case-section">
-        <h2>Market Research</h2>
+        <h2>Research</h2>
         <p>
-          Before building anything, we studied the structure of Kalshi's weather markets: how prices
-          move throughout the day, how they relate to publicly available forecasts, and where
-          pricing tends to be weakest. We found that early in the trading window, markets frequently
-          misprice the probability distribution across temperature buckets — not because the weather
-          is unpredictable, but because market prices anchor to broad public consensus rather than
-          refined meteorological data.
+          Before building models, we analyzed how Kalshi weather markets behave across the trading
+          window.
         </p>
         <p class="mt-4">
-          We also identified the exact metric that matters: Kalshi contracts settle on the daily
-          high, which is largely determined by a single peak window in the afternoon. Any model
-          that averages error across the full day is optimizing the wrong thing.
+          We found that early market prices tend to anchor to broad public forecast distributions
+          while underweighting higher-resolution meteorological data that becomes available closer
+          to settlement. This creates periods where the market's implied distribution is
+          systematically less precise than what the data supports.
+        </p>
+        <p class="mt-4">
+          We also identified a structural mismatch in common forecasting approaches: Kalshi contracts
+          settle on a single daily high temperature, yet many weather models optimize error across
+          all 24 hourly temperatures. This means traditional loss functions often optimize the wrong
+          target relative to the payoff structure.
+        </p>
+        <p class="mt-4">
+          Reframing the problem around the settlement event itself became one of the largest
+          performance improvements in the system.
         </p>
       </section>
 
-      <!-- Approach -->
+      <!-- Edge Generation -->
       <section class="case-section">
-        <h2>System</h2>
+        <h2>Edge Generation</h2>
         <p>
-          We built a three-model ensemble — a Temporal Fusion Transformer, an XGBoost model, and
-          an NBeats model — each independently trained and tested on select historical weather data
-          alongside 17 real-time meteorological variables. Each model produces a probability
-          distribution over possible temperatures rather than a single point estimate.
+          The system decomposes edge into two independent components.
         </p>
         <p class="mt-4">
-          The three outputs are combined with dynamic weightings and a variety of guards to ensure
-          intelligent trading. A live edge signal compares the ensemble's distribution against
-          Kalshi's posted market price, and circuit breakers prevent trading when model confidence
-          is low.
+          <strong>Point Forecast Edge</strong> — the ensemble improves estimation of the expected
+          daily high by directly targeting the settlement outcome rather than full-day averages.
         </p>
         <p class="mt-4">
-          As integration lead, I designed the ensemble architecture and the standardized schema
-          that lets the three models communicate cleanly. I also built the TFT component.
+          <strong>Distributional Edge</strong> — each model produces a calibrated probability
+          distribution over outcomes (p10 / p50 / p90). These are compared against Kalshi's implied
+          probabilities to identify mispricing in the shape and variance of the distribution, not
+          just the mean.
+        </p>
+        <p class="mt-4">
+          A key insight is that profitability does not require a superior point forecast; a
+          correctly calibrated distribution alone can generate edge if the market misprices
+          uncertainty.
         </p>
       </section>
 
-      <!-- Phases -->
+      <!-- System Architecture -->
       <section class="case-section">
-        <h2>Development</h2>
+        <h2>System Architecture</h2>
         <p>
-          The project evolved through three phases.
+          The system combines three independent forecasting models:
+        </p>
+        <ul class="mt-4 list-disc list-inside ml-2 text-lg text-white leading-relaxed space-y-2">
+          <li><strong>Temporal Fusion Transformer (TFT)</strong> — sequence modeling and temporal attention</li>
+          <li><strong>XGBoost</strong> — nonlinear residual correction and feature interaction learning</li>
+          <li><strong>N-BEATS</strong> — deep time-series basis expansion</li>
+        </ul>
+        <p class="mt-4">
+          Each model outputs a full probabilistic forecast distribution rather than a point estimate.
         </p>
         <p class="mt-4">
-          <strong>Phase 1</strong> was foundational: market research, data pipeline construction,
-          model selection, and establishing the backtesting infrastructure. We settled on NYC
-          Central Park as our target market and defined the problem formally.
+          An ensemble layer combines these outputs using dynamically updated weights derived from
+          rolling forecast error. Models that degrade in recent performance are automatically
+          down-weighted without manual intervention.
         </p>
         <p class="mt-4">
-          <strong>Phase 2</strong> was our first full build. We trained hourly models — predicting
-          temperature at each hour of the day — and optimized for RMSE across all 24 hours.
-          This produced only 10.9% bucket accuracy in validation. The problem: averaging error
-          over all 24 hours masked poor performance at the afternoon peak, the only window that
-          determines the daily high and the only one Kalshi actually prices.
-        </p>
-        <p class="mt-4">
-          <strong>Phase 3</strong> reframed the problem entirely. Rather than predicting hourly
-          temperatures and deriving a daily high, we trained directly on the daily high as the
-          target. This is the current system. During this phase I also discovered and fixed a
-          lookahead bias in the TFT pipeline that would have silently inflated our backtest results.
+          The resulting aggregated distribution feeds directly into a trading decision engine that
+          evaluates expected value across Kalshi contracts.
         </p>
       </section>
 
-      <!-- Training & Backtesting -->
+      <!-- Risk Management & Decision Layer -->
       <section class="case-section">
-        <h2>Training &amp; Backtesting</h2>
+        <h2>Risk Management &amp; Decision Layer</h2>
         <p>
-          Each model was trained and backtested independently before being integrated into the
-          ensemble. We used held-out validation sets to evaluate generalization, and the backtesting
-          framework was designed to mirror live trading conditions as closely as possible —
-          using only data that would have been available at prediction time.
+          Forecasting and capital allocation are treated as separate problems. The trading system
+          includes multiple independent risk controls:
         </p>
+        <ul class="mt-4 list-disc list-inside ml-2 text-lg text-white leading-relaxed space-y-2">
+          <li><strong>Divergence filters</strong> — models that deviate significantly from both ensemble consensus and external baselines are temporarily excluded</li>
+          <li><strong>Kelly-based sizing</strong> — position sizing derived from expected edge with strict capital caps</li>
+          <li><strong>Market-implied volatility gate</strong> — trading is reduced when market prices already imply a sufficiently tight distribution</li>
+          <li><strong>Cost and liquidity constraints</strong> — prevent execution in unfavorable market structures</li>
+          <li><strong>Fallback sizing</strong> — reduced exposure when contract structure limits optimal positioning</li>
+        </ul>
         <p class="mt-4">
-          The lookahead fix in Phase 3 was critical: an earlier version of the TFT inadvertently
-          trained on future data, producing results that looked better than they were. Catching
-          and correcting this before paper trading saved us from acting on a false signal.
-          Paper trading is the final validation layer before committing real capital.
+          Production thresholds and calibration constants are intentionally not disclosed.
         </p>
       </section>
 
-      <!-- Outcome -->
+      <!-- Validation & Backtesting -->
       <section class="case-section">
-        <h2>Outcome</h2>
+        <h2>Validation &amp; Backtesting</h2>
         <p>
-          The TFT component reached ~2.8°F validation RMSE. The full ensemble reached ~1.8°F RMSE.
-          We estimate a 30% annual return in production. The system is currently in paper trading
-          to verify the live edge before committing real capital.
+          A central engineering requirement was ensuring strict point-in-time correctness. All
+          backtests are walk-forward: models only access data available before the trading cutoff
+          for each simulated day.
+        </p>
+        <p class="mt-4">
+          During development, I identified a feature leakage issue in the Temporal Fusion Transformer
+          pipeline where forecast features inadvertently included post-cutoff information. After
+          correction, we observed a significant divergence between inflated and corrected performance
+          metrics, confirming the importance of strict temporal isolation.
+        </p>
+        <p class="mt-4">The system also uses:</p>
+        <ul class="mt-4 list-disc list-inside ml-2 text-lg text-white leading-relaxed space-y-2">
+          <li>Temporally disjoint validation sets (no random splits)</li>
+          <li>Regime-aware error analysis across weather conditions</li>
+          <li>Continuous post-hoc performance monitoring</li>
+          <li>Live paper trading before capital deployment</li>
+        </ul>
+      </section>
+
+      <!-- Production Infrastructure -->
+      <section class="case-section">
+        <h2>Production Infrastructure (AWS)</h2>
+        <p>
+          The system is fully automated and runs as a production pipeline on AWS. It includes:
+        </p>
+        <ul class="mt-4 list-disc list-inside ml-2 text-lg text-white leading-relaxed space-y-2">
+          <li>Automated ingestion of weather observations and forecast data</li>
+          <li>Scheduled model training and retraining workflows</li>
+          <li>Ensemble prediction generation</li>
+          <li>Trading signal evaluation</li>
+          <li>Execution layer for paper and live trading</li>
+        </ul>
+        <p class="mt-4">
+          Infrastructure is built using AWS services for orchestration, storage, secrets management,
+          and compute, enabling the system to run continuously without manual intervention. This
+          separation between research code and production infrastructure allows rapid iteration
+          while maintaining system stability in live environments.
+        </p>
+      </section>
+
+      <!-- Results -->
+      <section class="case-section">
+        <h2>Results</h2>
+        <p>
+          A key finding was that optimizing for hourly temperature prediction significantly
+          underperformed relative to optimizing directly for the settlement target. Reframing the
+          problem to predict the daily high directly produced the largest single improvement in
+          system performance.
+        </p>
+        <p class="mt-4">
+          The system has successfully passed backtesting and paper trading validation and is
+          currently deployed with real capital. Live performance is being withheld until a
+          statistically meaningful sample size is accumulated.
         </p>
         <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
           <div class="metric-card">
-            <div class="metric-value">~1.8°F</div>
-            <div class="metric-label">Ensemble Validation RMSE</div>
+            <div class="metric-value">3</div>
+            <div class="metric-label">Independent Forecasting Models</div>
           </div>
           <div class="metric-card">
-            <div class="metric-value">30% est.</div>
-            <div class="metric-label">Annual Return in Production</div>
+            <div class="metric-value">Live</div>
+            <div class="metric-label">Real Capital Deployed</div>
           </div>
           <div class="metric-card">
-            <div class="metric-value">Paper</div>
-            <div class="metric-label">Trading Status</div>
+            <div class="metric-value">Walk-Forward</div>
+            <div class="metric-label">Point-in-Time Validation</div>
           </div>
         </div>
+      </section>
+
+      <!-- My Contributions -->
+      <section class="case-section">
+        <h2>My Contributions</h2>
+        <p>
+          As Integration Lead, I focused on turning independently developed models into a unified
+          production system. Key contributions:
+        </p>
+        <ul class="mt-4 list-disc list-inside ml-2 text-lg text-white leading-relaxed space-y-2">
+          <li>Designed the ensemble architecture and shared probabilistic forecast schema</li>
+          <li>Built the Temporal Fusion Transformer forecasting pipeline</li>
+          <li>Developed interfaces enabling three independent models to operate as a single system</li>
+          <li>Implemented rolling-error-based dynamic ensemble weighting</li>
+          <li>Discovered and fixed a critical feature leakage issue in the TFT pipeline</li>
+          <li>Helped transition the system from research prototype to automated production deployment</li>
+        </ul>
+      </section>
+
+      <!-- Technologies -->
+      <section class="case-section">
+        <h2>Technologies</h2>
+        <p><strong>Machine Learning</strong></p>
+        <ul class="mt-4 list-disc list-inside ml-2 text-lg text-white leading-relaxed space-y-2">
+          <li>Temporal Fusion Transformer</li>
+          <li>XGBoost</li>
+          <li>N-BEATS</li>
+          <li>Probabilistic forecasting</li>
+          <li>Ensemble learning</li>
+          <li>Calibration and uncertainty estimation</li>
+        </ul>
+        <p class="mt-8"><strong>Infrastructure</strong></p>
+        <ul class="mt-4 list-disc list-inside ml-2 text-lg text-white leading-relaxed space-y-2">
+          <li>AWS EC2</li>
+          <li>AWS S3</li>
+          <li>AWS Lambda</li>
+          <li>AWS Secrets Manager</li>
+          <li>AWS DynamoDB</li>
+          <li>Docker</li>
+          <li>Automated scheduling / cron-based orchestration</li>
+        </ul>
+        <p class="mt-8"><strong>Methods</strong></p>
+        <ul class="mt-4 list-disc list-inside ml-2 text-lg text-white leading-relaxed space-y-2">
+          <li>Time-series forecasting</li>
+          <li>Walk-forward validation</li>
+          <li>Probability calibration</li>
+          <li>Quantitative risk management</li>
+          <li>Feature engineering for spatiotemporal data</li>
+        </ul>
       </section>
 
       <!-- GitHub -->

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Love Island — Callum Doty</title>
-  <meta name="description" content="A reflection of the American Mental — why Love Island's popularity is a symptom of an unhealthy society.">
+  <title>Why My Model Trained Differently on a CPU and a GPU — Callum Doty</title>
+  <meta name="description" content="Why identical Temporal Fusion Transformer training runs diverge between CPU and GPU — floating-point rounding, reduction order, and the hidden nondeterminism of deep learning.">
   <link rel="icon" type="image/png" href="/assets/cd.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,72 +18,215 @@
   <main class="flex-1 container mx-auto px-6 page-content max-w-3xl">
     <article>
       <header class="mb-12 text-center">
-        <h1 class="text-4xl font-bold">Love Island</h1>
-        <p class="text-white/50 text-sm mt-3">Published on July 16, 2025</p>
+        <h1 class="text-4xl font-bold">Why My Model Trained Differently on a CPU and a GPU</h1>
+        <p class="text-white/50 text-sm mt-3">Published on July 3, 2026</p>
       </header>
 
       <div class="space-y-6 text-lg text-white leading-relaxed">
         <p>
-          I have been off social media for some time now, but every now and then something viral slips
-          through the cracks. Love Island is one of those things. After a 1 hour watch and seeing the
-          discourse it brings online, I can see how this TV show reflects the American mental. Short
-          version, it is not good. Long version, I deduce via logical syllogism why America's infatuation
-          with Love Island is a symptom of an unhealthy society.
+          A couple friends and I took it upon ourselves to start a project that pertained to trading.
+          After reading a paper that used machine learning to forecast weather, we built our own model
+          to predict daily high temperatures in New York City. I trained a Temporal Fusion Transformer
+          (TFT), alternating between an Apple Silicon Mac and a Windows machine with an NVIDIA GPU.
+          Using the same seed, hyperparameters, and training data, I expected both runs to converge to
+          the same solution. Instead, they consistently produced different outputs.
         </p>
 
+        <p>
+          When I first encountered non-reproducible training runs I suspected the seeds, data
+          shuffling, dropout. The more fundamental source of variation is the floating-point arithmetic
+          itself. This boils down to the hardware level and how it is executing the matrix
+          multiplication.
+        </p>
+
+        <h2 class="text-2xl font-bold mt-8">IEEE 754 and the illusion of a continuum</h2>
+        <p>
+          Understanding how modern hardware represents floating-point numbers is the first step. IEEE
+          754 is the standard for floating-point arithmetic. This standard represents a number using 32
+          bits. The anatomy is: 1 sign bit, 8 exponent bits, and 23 mantissa bits.
+        </p>
+        <figure class="text-center">
+          <img src="/assets/ieee-754-floating-point.webp" alt="IEEE 754 32-bit floating-point layout: 1 sign bit, 8 exponent bits, and 23 mantissa bits" class="mx-auto rounded border-2 border-white/20">
+        </figure>
+
+        <p>
+          What matters is not just how these bits encode a number, but what this structure implies for
+          computation itself. The exponent determines scale. The mantissa determines precision at that
+          scale. Together, they define a system that does not represent the real number line
+          continuously, but instead discretizes it into uneven steps. Near zero, those steps are
+          extremely small; as magnitude increases, the spacing between representable numbers grows
+          rapidly.
+        </p>
+        <p>
+          So unlike real arithmetic, where numbers exist on a continuous line, floating-point
+          arithmetic lives on a quantized approximation of that line. Every operation has to
+          &ldquo;snap back&rdquo; to the nearest representable value. That snapping is where error
+          enters.
+        </p>
+
+        <h2 class="text-2xl font-bold mt-8">Associativity breaks down</h2>
+        <p>
+          This changes a fundamental assumption in algebra. In real numbers, operations like addition
+          are associative:
+        </p>
         <div class="border-l-4 border-white/40 pl-6 py-2 bg-white/5">
-          <p class="font-mono text-center text-lg">(P → Q) ∧ (Q → X) ∴ (P → X)</p>
-          <ul class="mt-4 space-y-2">
-            <li><strong>(P → Q):</strong> Love Island (P) embodies a specific set of pathological values (Q).</li>
-            <li><strong>(Q → X):</strong> This set of pathological values (Q) are characteristic features of an unhealthy society (X).</li>
-            <li><strong>(P → X):</strong> Therefore, the popularity of Love Island (P) is a symptom of an unhealthy society (X).</li>
-          </ul>
+          <p class="font-mono text-center text-lg">(a + b) + c = a + (b + c)</p>
         </div>
-
         <p>
-          Let's begin by defining <strong>Love Island (P)</strong>. Love Island is a reality television
-          show where contestants ("Islanders") are isolated in a villa and must remain "coupled up" with
-          another contestant to survive elimination and win a cash prize.
+          In floating-point arithmetic, this is no longer guaranteed because every operation has to
+          &ldquo;snap&rdquo; to the nearest representable value. Mathematically, you can think of this
+          as projecting the result back onto the floating-point lattice, or rounding:
+        </p>
+        <div class="border-l-4 border-white/40 pl-6 py-2 bg-white/5">
+          <p class="font-mono text-center text-lg">fl(fl(a + b) + c) &ne; fl(a + fl(b + c))</p>
+        </div>
+        <p>
+          The important point is not just that this equality breaks, but why it breaks: every
+          intermediate result is being projected back onto a finite-resolution grid defined by the
+          mantissa. That rounding depends on magnitude, ordering, and how values align within the
+          representable spacing.
+        </p>
+        <p>
+          In practice, this means that floating-point arithmetic is not just &ldquo;real arithmetic
+          with small errors.&rdquo; It is a sequence of deterministic operations interleaved with
+          structured information loss.
         </p>
 
-        <p>The <strong>pathological values of Love Island (Q)</strong>, broken into four categories:</p>
-        <ol class="list-decimal pl-5 space-y-3">
-          <li><strong>The Commodification of the Self:</strong> The transformation of one's personality, relationships, and body into a marketable product.</li>
-          <li><strong>The Gamification of Intimacy:</strong> The framing of romantic connection as a strategic, transactional contest for survival and reward.</li>
-          <li><strong>Shallow Public Discourse:</strong> A mode of engagement that prioritizes spectacle, gossip, and interpersonal conflict over substance, nuance, and critical thought.</li>
-          <li><strong>Destructive Aspirations:</strong> The promotion of unrealistic physical ideals and a definition of success based on fame.</li>
-        </ol>
-
-        <p>Define an <strong>unhealthy society (X)</strong> by four characteristics:</p>
-        <ol class="list-decimal pl-5 space-y-3">
-          <li><strong>Perverted Core Values:</strong> A culture where values like individualism and achievement are distorted into narcissism and the pursuit of fame.</li>
-          <li><strong>Demographic Decline:</strong> A state of falling marriage and sub-replacement birth rates.</li>
-          <li><strong>A "Shallow State":</strong> A public sphere marked by polarization, anxiety, and a hunger for that 15 minutes of fame.</li>
-          <li><strong>Negative Public Health Outcomes:</strong> A social environment that contributes to widespread mental health issues, such as anxiety and body dysmorphia.</li>
-        </ol>
-
-        <h2 class="text-2xl font-bold mt-8">(P → Q): Love Island embodies pathological values</h2>
-        <ol class="list-decimal pl-5 space-y-4">
-          <li>Love Island is an efficient machine of consumerism. Every element and contestant is for sale. The show is a bridge into the "influencer-industrial complex," a market that ballooned to an estimated $21.1 billion in 2023. The primary motivation for most contestants isn't love, but the acquisition of fame and financial gains after the fact. What this means is that any quality, like "authenticity," becomes a selling point — creating a culture where a person's value is tied directly to their physical features and the persona they adopt.</li>
-          <li>The format of Love Island is "amorphous" because the main output is drama. Survival requires contestants to couple up, which incentivizes strategy over romantic connection. The byproduct is that any authentic interaction becomes suspect. The show's central theme, ironically, becomes the debate over who is "genuine" and who is just "playing a game."</li>
-          <li>Love Island offers low-stakes interpersonal drama. The narrative is simple: who looks the best, who has the best "energy," who is sleeping with whom, and who has alliances. This aligns with the "shallow state" — a mode of public life that rejects depth in favor of spectacle and emotion.</li>
-          <li>Love Island has a lack of body diversity — contestants fit a narrow category of slim and fit, many with surgically enhanced physical traits. There is research proving that exposing people to unattainable body standards has a negative impact on mental health and body image.</li>
-        </ol>
-
-        <h2 class="text-2xl font-bold mt-8">(Q → X): These values are features of an unhealthy society</h2>
-        <ol class="list-decimal pl-5 space-y-4">
-          <li>A healthy society is built on values like community, equality, and humanitarianism. In an unhealthy society, these values become twisted. Core American ideals of individualism and achievement devolve into an obsession with self-branding and fame. When a generation's top career aspiration is to be an "influencer," we risk becoming a nation of glorified salesmen.</li>
-          <li>A healthy society is marked by demographic optimism — stable family formation and birth rates at or near replacement level. The U.S. birth rate has been below replacement (2.1) for over a decade, with the 2023 rate at 1.62 births per woman. This signals a lack of confidence in the future and in relationships.</li>
-          <li>A healthy society has a public sphere that values reason, nuance, and critical thinking. An unhealthy society has a "shallow state" where public discourse is driven by emotion, spectacle, and ideology. This creates political anxiety, with 76% of Americans reporting the nation's future as a significant source of stress.</li>
-          <li>A healthy society creates environments that promote well-being for all. An unhealthy society promotes aspirations that are detrimental to public health. Imagine a source of media that pushes materialism, unrealistic body standards, and a degradation of romantic relationships. Oh wait.</li>
-        </ol>
-
-        <h2 class="text-2xl font-bold mt-8">(P → X): Love Island's Popularity is a Symptom</h2>
+        <h2 class="text-2xl font-bold mt-8">Gradient descent as a dynamical system under rounding</h2>
         <p>
-          Love Island reflects, packages, and popularizes the pathologies that characterize a society in
-          decline. It is a symptom of an unhealthy society. The show provides a form of escapism tailored
-          to a public that is anxious, cynical about commitment, and accustomed to a shallow,
-          market-driven culture. Love Island is a mirror, and its popularity confirms the reflection.
+          From this perspective, gradient descent stops being a clean deterministic update rule and
+          becomes a dynamical system under repeated rounding:
+        </p>
+        <div class="border-l-4 border-white/40 pl-6 py-2 bg-white/5">
+          <p class="font-mono text-center text-lg">&theta;<sub>t+1</sub> = &theta;<sub>t</sub> &minus; &eta; &nabla;L(&theta;<sub>t</sub>)</p>
+        </div>
+        <p>
+          In exact arithmetic, this trajectory is fixed. But in floating-point arithmetic, every
+          evaluation of &nabla;L includes many intermediate roundings&mdash;matrix multiplications,
+          reductions, nonlinearities&mdash;all of which introduce small, structured perturbations. The
+          update rule becomes:
+        </p>
+        <div class="border-l-4 border-white/40 pl-6 py-2 bg-white/5">
+          <p class="font-mono text-center text-lg">&theta;<sub>t+1</sub> = &theta;<sub>t</sub> &minus; &eta; (&nabla;L(&theta;<sub>t</sub>) + &delta;<sub>t</sub>)</p>
+        </div>
+        <p>
+          where &delta;<sub>t</sub> is the accumulated
+          effect of finite-precision rounding across the computational graph.
+        </p>
+        <p>
+          Once you see computation this way, the hardware differences become meaningful. The question
+          is no longer just &ldquo;do we compute the same function,&rdquo; but &ldquo;do we generate
+          the same sequence of roundings onto the representable number line.&rdquo; And this is exactly
+          where CPU and GPU begin to diverge.
+        </p>
+
+        <h2 class="text-2xl font-bold mt-8">Where rounding starts to matter: aggregation</h2>
+        <p>
+          Where does this rounding actually start to matter in deep learning systems? The answer is not
+          in isolated arithmetic operations. It appears in aggregation.
+        </p>
+        <p>
+          One of the first places floating-point behavior becomes visible is during reduction
+          operations: summing gradients, accumulating partial results, and merging updates across
+          batches and threads.
+        </p>
+        <p>
+          At this point we know two things. First, every floating-point operation introduces a tiny
+          rounding error. Second, the result depends on the order in which operations occur. That
+          naturally leads to the next question: who decides the order? The answer is the hardware.
+          CPUs and GPUs perform the same mathematical operations, but they organize those operations
+          very differently. Those differences are where identical training runs begin to diverge.
+        </p>
+
+        <h2 class="text-2xl font-bold mt-8">How does a CPU approach reduction?</h2>
+        <p>
+          On a CPU, reduction is largely sequential or deterministically vectorized. Even when SIMD
+          instructions are used (AVX, AVX2, AVX-512), the structure of the computation is still
+          fundamentally ordered. A fixed instruction sequence defines how partial sums are combined,
+          and that sequence does not change across runs.
+        </p>
+        <p>
+          So even though each addition still involves rounding, the path through the number line is
+          stable. The same values are combined in the same order, meaning the same intermediate
+          roundings occur in the same places. As a result, the accumulated rounding error is
+          consistent. It may not be &ldquo;correct&rdquo; in a mathematical sense, but it is
+          reproducible.
+        </p>
+        <p>
+          Reproducibility here is not about precision. It is about determinism of error.
+        </p>
+
+        <h2 class="text-2xl font-bold mt-8">How does a GPU approach reduction?</h2>
+        <p>
+          A GPU breaks this structure entirely. Instead of a single ordered reduction, computation is
+          distributed across thousands of threads. Each thread computes a partial result, and those
+          results are combined asynchronously through shared memory.
+        </p>
+        <p>
+          At the center of this mechanism are atomic additions. An atomic add ensures that multiple
+          threads can safely update a shared value without explicit locking. It does not guarantee
+          ordering.
+        </p>
+        <p>
+          Two runs of the same kernel can produce different effective summation orders because thread
+          scheduling is not fixed at the hardware level. Warps are executed in parallel across
+          streaming multiprocessors, and their completion order depends on factors like occupancy,
+          memory latency, and instruction pipeline timing.
+        </p>
+        <p>
+          So instead of a fixed expression like:
+        </p>
+        <div class="border-l-4 border-white/40 pl-6 py-2 bg-white/5">
+          <p class="font-mono text-center text-lg">((a + b) + c) + d</p>
+        </div>
+        <p>
+          the system effectively explores different valid permutations of the same reduction:
+        </p>
+        <div class="border-l-4 border-white/40 pl-6 py-2 bg-white/5 space-y-1">
+          <p class="font-mono text-center text-lg">(a + (c + d)) + b</p>
+          <p class="font-mono text-center text-lg">((a + d) + b) + c</p>
+          <p class="font-mono text-center text-lg">(b + (a + c)) + d</p>
+        </div>
+        <p>
+          In exact arithmetic, these expressions are equivalent. In floating-point arithmetic, they are
+          not.
+        </p>
+
+        <h2 class="text-2xl font-bold mt-8">Why does ordering change the result?</h2>
+        <p>
+          Recall mantissa geometry. Each floating-point number carries a fixed amount of precision
+          relative to its magnitude. When two numbers differ significantly in scale, the smaller value
+          may fall outside the representable precision of the larger one and effectively disappear
+          during addition.
+        </p>
+        <p>
+          So if a large partial sum is accumulated first, smaller contributions added later may be
+          partially or fully lost. But if those small values are accumulated earlier&mdash;before being
+          merged into a large magnitude term&mdash;they may survive the rounding step and persist into
+          the final result.
+        </p>
+        <p>
+          This means that summation is not just aggregation. It is a sequence of information retention
+          and information loss events, and that sequence depends entirely on order.
+        </p>
+        <p>
+          Across a single gradient update, this difference is usually tiny. Often sub-ULP. But in a
+          deep network, this process is repeated millions or billions of times. Each update slightly
+          shifts the trajectory of the parameters, not randomly, but path-dependently. Over time, these
+          small divergences accumulate into different optimization paths entirely.
+        </p>
+
+        <h2 class="text-2xl font-bold mt-8">The core issue</h2>
+        <p>
+          This is the key distinction: in a deterministic CPU implementation, the reduction path is
+          fixed from run to run. GPUs, by contrast, often allow many valid reduction orders to emerge
+          naturally from parallel execution.
+        </p>
+        <p>
+          And in floating-point arithmetic, &ldquo;valid&rdquo; does not mean &ldquo;equivalent.&rdquo;
+          It only means &ldquo;within rounding error at each step.&rdquo; Once those rounding decisions
+          are chained together across large reductions, the system becomes sensitive to ordering in a
+          way that cannot be eliminated without changing the algorithm itself.
         </p>
       </div>
 

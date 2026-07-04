@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Political Portfolio — Callum Doty</title>
+  <meta name="description" content="Political Portfolio: estimating the marginal seat gain of campaign spending, reframing congressional campaign finance as a capital allocation problem.">
+  <link rel="icon" type="image/png" href="/assets/cd.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/js/components/site-layout.js"></script>
+</head>
+<body class="flex flex-col min-h-screen">
+  <site-header></site-header>
+
+  <main class="flex-1 container mx-auto px-6 page-content max-w-3xl">
+    <article>
+
+      <!-- Header -->
+      <header class="text-center mb-16 border-b-2 border-white pb-10">
+        <h1 class="text-4xl font-bold text-white mb-3">Political Portfolio</h1>
+        <p class="text-lg text-white/80">Estimating the Marginal Seat Gain of Campaign Spending</p>
+        <p class="text-sm text-white/60 mt-2">Reframing congressional campaign finance as a capital allocation problem</p>
+        <div class="mt-6 flex flex-wrap justify-center gap-8 text-sm text-white">
+          <div><span class="font-bold">Role:</span> Researcher &amp; Developer</div>
+          <div><span class="font-bold">Team:</span> Solo Project</div>
+          <div><span class="font-bold">Status:</span> Paper Complete + Follow-Up Extension in Progress</div>
+        </div>
+      </header>
+
+      <!-- Thesis -->
+      <section class="case-section">
+        <h2>Thesis</h2>
+        <p>
+          Campaign finance is usually studied as a causal question: does spending affect elections?
+        </p>
+        <p class="mt-4">
+          In practice, campaign committees face a different problem: given a fixed budget, where does
+          the next dollar generate the highest expected increase in seats?
+        </p>
+        <p class="mt-4">
+          This reframes campaign spending as a capital allocation problem under uncertainty, not a
+          simple outcome regression.
+        </p>
+      </section>
+
+      <!-- Approach -->
+      <section class="case-section">
+        <h2>Approach</h2>
+        <p>
+          I built a three-layer framework to estimate marginal seat gain per dollar.
+        </p>
+        <p class="mt-4">
+          <strong>1. Causal Spending → Vote Margin</strong><br>
+          Using Levitt's (1994) repeat-challenger design, I isolate the causal effect of spending on
+          vote margin within matched incumbent–challenger pairs (2012–2022). This reduces endogeneity
+          from strategic spending decisions.
+        </p>
+        <p class="mt-4">
+          <strong>2. Vote Margin → Win Probability</strong><br>
+          Vote margin is mapped nonlinearly into win probability, reflecting the fact that dollars are
+          more valuable in competitive races and marginal effects are convex near 50/50 contests. This
+          converts spending into expected seat contribution rather than raw vote share impact.
+        </p>
+        <p class="mt-4">
+          <strong>3. Portfolio Allocation Across Races</strong><br>
+          House races are not independent. National swings introduce correlated risk through the
+          generic ballot. I model this explicitly using a shared factor structure across races,
+          constructing a covariance-aware allocation model that treats the House map as a portfolio
+          rather than isolated bets.
+        </p>
+      </section>
+
+      <!-- Key Insight -->
+      <section class="case-section">
+        <h2>Key Insight (Open Seats)</h2>
+        <p>
+          Open seats behave differently from incumbency races. They resemble higher-variance assets:
+        </p>
+        <ul class="mt-4 list-disc list-inside ml-2 text-lg text-white leading-relaxed space-y-2">
+          <li>Wider outcome uncertainty increases baseline win probability</li>
+          <li>But reduces marginal return to additional spending</li>
+        </ul>
+        <p class="mt-4">
+          This creates a risk/return tradeoff analogous to volatility exposure in options pricing,
+          which is naturally captured through a Bayesian uncertainty model.
+        </p>
+      </section>
+
+      <!-- Empirical Test -->
+      <section class="case-section">
+        <h2>Empirical Test</h2>
+        <p>
+          If spending is efficient, observed allocations should be positively correlated with
+          estimated marginal seat gain. I test this among competitively matched races controlling for
+          partisan lean and incumbency.
+        </p>
+      </section>
+
+      <!-- Results -->
+      <section class="case-section">
+        <h2>Results</h2>
+        <ul class="mt-4 list-disc list-inside ml-2 text-lg text-white leading-relaxed space-y-2">
+          <li>ρ = −0.597 (p &lt; 0.001) across 53 competitive 2024 races → spending is systematically misallocated relative to marginal seat gain</li>
+          <li>+5.3 expected seats from reallocating the same budget using model ranking</li>
+          <li>Out-of-sample validation (trained on 2012–2020, tested on 2022): ρ = −0.380, +5.5 seats improvement</li>
+          <li>Calibration benchmark — Brier score: 0.028 (model) vs 0.038 (Cook PVI baseline)</li>
+        </ul>
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="metric-card">
+            <div class="metric-value">ρ = −0.597</div>
+            <div class="metric-label">Spending vs. Marginal Seat Gain (2024)</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">+5.3 Seats</div>
+            <div class="metric-label">Gain from Model-Ranked Reallocation</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">0.028</div>
+            <div class="metric-label">Brier Score (vs. 0.038 Cook PVI)</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contribution -->
+      <section class="case-section">
+        <h2>Contribution</h2>
+        <ul class="mt-4 list-disc list-inside ml-2 text-lg text-white leading-relaxed space-y-2">
+          <li>Reframes campaign finance as a constrained optimization problem over expected seat gain</li>
+          <li>Builds a causal estimate of spending → vote margin using repeat-challenger identification</li>
+          <li>Extends inference into a risk-aware allocation model across correlated races</li>
+          <li>Produces a falsifiable, out-of-sample claim about allocation inefficiency</li>
+        </ul>
+      </section>
+
+      <!-- Methods -->
+      <section class="case-section">
+        <h2>Methods</h2>
+        <p>
+          Repeat-challenger causal design, Bayesian shrinkage, bounded treatment effects (Oster-style
+          sensitivity analysis), factor-based covariance modeling, nonlinear optimization, bootstrap
+          inference.
+        </p>
+        <p class="mt-4">
+          <strong>Data:</strong> MIT Election Lab, FEC filings, OpenSecrets, Cook PVI, Census ACS
+          (all public sources)
+        </p>
+      </section>
+
+    </article>
+  </main>
+
+  <site-footer></site-footer>
+</body>
+</html>
