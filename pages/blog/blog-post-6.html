@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>&Theta;: Political Theta — Callum Doty</title>
+  <meta name="description" content="Building a House-race allocation model on DCCC and FEC data, discovering that campaign money is systematically misallocated, and deriving &Theta;, a Bellman-equation measure of when a campaign should spend versus wait.">
+  <link rel="icon" type="image/png" href="/assets/cd.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/js/components/site-layout.js"></script>
+</head>
+<body class="flex flex-col min-h-screen">
+  <site-header></site-header>
+
+  <main class="flex-1 container mx-auto px-6 page-content max-w-3xl">
+    <article>
+      <header class="mb-12 text-center">
+        <h1 class="text-4xl font-bold">Political Theta</h1>
+        <p class="text-white/50 text-sm mt-3">Published on July 22, 2026</p>
+      </header>
+
+      <div class="space-y-6 text-lg text-white leading-relaxed">
+        <p>
+          I took it upon myself to do some independent research within the context of my job in the
+          political field. Initially, I wanted to build a model that helped political consultants
+          allocate money toward services my company provided in a way that maximized a client's chances
+          of winning. The services could be anything from mailers to digital ads to TV commercials.
+        </p>
+        <p>
+          I imagined an elegant system: a consultant inputs basic information about the client, like
+          their race, whether they're an incumbent, polling, and total bankroll. The output is a
+          distribution of the client's funds across the services we offered. Paired with the consultant's
+          own experience and intuition, I thought it would provide an edge.
+        </p>
+        <p>
+          It failed. The data either didn't exist or was locked behind a paywall.
+        </p>
+
+        <p>
+          I went back to square one and looked for data that existed, was free, and was centralized, so
+          I wouldn't have to dig around the internet for it. That led me to Democratic Congressional
+          Campaign Committee (DCCC) data and FEC data. As I looked at it, an idea began to emerge. The
+          data was high-level spending, nothing granular. So the application had to be high-level
+          too, something that encapsulated the whole objective of a two-party government. The framing
+          became clear: what actually matters at the end of an election cycle? My answer: whoever gets
+          the most House seats.
+        </p>
+        <p>
+          With that target set, I evaluated several allocation strategies against the same campaign
+          budget. The first was the DCCC's actual 2024 spending. The second divided money equally across
+          every congressional race. The third allocated money according to Cook Political Report race
+          ratings. The fourth was a nonlinear optimizer that maximized expected House seats directly.
+        </p>
+
+        <figure class="text-center">
+          <img src="/assets/allocator_comparison.png" alt="Bar chart comparing expected Democratic House seats under DCCC observed spending, Cook-implied allocation, an equal-split null, and a nonlinear model optimizer" class="mx-auto rounded border-2 border-white/20">
+          <figcaption class="text-sm text-white/50 mt-2">Expected seats by allocation strategy, same total budget, 2024 House.</figcaption>
+        </figure>
+
+        <p>
+          Splitting the budget equally across every race outperformed the DCCC's historical allocation.
+          The Cook-based strategy did better still. My nonlinear optimizer performed best of all,
+          projecting roughly five additional House seats over the DCCC's actual allocation, using
+          the exact same amount of money.
+        </p>
+
+        <p>
+          I found something unexpected. The more money the DCCC historically spent in a race, the lower
+          the marginal seat gain tended to be. Often, more money was dumped into races where little
+          additional value was created.
+        </p>
+        <p>
+          This piqued my interest.
+        </p>
+        <p>
+          What naturally surfaced was that the model understood deterministic elections, like many
+          districts in California, Maryland, and the like, should get little to no capital, while
+          toss-ups, lean-right, and lean-left races should get the bulk of it. The model also identified
+          races that received a lot of capital and still lost, and recommended pulling that money out and
+          reallocating it to toss-ups and lean races instead.
+        </p>
+
+        <figure class="text-center">
+          <img src="/assets/allocator_spending_by_race.png" alt="Dot plot comparing DCCC observed spending, Cook-implied spending, uniform spending, and model-optimizer spending across 53 competitive House races, sorted by how much the optimizer cuts or adds relative to DCCC" class="mx-auto rounded border-2 border-white/20">
+          <figcaption class="text-sm text-white/50 mt-2">Competitive-race spending under each strategy, sorted by the optimizer's reallocation relative to DCCC's actual spend.</figcaption>
+        </figure>
+
+        <p>
+          This works in retrospect. But if you're astute, you'll realize it doesn't work when predicting
+          where future capital should go, because it's built entirely from outcomes we already know.
+        </p>
+
+        <p>
+          I built a second model with the goal of extrapolating the findings from the first model to
+          2026. For clarity, I estimated total 2026 spend by averaging the 2018 and 2022 midterms, then
+          adjusting for current inflation.
+        </p>
+        <p>
+          Immediately, I noticed something that didn't make intuitive sense. The model wasn't
+          prioritizing competitive races anymore. Instead, it wanted to allocate nearly two-thirds of the
+          budget to likely-Republican and safe-Republican districts, months before Election
+          Day, while recommending almost no additional spending in safe Democratic districts.
+        </p>
+        <p>
+          This was troubling and suspicious. I checked the math, the parameters, all of it. Everything
+          was functioning exactly as intended.
+        </p>
+        <p>
+          The model had found something I didn't anticipate. In already-safe Democratic seats, the
+          probability of winning was essentially 100%, so another dollar produced almost no additional
+          expected seats. But in Republican-leaning districts, even races with relatively low
+          probabilities of victory still showed positive marginal gains under the model. Mathematically,
+          it kept finding value in funding long-shot opportunities.
+        </p>
+        <p>
+          A good question to contextualize the problem: if you gave a professional campaign manager $400
+          million in July, would they really allocate most of it to long-shot Republican races?
+        </p>
+        <p>
+          So logically, either campaign managers have been systematically misallocating hundreds of
+          millions of dollars for decades, or my model was exploiting a loophole. I suspected the latter.
+        </p>
+
+        <p>
+          The second model could only compare races against each other. That is the problem, there
+          was no comparison between today's races and tomorrow's. It didn't understand the value of
+          waiting, or patience. I had to answer a different question: should I spend today, or should I
+          wait?
+        </p>
+        <p>
+          I sat with this for about a week, ruminating on how to introduce patience into the model.
+          Funny enough, two books I'd read helped enormously: <em>Advanced Predictive Analytics</em> by
+          Dean Abbott, and <em>Options, Futures, and Other Derivatives</em> by John Hull. There was a
+          nuanced overlap between this problem and how financial markets price an option.
+        </p>
+        <p>
+          I recalled the Black-Scholes equation, a beautiful partial differential equation that solves a
+          similar problem: how to price an option. My problem borrows the same intuition, not the actual
+          equation.
+        </p>
+        <p>
+          Picture a scenario: you own the right to buy a stock for $100. Should you exercise today, or
+          wait? The option has value precisely because you're allowed to buy, sell, or hold. Now suppose
+          campaign money has the same property. Every campaign dollar sitting in the bank preserves the
+          ability to react to polling, opponent spending, fundraising, and news. That raises the real
+          question: how do you value optionality in campaign spending?
+        </p>
+
+        <p>
+          The naive approach to this problem would require calculating every possible allocation of
+          capital across every point in time. This frames the problem as an infinite-horizon one, and
+          that isn't optimal. I prefer reframing it as a recursive puzzle instead. We only need to know
+          the value of the
+          next allocation of capital given the initial state's optimal policy, following a sequence of
+          optimal decisions before it. It's a chain of events that stems from the best rule at each link,
+          iterating on the best initial state and decision down the chain.
+        </p>
+        <p>
+          This idea isn't new. It's the foundation behind reinforcement learning, Stockfish, self-driving
+          cars, and plenty of other algorithms.
+        </p>
+        <p>
+          I went down a rabbit hole of existing equations well-suited to adapt to my problem: the
+          Hamilton&ndash;Jacobi&ndash;Bellman equation, the Shapley equation, the Kolmogorov backward
+          equation, the Euler&ndash;Lagrange equation, and the Pontryagin maximum principle. All of them
+          were eliminated because the core of my problem entailed sequential decisions, valuing
+          uncertainty, optimization, discrete time, and campaign spending specifically. I needed something
+          that paired well with how campaigns actually make decisions. This is a stochastic sequential
+          decision problem.
+        </p>
+        <p>
+          I decided on the Bellman equation because it meets my problem's criteria: a finite time until
+          Election Day, discrete decisions, stochastic transitions, and a Monte Carlo simulation. The
+          Bellman equation is what I use to derive what I call Theta (&Theta;).
+        </p>
+
+        <p>
+          Think of this as a branching tree. At every decision point there are only two possibilities:
+          deploy now, or wait. The equation looks like this:
+        </p>
+        <div class="border-l-4 border-white/40 pl-6 py-2 bg-white/5">
+          <p class="font-mono text-center text-lg">V(X<sub>t</sub>) = max(V<sub>deploy</sub>, E[V(X<sub>t+1</sub>)])</p>
+        </div>
+        <p>
+          X<sub>t</sub> is everything I know today: polling, fundraising, remaining budget, opponent
+          spending, time until Election Day, and so on. V<sub>deploy</sub> is the expected value if the
+          model spends immediately. E[V(X<sub>t+1</sub>)] is the expected value if I wait, observe
+          tomorrow's information, and then make the best possible decision.
+        </p>
+        <p>
+          It's beautifully simple: at every point in time, choose whichever decision is worth more and
+          spend immediately, or keep the option to decide later.
+        </p>
+        <p>
+          The anatomy of the equation gives us two values: the value of spending now (V<sub>deploy</sub>)
+          and the value of waiting (E[V(X<sub>t+1</sub>)]). From those two, I can compute how much
+          waiting is actually worth, which is &Theta;.
+        </p>
+        <div class="border-l-4 border-white/40 pl-6 py-2 bg-white/5">
+          <p class="font-mono text-center text-lg">&Theta; = V<sub>wait</sub> &minus; V<sub>deploy</sub></p>
+        </div>
+        <p>
+          &Theta; lets the model be patient, with three possible outcomes:
+        </p>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b-2 border-white">
+                <th class="py-3 pr-4 font-bold">Result</th>
+                <th class="py-3 font-bold">Interpretation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-white/20">
+                <td class="py-3 pr-4">&Theta; &gt; 0</td>
+                <td class="py-3">Waiting is worth more than spending, so hold the money</td>
+              </tr>
+              <tr class="border-b border-white/20">
+                <td class="py-3 pr-4">&Theta; &lt; 0</td>
+                <td class="py-3">Waiting loses value, so spend now</td>
+              </tr>
+              <tr>
+                <td class="py-3 pr-4">&Theta; = 0</td>
+                <td class="py-3">Timing is irrelevant</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          With this, the model can finally distinguish between a race worth funding eventually and a race
+          worth funding today.
+        </p>
+        <p>
+          Looping back to Black-Scholes: that model produces an option value, and traders derive the
+          Greeks (delta, gamma, vega, theta) from it. The Greeks aren't inputs; they're
+          quantities that emerge from the solution. The overlap is structural: deriving theta for my
+          problem uses the same shape as deriving Theta for an option.
+        </p>
+        <p>
+          The Bellman equation produces a value function. From that value function, I derive &Theta; as
+          the difference between the value of waiting and the value of acting immediately, and &Theta;
+          measures whether time itself has economic value for a campaign. Where finance derives theta as
+          a time-derivative, I derive &Theta; as the opportunity cost of acting now versus delaying. It
+          serves, effectively, as my model's patience gauge.
+        </p>
+      </div>
+
+      <div class="text-center mt-12">
+        <a href="/pages/blog/index.html" class="text-amber-400 font-semibold hover:underline">
+          &larr; Back to Blog
+        </a>
+      </div>
+    </article>
+  </main>
+
+  <site-footer></site-footer>
+</body>
+</html>
