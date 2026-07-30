@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Project Catalog — Callum Doty</title>
-  <meta name="description" content="Project Catalog: an AI-powered political file management system that reduces file discovery from minutes to seconds using vector embeddings and natural language search.">
+  <meta name="description" content="Project Catalog: a full-stack AI document intelligence platform for political campaign materials, using Claude, hybrid semantic search, and automated Dropbox ingestion to cut file discovery from minutes to seconds.">
   <link rel="icon" type="image/png" href="/assets/cd.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,10 +23,10 @@
         <h1 class="text-4xl font-bold text-white mb-3">Project Catalog</h1>
         <p class="text-lg text-white/80">AI-Powered Political File Management System</p>
         <div class="mt-6 flex flex-wrap justify-center gap-8 text-sm text-white">
-          <div><span class="font-bold">Role:</span> Full-Stack Software Engineer</div>
-          <div><span class="font-bold">Duration:</span> 6 months (Ongoing)</div>
+          <div><span class="font-bold">Role:</span> Full-Stack Software Engineer (Solo Founder &amp; Developer)</div>
+          <div><span class="font-bold">Duration:</span> 13+ months (July 2025 – Present, actively maintained)</div>
           <div><span class="font-bold">Team:</span> Solo Project</div>
-          <div><span class="font-bold">Status:</span> Workflow Integration</div>
+          <div><span class="font-bold">Status:</span> In Production — Actively Maintained</div>
         </div>
       </header>
 
@@ -34,10 +34,12 @@
       <section class="case-section">
         <h2>Problem</h2>
         <p>
-          During the 2024 election cycle, designers and account managers were spending 1–5 minutes per
-          file search in Dropbox. With hundreds of daily file requests, this was costing the team hours
-          each week. The deeper issue was that Dropbox only searches by file name or exact keywords —
-          there was no way to discover past creative work by theme, message, or visual concept.
+          During the 2024 election cycle, designers and account managers were losing 1–5 minutes per
+          file search in Dropbox, adding up to hours of lost time per week across hundreds of daily
+          requests. The root issue wasn't search speed — it was that Dropbox can only match file names
+          and exact keywords, so there was no way to find past creative work by theme, message,
+          candidate, or visual concept. Institutional creative knowledge was effectively locked away in
+          folder hierarchies.
         </p>
       </section>
 
@@ -45,22 +47,69 @@
       <section class="case-section">
         <h2>Approach</h2>
         <p>
-          I designed and built a full-stack AI-powered catalog that automatically analyzes and semantically
-          tags political design files. The system uses vector embeddings and multi-modal AI to understand
-          the content of each file, enabling natural language queries like "healthcare policy graphics" or
-          "Biden campaign materials." It integrates with existing Dropbox workflows so the team didn't
-          need to change how they store files.
+          I designed and built a full-stack AI document intelligence platform, purpose-built for
+          political campaign materials, from the ground up:
         </p>
+        <ul class="mt-4 list-disc list-inside ml-2 text-lg text-white leading-relaxed space-y-2">
+          <li><strong>Multimodal AI analysis pipeline</strong> using Claude to read and understand mailers, digital ads, handouts, and posters — extracting structured campaign data like client/opponent names, election year, messaging strategy (attack, comparison, endorsement, GOTV), tone, and calls to action, not just OCR text.</li>
+          <li><strong>Hybrid semantic search</strong> combining OpenAI vector embeddings (via pgvector) with PostgreSQL full-text search, so users can query in plain language — "healthcare attack mailers" or "2024 GOTV postcards" — and get relevance-ranked results.</li>
+          <li><strong>Custom political taxonomy engine</strong> that automatically classifies and cross-references documents by category, subcategory, and canonical terms specific to campaign work.</li>
+          <li><strong>Automated Dropbox ingestion</strong> — a scheduled job polls Dropbox on a cursor-based incremental sync, deduplicates by content hash, and queues new files for processing automatically, so the team's existing file habits didn't have to change.</li>
+          <li><strong>Asynchronous processing architecture</strong> with Celery and Redis so uploads, OCR, and AI analysis run in the background without blocking the app.</li>
+          <li>Deployed as four coordinated services on Render (below), backed by managed PostgreSQL and Backblaze B2 (S3-compatible) object storage.</li>
+        </ul>
+        <p class="mt-4">
+          Shipped and iterated solo over 260+ commits, driven by real feedback from designers and
+          account managers using it in live campaign cycles.
+        </p>
+      </section>
+
+      <!-- Architecture -->
+      <section class="case-section">
+        <h2>Architecture</h2>
+        <div class="border-l-4 border-white/40 pl-6 py-4 bg-white/5 overflow-x-auto">
+          <pre class="font-mono text-sm text-white/90 leading-relaxed whitespace-pre">Dropbox (source files)
+   │  polled every 10 min, incremental cursor + content-hash dedup
+   ▼
+Dropbox Ingest (Render cron job)
+   │  downloads new/changed files → writes to storage → queues DB record
+   ▼
+Backblaze B2 (object storage)  +  PostgreSQL (document metadata, status: QUEUED)
+   │
+   ▼
+Celery Worker (Render background service) ◄──► Redis (task queue)
+   │  OCR + AI analysis
+   ├──► Anthropic Claude API   (document understanding, OCR, campaign field extraction)
+   └──► OpenAI API             (vector embeddings)
+   │
+   ▼
+PostgreSQL + pgvector  (full-text index + semantic vectors, status: PROCESSED)
+   │
+   ▼
+FastAPI Web App (Render web service)
+   │  hybrid search, taxonomy filtering, admin dashboard
+   ▼
+Designers &amp; Account Managers (natural-language search)</pre>
+        </div>
+      </section>
+
+      <!-- Key Technical Challenges -->
+      <section class="case-section">
+        <h2>Key Technical Challenges</h2>
+        <ul class="mt-4 list-disc list-inside ml-2 text-lg text-white leading-relaxed space-y-3">
+          <li><strong>Cache invalidation bug tanking search performance.</strong> After shipping document deletion, search latency spiked to 15 seconds on a database of only 350 documents. Root cause: deletions weren't invalidating the Redis search cache, so queries kept scanning stale, bloated result sets. Fixed by wiring cache invalidation into the delete path — search returned to sub-second.</li>
+          <li><strong>Session middleware failing silently in production.</strong> Starlette's built-in <code>SessionMiddleware</code> would intermittently fail to install on Render, breaking authentication with no clear error. Replaced it with a custom Redis-backed session layer, giving reliable, horizontally-scalable session state instead of depending on in-process middleware behavior.</li>
+          <li><strong>Scaling search past prototype size.</strong> As the catalog grew toward 10,000 documents, naive queries started to degrade. Optimized with targeted GIN indexes for full-text search, tuned pgvector indexing for embedding lookups, and query-result caching — keeping search fast within the constraints of a single-CPU, 2GB Render instance.</li>
+        </ul>
       </section>
 
       <!-- Outcome -->
       <section class="case-section">
         <h2>Outcome</h2>
         <p>
-          Reduced file discovery time from 1–5 minutes per search to near-instant results. Designers
-          gained the ability to find creative inspiration from past campaigns by theme, candidate, or
-          concept — not just by file name. Account managers could fulfill requests in seconds rather than
-          manually navigating folder hierarchies.
+          Cut file discovery time from 1–5 minutes to near-instant, giving designers a way to mine past
+          campaigns for creative inspiration by theme or concept — not just file name — and letting
+          account managers fulfill client requests in seconds instead of navigating folder trees by hand.
         </p>
         <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
           <div class="metric-card">
