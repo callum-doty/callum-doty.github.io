@@ -1,0 +1,17 @@
+---
+import type { NavNode } from '../lib/nav';
+import NavTree from './NavTree.astro';
+
+interface Props {
+  nav: NavNode[];
+  path: string;
+}
+
+const { nav, path } = Astro.props;
+---
+
+<aside id="sidebar" class="sidebar">
+  <nav aria-label="Site contents">
+    <NavTree nodes={nav} path={path} />
+  </nav>
+</aside>

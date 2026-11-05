@@ -1,0 +1,28 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { render, type CollectionEntry } from 'astro:content';
+import Document from '../../layouts/Document.astro';
+import { formatMonth, getProjects } from '../../lib/content';
+
+export const getStaticPaths = (async () => {
+  const projects = await getProjects();
+  return projects.map((project) => ({ params: { id: project.id }, props: { project } }));
+}) satisfies GetStaticPaths;
+
+const { project } = Astro.props as { project: CollectionEntry<'projects'> };
+const { title, description, date, tags, github, external_url, status } = project.data;
+const { Content, headings, remarkPluginFrontmatter } = await render(project);
+---
+
+<Document title={title} description={description} headings={headings} features={remarkPluginFrontmatter}>
+  <Fragment slot="meta">
+    <p class="doc-meta">
+      <time datetime={date.toISOString()}>{formatMonth(date)}</time>
+      {status && <span>{status}</span>}
+      {github && <a href={github}>GitHub</a>}
+      {external_url && <a href={external_url}>Project site</a>}
+    </p>
+    <p class="doc-meta doc-tags">{tags.map((tag) => <span>{tag}</span>)}</p>
+  </Fragment>
+  <Content />
+</Document>

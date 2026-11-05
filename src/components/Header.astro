@@ -1,0 +1,47 @@
+---
+import { site } from '../lib/site';
+import Icon from './Icon.astro';
+
+interface Props {
+  /** href of the top-level section the current page belongs to. */
+  section?: string;
+}
+
+const { section } = Astro.props;
+const primary = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about/' },
+  { label: 'Blog', href: '/blog/' },
+];
+---
+
+<header class="site-header">
+  <button class="menu-toggle" type="button" aria-label="Site contents" aria-expanded="false" aria-controls="sidebar">
+    <Icon name="menu" />
+  </button>
+  <a class="site-name" href="/">{site.name}</a>
+  <nav class="primary-nav" aria-label="Primary">
+    {primary.map(({ label, href }) => <a href={href} aria-current={section === href ? 'true' : undefined}>{label}</a>)}
+  </nav>
+  <div class="site-links">
+    {site.links.map(({ label, url, icon }) => {
+      // mailto: hands off to the mail client, so a new tab would just sit empty.
+      const external = !url.startsWith('mailto:');
+      return (
+        <a href={url} aria-label={label} title={label} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>
+          <Icon name={icon} />
+        </a>
+      );
+    })}
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const sidebar = document.getElementById('sidebar');
+  toggle?.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') !== 'true';
+    toggle.setAttribute('aria-expanded', String(open));
+    sidebar?.toggleAttribute('data-open', open);
+  });
+</script>

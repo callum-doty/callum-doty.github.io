@@ -1,0 +1,29 @@
+---
+import type { MarkdownHeading } from 'astro';
+import Toc from '../components/Toc.astro';
+import Base from './Base.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  headings: MarkdownHeading[];
+  published?: Date;
+  features?: { hasMath?: boolean; hasDiagrams?: boolean };
+}
+
+const { title, description, headings, published, features } = Astro.props;
+---
+
+<Base title={title} description={description} published={published} features={features}>
+  <article>
+    <header class="doc-header">
+      <h1>{title}</h1>
+      <p class="doc-description">{description}</p>
+      <slot name="meta" />
+    </header>
+    <Toc headings={headings} />
+    <div class="prose">
+      <slot />
+    </div>
+  </article>
+</Base>

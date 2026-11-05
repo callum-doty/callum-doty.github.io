@@ -1,0 +1,19 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { render, type CollectionEntry } from 'astro:content';
+import Document from '../../layouts/Document.astro';
+import { getAboutSections } from '../../lib/content';
+
+export const getStaticPaths = (async () => {
+  const sections = await getAboutSections();
+  return sections.map((section) => ({ params: { id: section.id }, props: { section } }));
+}) satisfies GetStaticPaths;
+
+const { section } = Astro.props as { section: CollectionEntry<'about'> };
+const { title, description } = section.data;
+const { Content, headings, remarkPluginFrontmatter } = await render(section);
+---
+
+<Document title={title} description={description} headings={headings} features={remarkPluginFrontmatter}>
+  <Content />
+</Document>

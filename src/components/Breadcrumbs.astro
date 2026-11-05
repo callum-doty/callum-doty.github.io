@@ -1,0 +1,24 @@
+---
+import type { NavNode } from '../lib/nav';
+
+interface Props {
+  trail: NavNode[];
+  /** Page title, used when the page isn't in the navigation tree (the 404 page). */
+  title: string;
+}
+
+const { trail, title } = Astro.props;
+const home = { label: 'Home', href: '/' };
+const crumbs = trail.length ? trail : [{ label: title, href: '' }];
+const items = crumbs[0].href === '/' ? crumbs : [home, ...crumbs];
+---
+
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <ol>
+    {items.map((item, i) => (
+      <li>
+        {i === items.length - 1 ? <span aria-current="page">{item.label}</span> : <a href={item.href}>{item.label}</a>}
+      </li>
+    ))}
+  </ol>
+</nav>

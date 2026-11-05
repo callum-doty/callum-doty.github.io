@@ -1,0 +1,24 @@
+<script>
+  import mermaid from 'mermaid';
+
+  const styles = getComputedStyle(document.documentElement);
+  const token = (name: string) => styles.getPropertyValue(name).trim();
+
+  mermaid.initialize({
+    startOnLoad: false,
+    theme: 'base',
+    themeVariables: {
+      darkMode: true,
+      fontFamily: getComputedStyle(document.body).fontFamily,
+      fontSize: '14px',
+      background: token('--bg'),
+      primaryColor: token('--bg-subtle'),
+      primaryTextColor: token('--text'),
+      primaryBorderColor: token('--muted'),
+      lineColor: token('--muted'),
+      edgeLabelBackground: token('--bg'),
+    },
+    flowchart: { wrappingWidth: 340, nodeSpacing: 32, rankSpacing: 32 },
+  });
+  mermaid.run({ querySelector: 'pre.mermaid' });
+</script>

@@ -1,0 +1,26 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { render, type CollectionEntry } from 'astro:content';
+import Document from '../../layouts/Document.astro';
+import { formatDate, getPosts } from '../../lib/content';
+
+export const getStaticPaths = (async () => {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { id: post.id }, props: { post } }));
+}) satisfies GetStaticPaths;
+
+const { post } = Astro.props as { post: CollectionEntry<'blog'> };
+const { title, description, date, category, tags } = post.data;
+const { Content, headings, remarkPluginFrontmatter } = await render(post);
+---
+
+<Document title={title} description={description} headings={headings} published={date} features={remarkPluginFrontmatter}>
+  <Fragment slot="meta">
+    <p class="doc-meta">
+      <time datetime={date.toISOString()}>{formatDate(date)}</time>
+      <span>{category}</span>
+    </p>
+    {tags.length > 0 && <p class="doc-meta doc-tags">{tags.map((tag) => <span>{tag}</span>)}</p>}
+  </Fragment>
+  <Content />
+</Document>

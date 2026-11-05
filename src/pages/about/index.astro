@@ -1,0 +1,24 @@
+---
+import { getEntry, render } from 'astro:content';
+import EntryList from '../../components/EntryList.astro';
+import Document from '../../layouts/Document.astro';
+import { getAboutSections } from '../../lib/content';
+
+const page = await getEntry('about', 'index');
+if (!page) throw new Error('content/about/index.md is missing');
+
+const { title, description } = page.data;
+const { Content, headings, remarkPluginFrontmatter } = await render(page);
+const sections = await getAboutSections();
+---
+
+<Document title={title} description={description} headings={headings} features={remarkPluginFrontmatter}>
+  <Content />
+  <EntryList
+    entries={sections.map((section) => ({
+      href: `/about/${section.id}/`,
+      title: section.data.title,
+      description: section.data.description,
+    }))}
+  />
+</Document>

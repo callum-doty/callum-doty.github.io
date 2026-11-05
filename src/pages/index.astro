@@ -1,0 +1,51 @@
+---
+import { Content as Intro } from '../../content/home.md';
+import EntryList from '../components/EntryList.astro';
+import Base from '../layouts/Base.astro';
+import { formatDate, formatMonth, getPosts, getProjects } from '../lib/content';
+import { site } from '../lib/site';
+
+const RECENT_POST_COUNT = 5;
+
+const projects = (await getProjects()).filter((project) => project.data.featured);
+const posts = (await getPosts()).slice(0, RECENT_POST_COUNT);
+---
+
+<Base title="Home">
+  <header class="doc-header">
+    <h1>{site.name}</h1>
+    <p class="doc-description">{site.tagline}</p>
+  </header>
+  <div class="prose">
+    <Intro />
+
+    <h2 id="selected-projects">Selected Projects</h2>
+    <EntryList
+      entries={projects.map((project) => ({
+        href: `/projects/${project.id}/`,
+        title: project.data.title,
+        description: project.data.description,
+        meta: formatMonth(project.data.date),
+      }))}
+    />
+    <p><a href="/projects/">All projects</a></p>
+
+    <h2 id="recent-articles">Recent Articles</h2>
+    <EntryList
+      entries={posts.map((post) => ({
+        href: `/blog/${post.id}/`,
+        title: post.data.title,
+        description: post.data.description,
+        meta: `${formatDate(post.data.date)} · ${post.data.category}`,
+      }))}
+    />
+    <p><a href="/blog/">All articles</a></p>
+
+    <h2 id="elsewhere">Elsewhere</h2>
+    <ul>
+      {site.links.map(({ label, url }) => (
+        <li><a href={url}>{label}</a></li>
+      ))}
+    </ul>
+  </div>
+</Base>

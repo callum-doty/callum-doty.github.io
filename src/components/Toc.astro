@@ -1,0 +1,47 @@
+---
+import type { MarkdownHeading } from 'astro';
+
+interface Props {
+  headings: MarkdownHeading[];
+}
+
+interface TocEntry {
+  number: string;
+  slug: string;
+  text: string;
+  children: TocEntry[];
+}
+
+// Numbers here must match the CSS counters that number the headings themselves (global.css).
+const entries: TocEntry[] = [];
+for (const { depth, slug, text } of Astro.props.headings) {
+  if (depth === 2) {
+    entries.push({ number: `${entries.length + 1}.`, slug, text, children: [] });
+  } else if (depth === 3 && entries.length) {
+    const parent = entries[entries.length - 1];
+    parent.children.push({ number: `${entries.length}.${parent.children.length + 1}`, slug, text, children: [] });
+  }
+}
+---
+
+{entries.length > 1 && (
+  <nav class="toc" aria-labelledby="toc-title">
+    <p id="toc-title" class="toc-title">Contents</p>
+    <ol>
+      {entries.map((entry) => (
+        <li>
+          <a href={`#${entry.slug}`}><span class="toc-number">{entry.number}</span> {entry.text}</a>
+          {entry.children.length > 0 && (
+            <ol>
+              {entry.children.map((child) => (
+                <li>
+                  <a href={`#${child.slug}`}><span class="toc-number">{child.number}</span> {child.text}</a>
+                </li>
+              ))}
+            </ol>
+          )}
+        </li>
+      ))}
+    </ol>
+  </nav>
+)}

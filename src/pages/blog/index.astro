@@ -1,0 +1,23 @@
+---
+import EntryList from '../../components/EntryList.astro';
+import Base from '../../layouts/Base.astro';
+import { formatDate, getPosts } from '../../lib/content';
+
+const description = 'Articles, research, and technical writing, newest first.';
+const posts = await getPosts();
+---
+
+<Base title="Blog" description={description}>
+  <header class="doc-header">
+    <h1>Blog</h1>
+    <p class="doc-description">{description}</p>
+  </header>
+  <EntryList
+    entries={posts.map((post) => ({
+      href: `/blog/${post.id}/`,
+      title: post.data.title,
+      description: post.data.description,
+      meta: `${formatDate(post.data.date)} · ${post.data.category}`,
+    }))}
+  />
+</Base>

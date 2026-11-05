@@ -1,0 +1,30 @@
+---
+import { shouldOpen, type NavNode } from '../lib/nav';
+
+interface Props {
+  nodes: NavNode[];
+  path: string;
+}
+
+const { nodes, path } = Astro.props;
+---
+
+<ul>
+  {nodes.map((node) => {
+    const current = node.href === path ? 'page' : undefined;
+    return (
+      <li>
+        {node.children?.length ? (
+          <details open={shouldOpen(node, path)}>
+            <summary>
+              <a href={node.href} aria-current={current}>{node.label}</a>
+            </summary>
+            <Astro.self nodes={node.children} path={path} />
+          </details>
+        ) : (
+          <a href={node.href} aria-current={current}>{node.label}</a>
+        )}
+      </li>
+    );
+  })}
+</ul>

@@ -1,0 +1,17 @@
+---
+interface Props {
+  entries: { href: string; title: string; description: string; meta?: string }[];
+}
+
+const { entries } = Astro.props;
+---
+
+<ul class="entry-list">
+  {entries.map(({ href, title, description, meta }) => (
+    <li>
+      <a class="entry-title" href={href}>{title}</a>
+      <p class="entry-description">{description}</p>
+      {meta && <p class="entry-meta">{meta}</p>}
+    </li>
+  ))}
+</ul>

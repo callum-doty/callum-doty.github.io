@@ -1,0 +1,23 @@
+---
+import EntryList from '../../components/EntryList.astro';
+import Base from '../../layouts/Base.astro';
+import { formatMonth, getProjects } from '../../lib/content';
+
+const description = 'Projects spanning statistical modeling, machine learning, and software development.';
+const projects = await getProjects();
+---
+
+<Base title="Projects" description={description}>
+  <header class="doc-header">
+    <h1>Projects</h1>
+    <p class="doc-description">{description}</p>
+  </header>
+  <EntryList
+    entries={projects.map((project) => ({
+      href: `/projects/${project.id}/`,
+      title: project.data.title,
+      description: project.data.description,
+      meta: [formatMonth(project.data.date), ...project.data.tags].join(' · '),
+    }))}
+  />
+</Base>

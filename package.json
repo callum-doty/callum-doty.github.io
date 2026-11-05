@@ -1,24 +1,19 @@
 {
-  "name": "new-website",
+  "name": "callumdoty.com",
   "version": "1.0.0",
-  "main": "index.js",
+  "private": true,
+  "type": "module",
   "scripts": {
-    "build": "postcss src/styles.css -o styles.css",
-    "watch": "postcss src/styles.css -o styles.css --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4.3.0",
-    "autoprefixer": "^10.4.21",
-    "postcss": "^8.5.6",
-    "postcss-cli": "^11.0.1",
-    "tailwindcss": "^4.1.11"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
   },
   "dependencies": {
-    "express": "^5.1.0"
+    "@astrojs/markdown-satteri": "^0.4.6",
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.4.5",
+    "katex": "^0.19.1",
+    "mermaid": "^12.3.0",
+    "yaml": "^2.9.1"
   }
 }
